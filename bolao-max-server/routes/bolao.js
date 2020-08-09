@@ -116,7 +116,7 @@ router.get('/tabela', function(req, res, next) {
         bolao.Competidores.forEach(b => {
             i++;
             b.Posicao = i;
-            b.Premio = i == 1 ? 'R$ 2.000,00' : i == 2 ? 'R$ 600,00' : i == 3 ? 'R$ 300,00' : i == bolao.Competidores.length ? 'R$ 100,00' : '';
+            b.Premio = i == 1 ? 'R$ 2.000,00' : i == 2 ? 'R$ 600,00' : i == 3 ? 'R$ 300,00' : i == bolao.Competidores.length ? 'R$ 120,00' : '';
         });
         res.render('bolao', { bolao });
     }, function(err) {
