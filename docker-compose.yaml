@@ -14,7 +14,7 @@ services:
       - ./process:/usr/src/process
       - ./tmp:/tmp
     ports:
-      - "5001:3000"
+      - "5001:8081"
     working_dir: /usr/src/app
     restart: always
     networks:
