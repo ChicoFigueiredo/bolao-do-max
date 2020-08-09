@@ -1,4 +1,3 @@
-
 FROM node:10
 
 # Create app directory
@@ -21,9 +20,13 @@ COPY ./bolao-max-server/ ./
 COPY --chown=node:node ./bolao-max-server/ ./
 
 EXPOSE 8080-8085
+EXPOSE 3000
 
-CMD [ "cd /home/node/app/" ]
-CMD [ "node", "/home/node/app/bin/www" ]
+
+CMD "cd /home/node/app/ && node /home/node/app/bin/www"
+
+#CMD [ "cd /home/node/app/" ]
+#CMD [ "node", "/home/node/app/bin/www" ]
 #CMD [ "/bin/bash" ]
 #CMD "/bin/bash"
 #CMD ["/bin/bash", "-c", "while true; do sleep 1000; done;"]
