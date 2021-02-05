@@ -5,7 +5,6 @@ services:
     build: .
     image: node/bolao.maxmat1.com.br
     user: "node"
-    working_dir: /home/node/app
     environment:
       - NODE_ENV=production
       - PORT=8081
