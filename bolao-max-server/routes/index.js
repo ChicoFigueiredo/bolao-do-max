@@ -104,7 +104,7 @@ router.get('/', function(req, res, next) {
             b.Posicao = pos;
             b.Premio = pos == 1 ? 'R$ 2.000,00' : pos == 2 ? 'R$ 600,00' : pos == 3 ? 'R$ 300,00' : pos == bolao.Competidores.length ? 'R$ 120,00' : '-';
         });
-        const titulo = "Bolão do Max - 2020"
+        const titulo = "Bolão do Max - 2021"
         res.render('index', { bolao, brw, titulo });
     }, function(err) {
         console.log(err);
