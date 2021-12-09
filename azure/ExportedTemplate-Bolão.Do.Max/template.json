@@ -1,0 +1,80 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "containerGroups_chico_name": {
+            "defaultValue": "chico",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2021-09-01",
+            "name": "[parameters('containerGroups_chico_name')]",
+            "location": "centralus",
+            "properties": {
+                "sku": "Standard",
+                "containers": [
+                    {
+                        "name": "[parameters('containerGroups_chico_name')]",
+                        "properties": {
+                            "image": "franfig/bolao.maxmat1.com.br:latest",
+                            "ports": [
+                                {
+                                    "protocol": "TCP",
+                                    "port": 80
+                                },
+                                {
+                                    "protocol": "TCP",
+                                    "port": 443
+                                }
+                            ],
+                            "environmentVariables": [
+                                {
+                                    "name": "PORT",
+                                    "value": "80"
+                                },
+                                {
+                                    "name": "NODE_ENV",
+                                    "value": "production"
+                                }
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "memoryInGB": 1.5,
+                                    "cpu": 1
+                                }
+                            }
+                        }
+                    }
+                ],
+                "initContainers": [],
+                "imageRegistryCredentials": [
+                    {
+                        "server": "hub.docker.com",
+                        "username": "franfig"
+                    }
+                ],
+                "restartPolicy": "OnFailure",
+                "ipAddress": {
+                    "ports": [
+                        {
+                            "protocol": "TCP",
+                            "port": 80
+                        },
+                        {
+                            "protocol": "TCP",
+                            "port": 443
+                        }
+                    ],
+                    "ip": "20.109.224.7",
+                    "type": "Public",
+                    "dnsNameLabel": "bolaodomax"
+                },
+                "osType": "Linux"
+            }
+        }
+    ]
+}
