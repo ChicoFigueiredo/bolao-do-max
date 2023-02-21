@@ -4,6 +4,8 @@ var cb = require('campeonato-brasileiro');
 const browser = require('browser-detect');
 var request = require('request')
 
+const currentYear = () => new Date().getFullYear();
+
 /** Alteração para puxar o dado correto */
 cb.tabela = function(serie) {
     return new Promise(function(acept, error) {
@@ -78,7 +80,7 @@ router.get('/', function(req, res, next) {
                     saldoGols += Number(t.saldoGols);
                     t.percentual = pontuacaoAtual.percentual;
                 } else {
-                    throw 'Erro no time ' + t.Clube;
+                    //throw 'Erro no time ' + t.Clube;
                 }
             });
             b.Pontos = Number(pontuacaoCompetidor);
@@ -104,7 +106,8 @@ router.get('/', function(req, res, next) {
             b.Posicao = pos;
             b.Premio = pos == 1 ? 'R$ 2.000,00' : pos == 2 ? 'R$ 600,00' : pos == 3 ? 'R$ 300,00' : pos == bolao.Competidores.length ? 'R$ 120,00' : '-';
         });
-        const titulo = "Bolão do Max - 2022"
+        bolao.ano = currentYear();
+        const titulo = "Bolão do Max - " + bolao.ano + "";
         res.render('index', { bolao, brw, titulo });
     }, function(err) {
         console.log(err);
