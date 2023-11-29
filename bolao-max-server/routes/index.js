@@ -7,11 +7,11 @@ const cb = require('../helper/campeonato-brasileiro-modificado-chico');
 const browser = require('browser-detect');
 const regra_bolao = require('../helper/regras.bolao');
 const serie = 'a';
-const brw = 'sei-lado';
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
     const redis = req.app.client_redis;
+    const brw = browser(req.headers['user-agent']);
     if (redis) {
         const bolao = JSON.parse(await redis.get('bolao_mem'));
         const titulo = bolao.titulo;
