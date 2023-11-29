@@ -10,39 +10,29 @@ const serie = 'a';
 const brw = 'sei-lado';
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    cb.tabela(serie).then(async (tabela) => {
-        //bolao = regra_bolao(tabela);
-        const redis = req.app.client_redis;
-        if (redis) {
-            const bolao = JSON.parse(await redis.get('bolao_mem'));
-            const titulo = bolao.titulo;
-            await redis.set('data_last_get',moment().format());
-            res.render('index', { bolao, brw, titulo });
-        } else {
-            res.send(500);
-        }
-    }, function(err) {
-        console.log(err);
-    });
+router.get('/', async (req, res, next) => {
+    const redis = req.app.client_redis;
+    if (redis) {
+        const bolao = JSON.parse(await redis.get('bolao_mem'));
+        const titulo = bolao.titulo;
+        await redis.set('data_last_get',moment().format());
+        res.render('index', { bolao, brw, titulo });
+    } else {
+        res.send(500);
+    }
 });
 
 
 /* GET home page. */
-router.get('/resultados', cors(), function(req, res, next) {
-    cb.tabela(serie).then(async (tabela) => {
-        //bolao = regra_bolao(tabela);
-        const redis = req.app.client_redis;
-        if (redis) {
-            const bolao = JSON.parse(await redis.get('bolao_mem'));
-            await redis.set('data_last_get',moment().format());
-            res.send(bolao);
-        } else {
-            res.send({ msg : 'Cache com erro!'});
-        }
-    }, function(err) {
-        console.log(err);
-    });
+router.get('/resultados', cors(), async (req, res, next) => {
+    const redis = req.app.client_redis;
+    if (redis) {
+        const bolao = JSON.parse(await redis.get('bolao_mem'));
+        await redis.set('data_last_get',moment().format());
+        res.send(bolao);
+    } else {
+        res.send({ msg : 'Cache com erro!'});
+    }
 });
 
 module.exports = router;
