@@ -19,6 +19,16 @@ services:
     networks:
         - rede-maxmat1
 
+  cache.bolao.maxmat1.com.br:
+    container_name: cache.bolao.maxmat1.com.br
+    image: redis:7.2-alpine3.18
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t81
+    volumes: 
+      - ./cache-redis:/data
+
 networks:
   rede-maxmat1:
     name: rede-maxmat1
