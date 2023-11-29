@@ -23,9 +23,11 @@ const atualiza_cache = (app) => {
 
 module.exports = function(app){
     atualiza_cache(app);
+
     cron.schedule('*/3 * * * *', async () => {
         const redis = app.client_redis;
-        const data_atu = moment(await redis.get('data_last_get')).addMinutes('minutes',21);
+        const data_last_get = await redis.get('data_last_get')
+        const data_atu = moment(data_last_get).add(21,'minutes')
         if (moment().isSameOrBefore(data_atu)){
             atualiza_cache(app);
         }
