@@ -1,7 +1,4 @@
 {
   "dependencies": {
-    "moment": "^2.29.4",
-    "node-cron": "^3.0.3",
-    "redis": "^4.6.11"
   }
 }

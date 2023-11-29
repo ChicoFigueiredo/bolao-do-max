@@ -8,6 +8,9 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=8081
+      - CACHE_URL=cache.bolao.maxmat1.com.br
+      - CACHE_PORT=6379
+      - CACHE_PW=eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t81
     volumes:
       - ./app-build:/usr/src/app
       - ./process:/usr/src/process
@@ -28,6 +31,8 @@ services:
     command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t81
     volumes: 
       - ./cache-redis:/data
+    networks:
+        - rede-maxmat1
 
 networks:
   rede-maxmat1:

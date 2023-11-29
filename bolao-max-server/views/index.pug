@@ -6,7 +6,8 @@ block content
   h1 
     img(src='/images/pp.jpg') 
     = ' BOLÃO DO MAX - BRASILEIRÃO ' + bolao.ano
-  h2 Resultados em tempo real
+  h2 
+    = `Resultados em tempo real (atualizado em ${bolao.atualizado_em})`
   br
   table(class='table-striped')
     tbody

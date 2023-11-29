@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const cb = require('./helper/campeonato-brasileiro-modificado-chico');
 const regra_bolao = require('./helper/regras.bolao');
 const serie = 'a';
@@ -9,10 +9,10 @@ const atualiza_cache = (app) => {
     try {
         cb.tabela(serie).then(async (tabela) => {
             bolao = regra_bolao(tabela);
-            bolao.atualizado_em = moment().format(); 
+            bolao.atualizado_em = moment().tz('America/Sao_Paulo').format('DD/MMM/yyyy HH:mm:ss'); 
             await redis.set('bolao_mem', JSON.stringify(bolao));
             await redis.set('bolao_data_atu', bolao.atualizado_em);
-            console.log(`Bolao atualizado ${moment().format()}`);
+            console.log(`Bolao atualizado ${moment().tz('America/Sao_Paulo').format()}`);
         }, function(err) {
             console.log(err);
         });
@@ -32,7 +32,7 @@ module.exports = function(app){
             atualiza_cache(app);
         }
         
-    });
+        });
 
     cron.schedule('*/60 * * * *', async () => {
         const redis = app.client_redis;

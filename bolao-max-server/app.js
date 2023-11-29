@@ -15,10 +15,10 @@ var app = express();
  
     app.client_redis = redis.createClient({
         username: 'default', // use your Redis user. More info https://redis.io/docs/management/security/acl/
-        password: 'eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t81', // use your password here
+        password: process.env.CACHE_PW, //'eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t81', // use your password here
         socket: {
-            host: 'localhost',
-            port: 6379,
+            host: process.env.CACHE_URL,
+            port: process.env.CACHE_PORT,
         }
     });
     app.client_redis.connect();
