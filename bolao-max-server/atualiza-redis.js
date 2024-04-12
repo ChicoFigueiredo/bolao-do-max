@@ -3,6 +3,8 @@ const moment = require('moment-timezone');
 const cb = require('./helper/campeonato-brasileiro-modificado-chico');
 const regra_bolao = require('./helper/regras.bolao');
 const serie = 'a';
+moment.locale('pt-br');
+console.log(moment.locale());
 
 const atualiza_cache = (app) => {
     const redis = app.client_redis;
