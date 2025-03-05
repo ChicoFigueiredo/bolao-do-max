@@ -9,6 +9,10 @@ block content
   h2 
     = `Resultados em tempo real (atualizado em ${bolao.atualizado_em})`
   br
+  
+  h3 BOLÃO CLÁSSICO 
+
+  br
   table(class='table-striped')
     tbody
       tr 
@@ -41,4 +45,53 @@ block content
     = '4) 1º lugar (R$2000)... 2º lugar (R$650)... 3º lugar (R$350).... 30º lugar (R$120)'
     br
     = '5) Com os R$580 restantes, será feita nossa aposta de 9 dezenas na Mega sena da virada, e o que sobrar ainda pode ficar como custos do Bolão ou podemos resolver outra coisa qualquer...'
+    br
+    br
+    br
+    br
+
+  h3 BOLÃO POR POSIÇÃO 
+  
+  table(class='table-striped')
+    tbody
+      tr 
+        each val in ['Pos','Nome','Pts']
+          th(rowspan='4')= val
+        th(colspan=1,class='centro')= 'Clubes G4'
+        th(colspan=1,class='centro')= 'Clubes Z4'
+      tr
+        each val in ['1ª/2ª/3º/4º','17ª/18ª/19º/20º']
+          th(class='centro')= val
+    each c in bolao.BolaoNovo
+      tr(onclick=`demonstrativo(${JSON.stringify(c)});`)
+        td(class='centro')= c.PosicaoG4Z4
+        td= c.Nome
+        td(class='esquerda spacamento-lateral')= c.PontosG4Z4
+        td(class='')
+          ol(type='1',start='1')
+            each t in c.PalpitesPosicao
+                if t.posicao <=4 
+                  li=t.Clube + ' ' + ((t.acertoPosicao) ? '✅' : '') + ( (!t.acertoPosicao) && (t.acertoG4 || t.acertoZ4) ? '👍' : '')
+        td(class='')
+          ol(type='1',start='17')
+            each t in c.PalpitesPosicao
+                if t.posicao >=17 
+                  li=t.Clube + ' ' + ((t.acertoPosicao) ? '✅' : '') + ( (!t.acertoPosicao) && (t.acertoG4 || t.acertoZ4) ? '👍' : '')
+  div
+    = 'Legenda: ✅ = Acertou a posição | 👍 = Acertou o G4 ou Z4'
+    br
+    br
+    = 'Regras ' + bolao.ano + ':'
+    br
+    = '1) A aposta esse ano custa R$30,00 e deve ser paga antes de acabar o campeonato.'
+    br
+    = '2) Você concorre com a soma dos pontos conforme a regra:'
+    br
+    = '2a) Acertou o clube no G4 ou no Z4, ganha 1 ponto.'
+    br
+    = '2b) Acertou a posição do clube no G4 ou no Z4, ganha mais 3 pontos.'
+    br
+    = '4) Critérios de desempate: 1º) Pontos... 2º) Acertos no G4 e no Z4...  2º) Acertos no G4... 3º) Acertos no Z4... 4º) Ordem Alfabética'
+    br
+    = '5) 1º lugar (R$1000)... 2º lugar (R$350)... 3º lugar (R$30).... 30º lugar (R$30)'
     br

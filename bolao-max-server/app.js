@@ -40,10 +40,10 @@ app.use((req, res, next) => {
  
     app.client_redis = redis.createClient({
         username: 'default', // use your Redis user. More info https://redis.io/docs/management/security/acl/
-        password: process.env.CACHE_PW, //'eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t81', // use your password here
+        password: process.env.CACHE_PW || 'eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t82', //'eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t81', // use your password here
         socket: {
-            host: process.env.CACHE_URL,
-            port: process.env.CACHE_PORT,
+            host: process.env.CACHE_URL || 'localhost', // use your Redis server host
+            port: process.env.CACHE_PORT || 6399, // use your Redis server port,
         }
     });
     app.client_redis.connect();

@@ -25,8 +25,10 @@ const atualiza_cache = (app) => {
 
 module.exports = function(app){
     atualiza_cache(app);
+    var atualizacao_quando_acessada = process.env.MINUTOS_QUANDO_ACESSADO || 3
+    var atualizacao_recorrente = process.env.MINUTOS_QUANDO_NAO_ACESSADO || 1
 
-    cron.schedule('*/3 * * * *', async () => {
+    cron.schedule(`*/${atualizacao_quando_acessada} * * * *`, async () => {
         const redis = app.client_redis;
         const data_last_get = await redis.get('data_last_get')
         const data_atu = moment(data_last_get).add(21,'minutes')
@@ -36,7 +38,7 @@ module.exports = function(app){
         
         });
 
-    cron.schedule('*/60 * * * *', async () => {
+    cron.schedule(`*/${atualizacao_recorrente} * * * *`, async () => {
         const redis = app.client_redis;
         atualiza_cache(app);
     });
