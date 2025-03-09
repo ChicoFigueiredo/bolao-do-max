@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 git pull origin master
 git reset --hard origin master
 docker compose down
