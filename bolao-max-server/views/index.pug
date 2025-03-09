@@ -26,8 +26,8 @@ block content
       tr(onclick=`demonstrativo(${JSON.stringify(c)});`)
         td(class='direita')= c.Posicao
         td= c.Nome
-        td(class='direita spacamento-lateral')= c.Pontos
-        td(class='direita spacamento-lateral ' + (c.Saldo_Gols < 0?'vermelho':''))= c.Saldo_Gols
+        td(class='meio spacamento-lateral')= c.Pontos
+        td(class='meio spacamento-lateral ' + (c.Saldo_Gols < 0?'vermelho':''))= c.Saldo_Gols
         td(class='direita spacamento-lateral ')= c.Premio
         each t in c.Clubes
           td(class='centro ' + (t.Coracao ?'coracao':''))=  t.Clube 
@@ -49,7 +49,7 @@ block content
         each val in ['1ª/2ª/3º/4º','17ª/18ª/19º/20º']
           th(class='centro')= val
     each c in bolao.BolaoNovo
-      tr(onclick=`demonstrativo(${JSON.stringify(c)});`)
+      tr(onclick=`demonstrativoG4Z4(${JSON.stringify(c)});`)
         td(class='centro')= c.PosicaoG4Z4
         td= c.Nome
         td(class='esquerda spacamento-lateral')= c.PontosG4Z4

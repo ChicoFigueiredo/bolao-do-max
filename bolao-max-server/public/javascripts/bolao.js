@@ -11,3 +11,17 @@ function demonstrativo(a) {
 
     alert(res);
 }
+
+function demonstrativoG4Z4(a) {
+    res = '';
+    res += a.Nome + ': ' + a.PontosG4Z4 + ' pontos \n \n';
+    a.PalpitesPosicao.forEach(t => {
+        res += '  ' + t.Clube + ': '
+        res += ' Chute ' + t.posicao 
+        res += ' | Posição Atual ' + t.posicaoAtualTime 
+        res += ' | ' + ((t.acertoPosicao) ? '✅ 4 pontos ' : '') + ( (!t.acertoPosicao) && (t.acertoG4 || t.acertoZ4) ? '👍 1 ponto' : '')
+        res += '\n\n'
+    });
+
+    alert(res);
+}

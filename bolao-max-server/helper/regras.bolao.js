@@ -58,6 +58,7 @@ calcula_bolao = (tabela) => {
                         t.acertoPosicao = true;
                         t.pontos += 3;
                     }
+                    t.posicaoAtualTime = posicaoAtual.posicao;
                 }
             } else {
                 //throw 'Erro no time ' + t.Clube;
