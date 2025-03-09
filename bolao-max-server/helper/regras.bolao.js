@@ -105,10 +105,25 @@ calcula_bolao = (tabela) => {
         return 0;
     });
     pos = 0;
+    pontosAnterior = 0;
+    dividirPremio = 1;
     bolao.BolaoNovo.forEach(b => {
         pos++;
         b.PosicaoG4Z4 = pos;
-        b.PremioG4Z4 = pos == 1 ? 'R$ 1.000,00' : pos == 2 ? 'R$ 100,00' : pos == 3 ? 'R$ 30,00' : pos == bolao.Competidores.length ? 'R$ 120,00' : '-';
+        if (pos > 1) {
+            if (b.PontosG4Z4 == pontosAnterior) {
+                dividirPremio++;
+                b.PosicaoG4Z4 = 1;
+            } else {
+                pontosAnterior = -1;
+            }
+        } else {
+            pontosAnterior = b.PontosG4Z4;
+        }
+    });
+    
+    bolao.BolaoNovo.forEach(b => {
+        b.PremioG4Z4 = b.PosicaoG4Z4 == 1 ? 'R$ ' + (1000 / dividirPremio).toFixed(2) : '-';
     });
 
 
