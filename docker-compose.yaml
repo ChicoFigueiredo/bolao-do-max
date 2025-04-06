@@ -11,6 +11,8 @@ services:
       - CACHE_URL=cache.bolao.maxmat1.com.br
       - CACHE_PORT=6379
       - CACHE_PW=eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t81
+      - MINUTOS_QUANDO_ACESSADO=3
+      - MINUTOS_QUANDO_NAO_ACESSADO=1
     volumes:
       - ./app-build:/usr/src/app
       - ./process:/usr/src/process
