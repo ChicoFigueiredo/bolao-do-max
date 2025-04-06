@@ -42,6 +42,7 @@ calcula_bolao = (tabela) => {
         b.PalpitesPosicao.forEach(t => {
             t.acertoG4 = false;
             t.acertoZ4 = false;
+            t.acertoPosicao = false;
             t.pontos = 0;
             let posicaoAtual = pontuacao(t.Clube);
             if (posicaoAtual) {
@@ -49,15 +50,20 @@ calcula_bolao = (tabela) => {
                     if (t.posicao >= 1 && t.posicao <= 4 && posicaoAtual.posicao <= 4) {
                         t.acertoG4 = true;
                         t.pontos = 1;
+                        if (t.posicao == posicaoAtual.posicao) {
+                            t.acertoPosicao = true;
+                            t.pontos = 4;
+                        }
                     }
                     if (t.posicao >= 17 && t.posicao <= 20 && posicaoAtual.posicao >= 17) {
                         t.acertoZ4 = true;
                         t.pontos = 1;
+                        if (t.posicao == posicaoAtual.posicao) {
+                            t.acertoPosicao = true;
+                            t.pontos = 4;
+                        }
                     }
-                    if (t.posicao == posicaoAtual.posicao) {
-                        t.acertoPosicao = true;
-                        t.pontos += 3;
-                    }
+                    
                     t.posicaoAtualTime = posicaoAtual.posicao;
                 }
             } else {
