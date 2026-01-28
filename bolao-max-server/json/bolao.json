@@ -1,33 +1,4024 @@
-{"Competidores": [
-    {"Nome": "Chamom","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Palmeiras","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Vitória","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Santos","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Bragantino","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Chico 'Vírus'","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Vasco","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Fortaleza","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Atlético-MG","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Mirassol","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Palmeiras","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Flamengo","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Grêmio","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Fatinha","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "São Paulo","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Grêmio","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Sport","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Internacional","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Flamengo","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Wagner","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Vasco","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Corinthians","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Juventude","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Ceará","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Atlético-MG","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Valdécio","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Bahia","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Cruzeiro","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Santos","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vasco","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Fluminense","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "São Paulo","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Cruzeiro","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Ana Cristina","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Internacional","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Bragantino","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Mirassol","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Grêmio","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Fluminense","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Bragantino","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Adriel","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Vasco","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Palmeiras","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Bragantino","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Sport","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Palmeiras","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Flamengo","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "São Paulo","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Gilson","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Fortaleza","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Juventude","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Ceará","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Deca","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Vasco","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "São Paulo","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Vitória","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Santos","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Palmeiras","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vasco","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Flamengo","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "São Paulo","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Danilo","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Corinthians","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Grêmio","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Mirassol","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vasco","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Midão","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Bahia","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Juventude","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Sport","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Atlético-MG","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vasco","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Leandro","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Internacional","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Atlético-MG","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Ceará","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Atlético-MG","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vasco","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Junior","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Botafogo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Palmeiras","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Atlético-MG","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Santos","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Palmeiras","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Flamengo","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Giovani","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Fortaleza","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Vitória","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Mirassol","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Cruzeiro","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Renato","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "São Paulo","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Juventude","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Sport","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Atlético-MG","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Flamengo","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vasco","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Fluminense","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Rodrigo","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Vasco","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Corinthians","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Cruzeiro","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Ceará","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Palmeiras","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Flamengo","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Atlético-MG","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Marilda","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Bahia","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Bragantino","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Santos","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Cruzeiro","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Bragantino","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Allan","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Internacional","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Cruzeiro","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Mirassol","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Palmeiras","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Flamengo","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "São Paulo","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Atlético-MG","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Anna Maria","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Palmeiras","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Cruzeiro","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Sport","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Fortaleza","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Miguel","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Fortaleza","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Bragantino","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Ceará","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "São Paulo","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vasco","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Geovane","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "São Paulo","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Atlético-MG","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Santos","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Fortaleza","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vasco","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Daiane 'Pipoka'","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Corinthians","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Atlético-MG","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Mirassol","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Palmeiras","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Flamengo","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Bragantino","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Carol","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Bahia","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Grêmio","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Sport","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Marlon","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Vasco","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Internacional","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Juventude","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Ceará","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Internacional","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Flamengo","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Atlético-MG","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Jean","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Palmeiras","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Grêmio","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Santos","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "São Paulo","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Bragantino","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Max","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Fortaleza","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Cruzeiro","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Mirassol","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Cruzeiro","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "William","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "São Paulo","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Bragantino","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Sport","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Atlético-MG","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Jane","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Corinthians","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Vitória","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Ceará","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Corinthians","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Atlético-MG","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Terezinha","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Bahia","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Vitória","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Sport","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Atlético-MG","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Grêmio","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "São Paulo","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Sport","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Vitória","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]},
-    {"Nome": "Eduardo","Pontos": 0,"Saldo_Gols": 0,"golsPro": 0,"Posicao": 0,"Premio": 1, "PontosG4Z4":0, "PosicaoG4Z4":1, "Clubes": [{"Grupo": "GP1","Clube": "Flamengo","pontos": "9","jogos": "8","vitorias": "3","empates": "0","derrotas": "5","golsPro": "11","golsContra": "13","saldoGols": "-2","percentual": "37.5","Coracao": false},{"Grupo": "GP2","Clube": "Internacional","pontos": "20","jogos": "9","vitorias": "6","empates": "2","derrotas": "1","golsPro": "16","golsContra": "6","saldoGols": "10","percentual": "74.1","Coracao": false},{"Grupo": "GP3","Clube": "Grêmio","pontos": "10","jogos": "9","vitorias": "2","empates": "4","derrotas": "3","golsPro": "12","golsContra": "18","saldoGols": "-6","percentual": "37.0","Coracao": false},{"Grupo": "GP4","Clube": "Ceará","pontos": "8","jogos": "9","vitorias": "2","empates": "2","derrotas": "5","golsPro": "15","golsContra": "20","saldoGols": "-5","percentual": "29.6","Coracao": false}], "PalpitesPosicao":[{"Clube": "Flamengo","posicao":1,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Palmeiras","posicao":2,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Botafogo","posicao":3,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Internacional","posicao":4,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Fortaleza","posicao":17,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Ceará","posicao":18,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Juventude","posicao":19,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0},{"Clube": "Mirassol","posicao":20,"acertoG4":false,"acertoZ4":false,"acertoPosicao":false,"pontos":0}]}
-    ]}
-    
+{
+    "Competidores": [
+        {
+            "Nome": "Alan",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Palmeiras",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Vitória",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Coritiba",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Grêmio",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Max",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Cruzeiro",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Atlético-MG",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Athletico-PR",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Corinthians",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bragantino",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Willian",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "São Paulo",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Santos",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Chapecoense",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Botafogo",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Gilson",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Mirassol",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Corinthians",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Remo",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Fluminense",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Jane",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Bahia",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Internacional",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Coritiba",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Botafogo",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Giovanni",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Grêmio",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Bragantino",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Athletico-PR",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Grêmio",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "São Paulo",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Adriel",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Vasco",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Palmeiras",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Bragantino",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Chapecoense",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bahia",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Santos",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Midão",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Cruzeiro",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Corinthians",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Remo",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Mirassol",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "São Paulo",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Internacional",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Danilo",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "São Paulo",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Vitória",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Coritiba",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Grêmio",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vasco",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Athletico-PR",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Jean",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Mirassol",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Santos",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Athletico-PR",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "São Paulo",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Terezinha",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Bahia",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Corinthians",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Chapecoense",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bahia",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Anna Maria",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Grêmio",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Atlético-MG",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Remo",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Santos",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Wagner",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Vasco",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Palmeiras",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Atlético-MG",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Coritiba",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Vasco",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Atlético-MG",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Santos",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Grêmio",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Júnior",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Cruzeiro",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Vitória",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Athletico-PR",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bahia",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Athletico-PR",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Miguel",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "São Paulo",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Corinthians",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Chapecoense",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Corinthians",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "São Paulo",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Fatinha",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Mirassol",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Internacional",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Remo",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bahia",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Leandro",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Bahia",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Bragantino",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Coritiba",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Grêmio",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vasco",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Carol",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Grêmio",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Internacional",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Athletico-PR",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Atlético-MG",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Eduardo",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Palmeiras",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Internacional",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Chapecoense",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Internacional",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Rodrigo",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Cruzeiro",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Bragantino",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Remo",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bahia",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Renato",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Fluminense",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "São Paulo",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Atlético-MG",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Coritiba",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Fluminense",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Chico",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Vasco",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Mirassol",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Atlético-MG",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Athletico-PR",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vasco",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Marlon",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Vasco",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Bahia",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Santos",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Chapecoense",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bahia",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bragantino",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Deca",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Vasco",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Grêmio",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Corinthians",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Remo",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Botafogo",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Mirassol",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Chamon",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Palmeiras",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Santos",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Coritiba",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Mirassol",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Botafogo",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Fluminense",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "São Paulo",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Santos",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Ana Cristina",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Cruzeiro",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Internacional",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Athletico-PR",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Atlético-MG",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Grêmio",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bahia",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Athletico-PR",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Marilda",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "São Paulo",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Bragantino",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Chapecoense",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Corinthians",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Daiane",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Mirassol",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Vitória",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Remo",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Mirassol",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Fluminense",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Remo",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bahia",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Valdécio",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Bahia",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Vitória",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Chapecoense",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Atlético-MG",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Santos",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Internacional",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Corinthians",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        },
+        {
+            "Nome": "Geovane",
+            "Pontos": 0,
+            "Saldo_Gols": 0,
+            "golsPro": 0,
+            "Posicao": 0,
+            "Premio": 1,
+            "PontosG4Z4": 0,
+            "PosicaoG4Z4": 1,
+            "Clubes": [
+                {
+                    "Grupo": "GP1",
+                    "Clube": "Flamengo",
+                    "pontos": "9",
+                    "jogos": "8",
+                    "vitorias": "3",
+                    "empates": "0",
+                    "derrotas": "5",
+                    "golsPro": "11",
+                    "golsContra": "13",
+                    "saldoGols": "-2",
+                    "percentual": "37.5",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP2",
+                    "Clube": "Grêmio",
+                    "pontos": "20",
+                    "jogos": "9",
+                    "vitorias": "6",
+                    "empates": "2",
+                    "derrotas": "1",
+                    "golsPro": "16",
+                    "golsContra": "6",
+                    "saldoGols": "10",
+                    "percentual": "74.1",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP3",
+                    "Clube": "Santos",
+                    "pontos": "10",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "4",
+                    "derrotas": "3",
+                    "golsPro": "12",
+                    "golsContra": "18",
+                    "saldoGols": "-6",
+                    "percentual": "37.0",
+                    "Coracao": false
+                },
+                {
+                    "Grupo": "GP4",
+                    "Clube": "Remo",
+                    "pontos": "8",
+                    "jogos": "9",
+                    "vitorias": "2",
+                    "empates": "2",
+                    "derrotas": "5",
+                    "golsPro": "15",
+                    "golsContra": "20",
+                    "saldoGols": "-5",
+                    "percentual": "29.6",
+                    "Coracao": false
+                }
+            ],
+            "PalpitesPosicao": [
+                {
+                    "Clube": "Flamengo",
+                    "posicao": 1,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Cruzeiro",
+                    "posicao": 2,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Palmeiras",
+                    "posicao": 3,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Bahia",
+                    "posicao": 4,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vasco",
+                    "posicao": 17,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Chapecoense",
+                    "posicao": 18,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Coritiba",
+                    "posicao": 19,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                },
+                {
+                    "Clube": "Vitória",
+                    "posicao": 20,
+                    "acertoG4": false,
+                    "acertoZ4": false,
+                    "acertoPosicao": false,
+                    "pontos": 0
+                }
+            ]
+        }
+    ]
+}
