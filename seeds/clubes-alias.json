@@ -1,5 +1,35 @@
 [
   {
+    "fonte": "apifootball",
+    "nome": "America Mineiro",
+    "canonico": "América-MG",
+    "via": "manual"
+  },
+  {
+    "fonte": "apifootball",
+    "nome": "Atletico Paranaense",
+    "canonico": "Athletico-PR",
+    "via": "manual"
+  },
+  {
+    "fonte": "apifootball",
+    "nome": "Atletico Goianiense",
+    "canonico": "Atlético-GO",
+    "via": "manual"
+  },
+  {
+    "fonte": "apifootball",
+    "nome": "Atletico-MG",
+    "canonico": "Atlético-MG",
+    "via": "manual"
+  },
+  {
+    "fonte": "apifootball",
+    "nome": "RB Bragantino",
+    "canonico": "Bragantino",
+    "via": "manual"
+  },
+  {
     "fonte": "footballdata",
     "nome": "Paranaense",
     "canonico": "Athletico-PR",
@@ -100,6 +130,18 @@
     "nome": "Santos",
     "canonico": "Santos",
     "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Recife",
+    "canonico": "Sport",
+    "via": "manual"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Sport Recife",
+    "canonico": "Sport",
+    "via": "manual"
   },
   {
     "fonte": "footballdata",
