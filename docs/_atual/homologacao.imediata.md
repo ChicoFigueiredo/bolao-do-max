@@ -86,6 +86,8 @@ bun run worker      # daemon: cadência decidida pelo calendário
 Menu sanduíche (canto superior direito) → **Tema** → Ocre, Claro, Escuro.
 
 - [ ] Os três são legíveis e coerentes
+- [ ] A bola do cabeçalho acompanha o tema — ela usa as variáveis de cor, não
+      cor fixa, então inverte no escuro
 - [ ] A escolha sobrevive a um F5
 - [ ] **Não há piscada** ao recarregar — o tema é aplicado antes da primeira pintura
 

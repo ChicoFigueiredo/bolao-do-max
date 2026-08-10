@@ -5,6 +5,7 @@ import type { Movimento } from '../lib/dados'
 import { Detalhe } from './Detalhe'
 import { Evolucao } from './Evolucao'
 import { Identificacao } from './Identificacao'
+import { Logo } from './Logo'
 import { Menu, Regras, type Tema } from './Menu'
 import { brl, ord, setaCor, setaTxt, sinal } from './ui'
 
@@ -168,6 +169,7 @@ export function Painel(d: DadosPainel) {
             gap: 12,
           }}
         >
+          <Logo />
           <div style={{ flex: 1, minWidth: 0 }}>
             <h1
               style={{

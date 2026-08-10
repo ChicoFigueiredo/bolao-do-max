@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { Logo } from './Logo'
 import { Rotulo } from './ui'
 
 /**
@@ -95,17 +96,21 @@ export function Identificacao({
           animation: 'sobe .22s cubic-bezier(.2,.8,.3,1)',
         }}
       >
-        <span
-          style={{
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: '.12em',
-            color: 'var(--accent)',
-            textTransform: 'uppercase',
-          }}
-        >
-          Bolão do Max
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+          {/* id próprio: o clipPath da marca do cabeçalho já ocupa o outro */}
+          <Logo id="bolaMaxIdent" />
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: '.12em',
+              color: 'var(--accent)',
+              textTransform: 'uppercase',
+            }}
+          >
+            Bolão do Max
+          </span>
+        </div>
         <h2
           id="ident-titulo"
           style={{
