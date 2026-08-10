@@ -4,13 +4,10 @@ Roteiro operacional dos quatro scripts de `infra/`. Todos leem os mesmos
 parâmetros de [`infra/deploy.yml`](../../infra/deploy.yml) e nenhum tem endereço
 ou senha embutidos.
 
-> **No ar em <https://bolao-novo.maxmat1.com.br>** desde 10/08/2026, em
-> convivência. O bolão atual continua em `bolao.maxmat1.com.br`, na porta 5001,
-> com o Redis 7.2 e o dado dele — **intocado**. A virada de domínio é um passo
-> separado e depende da sua autorização.
-
-Primeiro deploy executado em 10/08/2026: 134 MB no fio, banco criado e semeado,
-vhost e certificado emitidos, `GET /` 200 por HTTPS de fora.
+> **Virado em 10/08/2026.** `https://bolao.maxmat1.com.br` serve o sistema novo,
+> e `https://bolao-novo.maxmat1.com.br` continua respondendo o mesmo. O stack
+> antigo foi desligado às 14:29 — containers removidos, **código, imagens e dado
+> intactos** no servidor. Voltar é o §9.
 
 ---
 
@@ -54,8 +51,8 @@ Um comando, do build ao HTTPS. Nada de túnel para ver no celular.
 ### O passo de nginx, e o que ele não faz
 
 Ele publica o vhost do **domínio de convivência** e nada mais. O vhost de
-`bolao.maxmat1.com.br` não é lido nem escrito — a virada é um passo separado,
-descrito em §9.
+`bolao.maxmat1.com.br` continua fora do alcance do script: a virada foi feita à
+mão, uma vez, e está registrada no §9.
 
 Três travas, na ordem em que importam:
 
@@ -100,8 +97,7 @@ containers. **O banco não é tocado** — só a imagem que o lê.
 
 | Falha | Retorno | Custo |
 |---|---|---|
-| Antes da virada de domínio | Nenhuma ação: o antigo nunca parou | zero |
-| Depois da virada | Reverter uma linha do upstream e recarregar o nginx | segundos |
+| Depois da virada | Restaurar o vhost guardado e `docker compose up -d` no antigo (§9) | segundos |
 | Imagem ruim | `bun run deploy --reverter` | um minuto |
 | Dado ruim | `bun run restaurar --destino=producao` | minutos |
 
@@ -308,27 +304,66 @@ escrita daria erro de permissão, e só em produção.
 
 ---
 
-## 9. A virada, quando você autorizar
+## 9. A virada, feita — e como voltar
 
-O novo está no ar em <https://bolao-novo.maxmat1.com.br> e o atual segue em
-`bolao.maxmat1.com.br`. Os dois lado a lado, pelo tempo que você quiser.
+Aconteceu em 10/08/2026, nesta ordem:
 
-A virada é **uma linha** em `/etc/nginx/sites-available/bolao.maxmat1.com.br`:
+| | O que | Resultado |
+|---|---|---|
+| 1 | Dado do Redis antigo capturado para `infra/legado/` | 4 chaves, 112 KB, JSON válido com 30 competidores |
+| 2 | Cópia do vhost em `bolao.maxmat1.com.br.antes-da-virada-2026-08-10` | no servidor |
+| 3 | `upstream maxmat1` de 5001 para 5002 | `nginx -t` ok, reload |
+| 4 | **Bloco `location /` corrigido** | de 25 s para 0,3 s — ver abaixo |
+| 5 | `SAVE` no Redis antigo e `docker compose down` | 2 containers e a rede `rede-maxmat1` removidos |
+| 6 | Conferência | 200 nos dois domínios, `/api/resultados` em 0,17 s |
 
-```nginx
-upstream maxmat1 {
-	server localhost:5001 weight=1;   # ← passa para 5002
-}
+### A virada não era uma linha
+
+Eu escrevi aqui, duas vezes, que a virada era trocar `5001` por `5002`. Estava
+errado, e só apareceu porque medi: a página vinha inteira e **a conexão ficava
+pendurada 25 segundos**.
+
+O vhost antigo tinha só `proxy_pass`. Sem `proxy_http_version 1.1` o nginx fala
+HTTP/1.0 com o upstream, e o Next responde em `chunked` — que não existe no 1.0.
+A resposta chegava e ninguém sinalizava o fim, até o `proxy_read_timeout`. O
+bloco passou a ser o mesmo do vhost novo, com `proxy_http_version 1.1`,
+`Connection ""` e os `X-Forwarded-*`. Depois: 0,26 a 0,55 s.
+
+Fica registrado porque é a diferença entre "responde 200" e "funciona": um
+`curl` sem `--max-time` teria dito que estava tudo bem.
+
+### Voltar
+
+O caminho existe e foi conferido peça por peça depois do desligamento:
+
+```bash
+# 1. domínio de volta para o antigo
+ssh root@ssh.chico-figueiredo.com.br
+cp /etc/nginx/sites-available/bolao.maxmat1.com.br.antes-da-virada-2026-08-10 \
+   /etc/nginx/sites-available/bolao.maxmat1.com.br
+nginx -t && systemctl reload nginx
+
+# 2. stack antigo de volta
+cd /opt/bolao-maxmat1 && docker compose up -d
 ```
 
-E depois `nginx -t && systemctl reload nginx`. Voltar é a mesma linha ao
-contrário, com o mesmo reload: segundos, e o stack antigo nunca parou.
+O que garante que isso funciona, verificado em 10/08/2026 depois do `down`:
 
-Nenhum script deste repositório faz isso sozinho. Me peça quando quiser.
+| Peça | Estado |
+|---|---|
+| `node/bolao.maxmat1.com.br:latest` | no disco, 1,66 GB |
+| `redis:7.2-alpine3.18` | no disco |
+| `/opt/bolao-maxmat1/cache-redis/dump.rdb` | 18 KB, com `SAVE` final |
+| `/opt/bolao-maxmat1/bolao-max-server/` | 54 MB, código intacto |
+| Cópia do vhost | `.antes-da-virada-2026-08-10` |
+| `infra/legado/` | o Redis do antigo em JSON, versionado |
 
-Depois da virada, ainda em aberto e sem pressa nenhuma:
+Custo do retorno: um reload de nginx (segundos) mais um `up -d` (o container
+sobe em segundos, e o Redis dele recarrega o `dump.rdb`).
 
-1. **Desligar o stack antigo** (`/opt/bolao-maxmat1`, porta 5001, Redis 7.2
-   próprio) — só com ordem explícita. Enquanto ele estiver de pé, o retorno é
-   uma linha.
-2. **Apagar o domínio de convivência**, se você não quiser manter os dois.
+### Ainda em aberto, sem pressa
+
+1. **Apagar de vez o `/opt/bolao-maxmat1`, as imagens e o `dump.rdb`** — só com
+   ordem explícita. Enquanto estiverem lá, o retorno é o de cima.
+2. **Manter ou não `bolao-novo.maxmat1.com.br`.** Hoje os dois domínios servem o
+   mesmo app; nada obriga a escolher.

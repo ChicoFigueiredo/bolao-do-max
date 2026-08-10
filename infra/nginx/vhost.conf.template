@@ -26,7 +26,13 @@ server {
 
 	location / {
 		proxy_pass http://{{UPSTREAM}};
+		# HTTP/1.1 é requisito, não afinação. O Next responde em chunked; com o
+		# 1.0 padrão do nginx a resposta chega inteira mas a conexão fica
+		# pendurada até o proxy_read_timeout. Medido na virada do domínio
+		# antigo, que não tinha esta linha: 25 s de espera com a página pronta
+		# na tela. Depois: 0,3 s.
 		proxy_http_version 1.1;
+		proxy_set_header Connection "";
 		# `Host` original: o Next monta URL absoluta a partir dele.
 		proxy_set_header Host $host;
 		proxy_set_header X-Real-IP $remote_addr;
