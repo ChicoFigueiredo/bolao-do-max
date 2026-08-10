@@ -1,0 +1,46 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "jsx": "preserve",
+    "types": [
+      "bun",
+      "react",
+      "node"
+    ],
+    "allowImportingTsExtensions": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@bolao/config": [
+        "../../packages/config/src/index.ts"
+      ],
+      "@bolao/dominio": [
+        "../../packages/dominio/src/index.ts"
+      ],
+      "@bolao/db": [
+        "../../packages/db/src/index.ts"
+      ],
+      "@bolao/worker/*": [
+        "../worker/src/*"
+      ]
+    },
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

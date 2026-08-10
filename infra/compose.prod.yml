@@ -1,0 +1,79 @@
+# Stack de produção do Bolão do Max — sobe em /opt/bolao-do-max/compose.yml.
+#
+# Sem `build:` de propósito: a imagem é construída na máquina do desenvolvedor e
+# carregada aqui pronta (docs/plan §11.2). O servidor só executa.
+#
+# Nada do bolão atual é tocado. Ele continua em /opt/bolao-maxmat1, na rede
+# rede-maxmat1, na porta 5001, com o Redis 7.2 dele. Voltar atrás, antes da
+# virada do nginx, é não fazer nada.
+#
+# Os valores ${...} vêm do .env que o deploy escreve nesta mesma pasta — é lá
+# que fica registrado qual versão está no ar, e é a linha que o
+# `deploy.ts --reverter` reescreve.
+
+name: bolao-do-max
+
+x-comum: &comum
+  image: ${BOLAO_IMAGEM}:${BOLAO_VERSAO}
+  restart: unless-stopped
+  env_file: .env
+  # O worker fala a cada ciclo. Sem teto, um mês de log come disco de graça.
+  logging:
+    driver: json-file
+    options:
+      max-size: 10m
+      max-file: "3"
+  networks: [rede-banco, rede-cache]
+
+services:
+  # ── Interface ────────────────────────────────────────────────
+  web:
+    <<: *comum
+    container_name: bolao-do-max-web
+    working_dir: /app/apps/web
+    command: ["bun", "--bun", "next", "start", "--port", "3000"]
+    # Só no loopback: quem publica na internet é o nginx do host, com TLS.
+    ports:
+      - "127.0.0.1:${BOLAO_PORTA}:3000"
+    mem_limit: ${BOLAO_MEM_WEB}
+    # A máquina tem oito containers de outros projetos. Um vazamento aqui não
+    # pode derrubar vizinho, e um teto baixo demais mata a página — daí os
+    # valores vierem de infra/deploy.yml, onde é fácil ajustar.
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "bun",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/resultados').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      start_period: 25s
+      retries: 3
+
+  # ── Coleta e apuração ────────────────────────────────────────
+  worker:
+    <<: *comum
+    container_name: bolao-do-max-worker
+    working_dir: /app
+    command: ["bun", "run", "apps/worker/src/index.ts"]
+    mem_limit: ${BOLAO_MEM_WORKER}
+    # Desligado de propósito. A imagem é uma só para os dois serviços, e o
+    # HEALTHCHECK dela pede uma resposta HTTP — que o worker não serve. Herdado,
+    # ele falharia para sempre e marcaria como doente justamente o container que
+    # está trabalhando: sinal quebrado é pior que sinal nenhum. Se o worker
+    # morrer, `restart: unless-stopped` cuida.
+    healthcheck:
+      disable: true
+    # O worker trata SIGTERM: fecha o ciclo, encerra Redis e banco. Vale
+    # esperar em vez de matar no meio de uma transação.
+    stop_grace_period: 30s
+
+# Já existem na máquina, criadas pelos stacks compartilhados. `banco` e `cache`
+# escutam apenas em 127.0.0.1 — entrar nestas redes é o único caminho até eles.
+networks:
+  rede-banco:
+    external: true
+  rede-cache:
+    external: true

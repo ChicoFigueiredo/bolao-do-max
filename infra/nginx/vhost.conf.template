@@ -1,0 +1,44 @@
+# Bolão do Max novo — vhost do domínio de convivência.
+#
+# Escrito por infra/bin/deploy.ts. {{DOMINIO}}, {{PORTA}} e {{UPSTREAM}} são
+# substituídos a partir de infra/deploy.yml.
+#
+# Este arquivo é escrito UMA vez. Depois que o certbot passa aqui ele acrescenta
+# o bloco 443 e o redirecionamento, e o arquivo passa a ser dele — o deploy não
+# reescreve um vhost que já existe (use --refazer-vhost se precisar).
+#
+# O nome do upstream é próprio de propósito: o vhost do bolão atual declara
+# `upstream maxmat1` apontando para a porta 5001, e dois upstreams com o mesmo
+# nome fazem o nginx recusar a configuração inteira — os nove vhosts da máquina
+# junto.
+#
+# A virada, quando for autorizada, é uma linha: o `server` do upstream `maxmat1`
+# passa de 5001 para {{PORTA}}. Voltar é a mesma linha ao contrário.
+
+upstream {{UPSTREAM}} {
+	server 127.0.0.1:{{PORTA}} weight=1;
+}
+
+server {
+	listen 80;
+	listen [::]:80;
+	server_name {{DOMINIO}};
+
+	location / {
+		proxy_pass http://{{UPSTREAM}};
+		# HTTP/1.1 é requisito, não afinação. O Next responde em chunked; com o
+		# 1.0 padrão do nginx a resposta chega inteira mas a conexão fica
+		# pendurada até o proxy_read_timeout. Medido na virada do domínio
+		# antigo, que não tinha esta linha: 25 s de espera com a página pronta
+		# na tela. Depois: 0,3 s.
+		proxy_http_version 1.1;
+		proxy_set_header Connection "";
+		# `Host` original: o Next monta URL absoluta a partir dele.
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		# Sem isto a aplicação acha que está em http e pode montar link errado.
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_read_timeout 30s;
+	}
+}

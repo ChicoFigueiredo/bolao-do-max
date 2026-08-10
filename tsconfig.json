@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "module": "Preserve",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "skipLibCheck": true,
+
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowJs": false,
+
+    "types": ["bun"],
+
+    "baseUrl": ".",
+    "paths": {
+      "@bolao/config": ["packages/config/src/index.ts"],
+      "@bolao/dominio": ["packages/dominio/src/index.ts"],
+      "@bolao/regras": ["packages/regras/src/index.ts"],
+      "@bolao/db": ["packages/db/src/index.ts"],
+      "@bolao/provider": ["packages/provider/src/index.ts"]
+    }
+  },
+  "include": ["apps/worker/**/*.ts", "packages/**/*.ts", "infra/bin/**/*.ts"],
+  "exclude": ["node_modules", "z_legado", "apps/web", "**/dist", "**/.next"]
+}

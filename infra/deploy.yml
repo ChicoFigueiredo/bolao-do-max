@@ -1,0 +1,121 @@
+# Parâmetros de deploy, backup e restore do Bolão do Max.
+#
+# Este arquivo é versionado e NÃO contém segredo nenhum: só endereços, caminhos
+# e políticas. As credenciais moram em dois lugares, nenhum deles aqui:
+#
+#   - as do banco e do cache são geradas PELO servidor, em
+#     /opt/banco/credenciais/bolao.env e /opt/cache/credenciais/bolao.env
+#   - as das APIs de futebol ficam no .env da sua máquina (gitignored)
+#
+# Para sobrescrever qualquer coisa daqui sem sujar o git, crie
+# `infra/deploy.local.yml` com apenas as chaves que quiser mudar.
+#
+#   bun run deploy --dry-run     mostra tudo que faria, sem tocar em nada
+#   bun run backup               dump do banco de produção para infra/backups/
+#   bun run restaurar            último backup → banco local de desenvolvimento
+#   bun run worker:remoto ciclo  aciona um ciclo do worker no servidor
+
+servidor:
+  host: ssh.chico-figueiredo.com.br
+  usuario: root
+  porta: 22
+  # ~ usa a chave padrão do seu ~/.ssh/config ou do ssh-agent.
+  chave: ~
+  # Convenção da máquina: cada projeto em /opt/<nome>/compose.yml.
+  pasta: /opt/bolao-do-max
+
+aplicacao:
+  nome: bolao-do-max
+  imagem: bolao-do-max
+  # Publicada só no loopback do servidor; quem expõe para a internet é o nginx.
+  # 5001 é o bolão atual, que continua no ar — não colidir.
+  porta_publicada: 5002
+  porta_interna: 3000
+  # Domínio provisório da convivência. A virada para bolao.maxmat1.com.br é um
+  # passo manual no nginx, feito só depois de aprovação (docs/plan §11.3).
+  dominio: bolao-novo.maxmat1.com.br
+  # Redes externas já existentes no servidor. `banco` e `cache` só escutam em
+  # 127.0.0.1: entrar nelas é o único caminho até as instâncias compartilhadas.
+  redes_externas:
+    - rede-banco
+    - rede-cache
+  # Tetos de memória. A máquina tem 3,9 GB e oito containers de outros
+  # projetos: um vazamento aqui não pode derrubar os vizinhos.
+  memoria_web: 768m
+  memoria_worker: 384m
+  # Quantas versões antigas manter carregadas no servidor para poder voltar.
+  versoes_guardadas: 3
+
+banco:
+  # Database e role próprios, criados por /opt/banco/scripts/novo-banco.sh.
+  nome: bolao
+  container: banco
+  credencial: /opt/banco/credenciais/bolao.env
+  extensoes: []
+
+cache:
+  # Usuário ACL próprio, criado por /opt/cache/scripts/novo-cache.sh. A ACL
+  # limita as chaves ao prefixo `<nome>:` — daí o prefixo abaixo começar igual.
+  nome: bolao
+  container: cache
+  credencial: /opt/cache/credenciais/bolao.env
+  prefixo: "bolao:v1:"
+
+nginx:
+  # O deploy publica o vhost do domínio de convivência para o site abrir no
+  # celular sem túnel. Ele NUNCA toca o vhost de bolao.maxmat1.com.br — a virada
+  # é um passo separado, pedido por você.
+  habilitado: true
+  # Nome do upstream. Precisa ser diferente do `maxmat1` que o vhost atual já
+  # declara: nome repetido faz o nginx recusar a configuração dos nove vhosts.
+  upstream: bolao_novo
+  sites_available: /etc/nginx/sites-available
+  sites_enabled: /etc/nginx/sites-enabled
+  # Emite o certificado com o certbot que já gerencia os outros domínios.
+  certbot: true
+
+ambiente:
+  # Variáveis que o deploy escreve no .env do servidor, sobrepondo o que vier
+  # do .env local. As chaves de provedor vêm do .env local sem alteração.
+  NODE_ENV: production
+  TZ: America/Sao_Paulo
+  LOG_LEVEL: info
+  WEB_PORT: 3000
+  TEMPORADA_ATUAL: 2026
+  SERIE: A
+  # Sobrescritas locais opcionais, aplicadas por último (gitignored).
+  arquivo_extra: .env.producao
+
+backup:
+  pasta_local: infra/backups
+  # fresco   = pg_dump na hora, independente do servidor (10 MB, custo nenhum)
+  # servidor = puxa o dump que o timer /opt/banco/scripts/backup.sh já gerou
+  modo: fresco
+  pasta_servidor: /opt/banco/backups
+  retencao_dias: 30
+  # Piso de segurança: nunca apagar abaixo disto, mesmo se todos vencerem.
+  minimo_guardado: 7
+  # Agendamento na SUA máquina, que é onde infra/backups/ existe.
+  # O servidor já tem backup próprio às 03:20 (systemd banco-backup.timer),
+  # então isto é a segunda cópia, fora do servidor — que é a que importa.
+  cron: "0 3 * * *"
+
+tunel:
+  # Porta nesta máquina. O cliente de banco aponta para 127.0.0.1:35132.
+  porta_local: 35132
+  # Do outro lado: a porta que o docker publica no loopback do servidor. É o
+  # mesmo 127.0.0.1:5432 que o `banco` expõe, e que a internet não alcança.
+  alvo_host: 127.0.0.1
+  alvo_porta: 5432
+  # Portas que NUNCA devem responder da internet. Auditadas a cada abertura de
+  # túnel, de fora para dentro — configuração lida não prova nada.
+  portas_fechadas: [5432, 6380, 5002]
+  # Regras de firewall que o audit não pode remover, mesmo com --fechar.
+  # Derrubar a 22 por script é como serrar o galho em que se está sentado.
+  intocaveis: [22, 80, 443]
+
+deploy:
+  # Onde fica o tar da imagem entre deploys, para enviar só o que mudou.
+  cache: infra/.cache
+  # Executados no servidor depois de subir, em ordem.
+  passos: [migrate, seed, seed-dados, ciclo]

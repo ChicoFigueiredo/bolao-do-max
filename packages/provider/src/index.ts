@@ -1,0 +1,8 @@
+export * from './porta.ts'
+export * from './http.ts'
+export * from './cota.ts'
+export { ProvedorGE, FONTE_GE } from './ge.ts'
+export { ProvedorApiFootball, FONTE_APIFOOTBALL } from './apifootball.ts'
+export { ProvedorFootballData, FONTE_FOOTBALLDATA } from './footballdata.ts'
+export * from './fabrica.ts'
+export * from './reconciliacao.ts'

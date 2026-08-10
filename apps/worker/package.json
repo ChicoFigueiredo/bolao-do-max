@@ -1,0 +1,23 @@
+{
+  "name": "@bolao/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@bolao/config": "workspace:*",
+    "@bolao/db": "workspace:*",
+    "@bolao/dominio": "workspace:*",
+    "@bolao/provider": "workspace:*",
+    "@bolao/regras": "workspace:*"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./cache": "./src/cache.ts",
+    "./calcular": "./src/casos/calcular.ts",
+    "./ciclo": "./src/casos/ciclo.ts",
+    "./series": "./src/casos/series.ts",
+    "./snapshot": "./src/casos/snapshot.ts",
+    "./prerender": "./src/casos/prerender.ts"
+  }
+}
