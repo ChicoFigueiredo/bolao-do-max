@@ -15,6 +15,9 @@
     ".": "./src/index.ts",
     "./cache": "./src/cache.ts",
     "./calcular": "./src/casos/calcular.ts",
-    "./ciclo": "./src/casos/ciclo.ts"
+    "./ciclo": "./src/casos/ciclo.ts",
+    "./series": "./src/casos/series.ts",
+    "./snapshot": "./src/casos/snapshot.ts",
+    "./prerender": "./src/casos/prerender.ts"
   }
 }

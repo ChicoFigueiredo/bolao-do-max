@@ -52,6 +52,7 @@ async function tick() {
         (r.partidas.alteracoes ? `/${r.partidas.alteracoes}alt` : '') +
         ` · snapshot ${r.snapshot.gravou ? `#${r.snapshot.id} NOVO` : 'inalterado'}` +
         conf +
+        ` · pré-render ${r.prerender.detalhes}+${r.prerender.series}` +
         ` · ${r.duracaoMs}ms` +
         (completo ? ' · calendário completo' : ''),
     )

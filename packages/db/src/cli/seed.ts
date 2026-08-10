@@ -112,6 +112,27 @@ try {
   // ── Competidores e apelidos ──────────────────────────────
   const canonicos = [...new Set(temporadas.flatMap((t) => t.competidores.map((c) => c.nome)))].sort()
 
+  // Renomeia no lugar quando o canônico muda.
+  //
+  // Inserir a grafia nova criaria outra pessoa, e os snapshots já gravados
+  // continuariam apontando para a antiga — o histórico da Evolução ficaria
+  // órfão. Renomear preserva o id e, com ele, todas as referências.
+  let renomeados = 0
+  try {
+    const overrides = ler<{ de: string; para: string }[]>('seeds/nomes-canonicos.json')
+    for (const o of overrides) {
+      const [antigo] = await db.select().from(competidor).where(eq(competidor.nome, o.de))
+      if (!antigo) continue
+      const [novo] = await db.select().from(competidor).where(eq(competidor.nome, o.para))
+      if (novo) continue // já renomeado numa execução anterior
+      await db.update(competidor).set({ nome: o.para }).where(eq(competidor.id, antigo.id))
+      renomeados++
+      console.log(`  renomeado: ${o.de} → ${o.para} (id ${antigo.id} preservado)`)
+    }
+  } catch {
+    /* arquivo opcional */
+  }
+
   await db
     .insert(competidor)
     .values(canonicos.map((nome) => ({ nome })))

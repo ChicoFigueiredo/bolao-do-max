@@ -16,7 +16,7 @@ export type Resultado = PayloadCache & { origemLeitura: 'cache' | 'banco' }
  * versão. O client é barato de manter aberto e reconecta sozinho.
  */
 let clienteCache: Cache | undefined
-function cacheCompartilhado(cfg: ReturnType<typeof carregarConfig>): Cache {
+export function cacheCompartilhado(cfg: ReturnType<typeof carregarConfig>): Cache {
   if (!clienteCache) clienteCache = new Cache(cfg)
   return clienteCache
 }

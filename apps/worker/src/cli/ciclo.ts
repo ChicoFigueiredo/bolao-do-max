@@ -32,6 +32,7 @@ try {
     console.log(`  conferência pulada nesta cadência`)
   }
   console.log(`  cache       ${r.publicouCache ? 'publicado' : 'não publicado'}`)
+  console.log(`  pré-render  ${r.prerender.detalhes} detalhes · ${r.prerender.series} séries`)
 } catch (e) {
   console.error('✗ ciclo falhou:', e instanceof Error ? e.message : e)
   process.exitCode = 1

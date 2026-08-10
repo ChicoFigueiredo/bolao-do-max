@@ -22,12 +22,13 @@
     ]
   },
   {
-    "canonico": "Chico",
+    "canonico": "Chico 'Virus'",
     "apelidos": [
       {
-        "nome": "Chico 'Virus'",
+        "nome": "Chico",
         "temporadas": [
-          2024
+          2020,
+          2026
         ]
       },
       {
@@ -47,15 +48,14 @@
     ]
   },
   {
-    "canonico": "Daiane",
+    "canonico": "Daiane 'Pipoka'",
     "apelidos": [
       {
-        "nome": "Daiane 'Pipoka'",
+        "nome": "Daiane",
         "temporadas": [
-          2022,
-          2023,
-          2024,
-          2025
+          2018,
+          2019,
+          2026
         ]
       },
       {

@@ -49,6 +49,15 @@ db:seed       ✓ 34 clubes
 worker:ciclo  partidas    380 novas · 0 atualizadas · 0 inalteradas
               snapshot    gravado #1
               cache       publicado
+              pré-render  60 detalhes · 6 séries
+```
+
+Para ter as trajetórias da aba Evolução desde o começo do campeonato, rode
+também:
+
+```bash
+bun run snapshots:replay   # reconstrói ~146 snapshots das 380 partidas
+bun run worker:ciclo       # re-publica o cache com as séries completas
 ```
 
 > O primeiro ciclo num banco vazio faz a varredura completa das 38 rodadas —
@@ -87,6 +96,8 @@ Menu sanduíche (canto superior direito) → **Tema** → Ocre, Claro, Escuro.
 
 ### A aba Evolução
 - [ ] As três janelas funcionam: 48 horas, 30 dias e Campeonato (por semana)
+- [ ] Trocar de janela ou tocar um nome responde de imediato — o worker
+      pré-renderiza tudo no Redis, então a tela só lê chave
 - [ ] A curva em destaque é a sua, se você se marcou no menu
 - [ ] Tocar num nome da lista traz a curva dele para o gráfico grande
 - [ ] Os blocos de quem subiu e caiu batem com as setas nas outras abas
@@ -234,6 +245,7 @@ a reescrita não mudou resultado por acidente.
 | `bun run db:migrate` | aplica migrations (idempotente) |
 | `bun run db:seed` | carrega `seeds/` no banco (idempotente) |
 | `bun run worker:ciclo` | um ciclo e relatório |
+| `bun run snapshots:replay` | reconstrói a série histórica das partidas |
 | `bun run worker:ciclo --forcar` | idem, forçando a conferência com as APIs |
 | `bun run worker` | daemon com cadência automática |
 | `bun run web` | interface em http://localhost:3000 |

@@ -1,10 +1,13 @@
-import 'server-only'
+
 import { carregarConfig } from '@bolao/config'
-import { abrirBanco, competidor, snapshot, snapshotCompetidor, temporada } from '@bolao/db'
+import { abrirBanco, competidor, snapshot, snapshotCompetidor, temporada, type Banco } from '@bolao/db'
 import { and, asc, eq } from 'drizzle-orm'
 
 /**
  * Séries temporais de posição, para a aba Evolução.
+ *
+ * Vive no worker porque é ele quem as pré-renderiza no Redis a cada ciclo. A
+ * web lê o resultado pronto — nenhuma requisição de usuário recalcula série.
  *
  * Sai dos snapshots que o worker grava — dado que o sistema atual descarta por
  * completo. Três janelas:
@@ -52,9 +55,10 @@ const rotuloSemana = fmt({ day: '2-digit', month: 'short' })
 
 type Amostra = { classico: number | null; posicao: number | null }
 
-export async function lerHistorico(): Promise<Historico> {
+export async function calcularHistorico(banco?: Banco): Promise<Historico> {
   const cfg = carregarConfig()
-  const { db, fechar } = abrirBanco()
+  const conexao = banco ? null : abrirBanco()
+  const db = banco ?? conexao!.db
 
   try {
     const [t] = await db
@@ -104,7 +108,7 @@ export async function lerHistorico(): Promise<Historico> {
       semana: { classico: montar('semana', 'classico'), posicao: montar('semana', 'posicao') },
     }
   } finally {
-    await fechar()
+    if (conexao) await conexao.fechar()
   }
 }
 

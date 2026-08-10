@@ -103,11 +103,26 @@ function consolidarIdentidades(porAno: Map<number, CompetidorLegado[]>) {
     else grupos.push([nome])
   }
 
-  // Canônico = a grafia usada na temporada mais recente.
+  // Canônico = a grafia usada na temporada mais recente, salvo preferência
+  // explícita em `seeds/nomes-canonicos.json`. O apelido do grupo é escolha de
+  // quem joga, não do algoritmo — 2026 registra "Chico", mas o nome pelo qual
+  // ele é conhecido no bolão é "Chico 'Virus'".
+  const preferido = new Map<string, string>()
+  try {
+    const lista = JSON.parse(readFileSync('seeds/nomes-canonicos.json', 'utf8')) as {
+      de: string
+      para: string
+    }[]
+    for (const p of lista) preferido.set(p.de, p.para)
+  } catch {
+    /* arquivo opcional */
+  }
+
   for (const g of grupos) {
-    const canonico = g.reduce((melhor, n) =>
+    const maisRecente = g.reduce((melhor, n) =>
       Math.max(...anosPorNome.get(n)!) > Math.max(...anosPorNome.get(melhor)!) ? n : melhor,
     )
+    const canonico = preferido.get(maisRecente) ?? maisRecente
     for (const n of g) canonicoDe.set(n, canonico)
   }
 
@@ -177,6 +192,16 @@ const identidades = grupos
         .map((n) => ({ nome: n, temporadas: [...anosPorNome.get(n)!].sort() })),
     }
   })
+  .concat(
+    // Um canônico preferido que não aparece em nenhuma temporada ainda precisa
+    // registrar a grafia real de cada ano como apelido.
+    grupos
+      .filter((g) => g.length === 1 && canonicoDe.get(g[0]!) !== g[0]!)
+      .map((g) => ({
+        canonico: canonicoDe.get(g[0]!)!,
+        apelidos: [{ nome: g[0]!, temporadas: [...anosPorNome.get(g[0]!)!].sort() }],
+      })),
+  )
   .sort((a, b) => a.canonico.localeCompare(b.canonico, 'pt-BR'))
 
 writeFileSync(join('seeds', 'identidades.json'), JSON.stringify(identidades, null, 2) + '\n')

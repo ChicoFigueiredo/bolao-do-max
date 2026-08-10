@@ -30,6 +30,7 @@ import { and, eq } from 'drizzle-orm'
 import { Cache } from '../cache.ts'
 import { decidirCadencia, type Cadencia } from './cadencia.ts'
 import { calcularRankings } from './calcular.ts'
+import { prerenderizar } from './prerender.ts'
 import { gravarSnapshot } from './snapshot.ts'
 import { sincronizarCalendario } from './sincronizar-partidas.ts'
 
@@ -39,6 +40,7 @@ export type ResultadoCiclo = {
   snapshot: { gravou: boolean; id: number }
   reconciliacao: ResultadoReconciliacao | null
   publicouCache: boolean
+  prerender: { detalhes: number; series: number }
   duracaoMs: number
 }
 
@@ -187,6 +189,9 @@ export async function executarCiclo(
       origem: 'worker',
     })
 
+    // 7. Pré-renderizar detalhe e séries: toque na tela vira leitura de chave.
+    const pre = await prerenderizar(db, cache, t.ano, classico, posicao)
+
     return {
       cadencia,
       partidas: {
@@ -198,6 +203,7 @@ export async function executarCiclo(
       snapshot: { gravou: snap.gravou, id: snap.snapshotId },
       reconciliacao,
       publicouCache: true,
+      prerender: pre,
       duracaoMs: Math.round(performance.now() - t0),
     }
   } finally {
