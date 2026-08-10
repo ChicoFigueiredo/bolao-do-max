@@ -90,7 +90,7 @@ bun run worker:remoto ciclo
 bun run worker:remoto completar    # traz o dado do dump até agora
 bun run worker:remoto logs -n 50
 ```
-
+ 
 ### Dados
 
 ```bash
