@@ -58,12 +58,17 @@ async function dicionarioDeClubes(db: Banco) {
  * próximas 48 h ou nas últimas 24 h, mais a rodada corrente. Tipicamente
  * duas ou três — contra as 38 de uma varredura completa.
  */
-async function rodadasDeInteresse(db: Banco, temporadaId: number): Promise<number[]> {
+async function rodadasDeInteresse(db: Banco, temporadaId: number): Promise<number[] | undefined> {
   const agora = new Date()
   const linhas = await db
     .select({ rodada: partida.rodada, inicio: partida.inicioPrevisto, status: partida.status })
     .from(partida)
     .where(eq(partida.temporadaId, temporadaId))
+
+  // Banco vazio: não há como saber quais rodadas interessam sem antes ter o
+  // calendário. `undefined` pede a varredura completa — é o único momento em
+  // que ela é justificada fora do sincronismo diário.
+  if (linhas.length === 0) return undefined
 
   const interessa = new Set<number>()
   for (const l of linhas) {
@@ -100,8 +105,6 @@ export async function executarCiclo(
       .where(and(eq(temporada.ano, cfg.TEMPORADA_ATUAL), eq(temporada.serie, cfg.SERIE)))
     if (!t) throw new Error(`temporada ${cfg.TEMPORADA_ATUAL} não existe — rode \`bun run db:seed\``)
 
-    const cadencia = await decidirCadencia(db, t.id, cfg)
-
     // 1. Ingerir partidas — só as rodadas que podem ter mudado.
     //    O calendário completo custa 38 requisições e é sincronismo diário
     //    (§calendarioCompleto). Varrê-lo a cada ciclo repetiria o desperdício
@@ -110,10 +113,15 @@ export async function executarCiclo(
     const rodadas = opcoes.calendarioCompleto ? undefined : await rodadasDeInteresse(db, t.id)
     const sync = await sincronizarCalendario(db, cfg, ge, cfg.TEMPORADA_ATUAL, rodadas)
 
-    // 2. Calcular a partir do banco
+    // 2. Decidir a cadência DEPOIS de ingerir: é o sincronismo que atualiza o
+    //    calendário, e no primeiro ciclo de um banco vazio decidir antes leria
+    //    uma tabela sem partidas e concluiria "fora de temporada".
+    const cadencia = await decidirCadencia(db, t.id, cfg)
+
+    // 3. Calcular a partir do banco
     const { tabela, classico, posicao } = await calcularRankings(db, t.id)
 
-    // 3. Conferir com as fontes, quando a cadência mandar
+    // 4. Conferir com as fontes, quando a cadência mandar
     let reconciliacao: ResultadoReconciliacao | null = null
     if (cadencia.conferirComApis || opcoes.forcar) {
       const resolver = await dicionarioDeClubes(db)
@@ -158,7 +166,7 @@ export async function executarCiclo(
       }
     }
 
-    // 4. Snapshot. `gravarSnapshot` já compara o hash e não duplica; a flag
+    // 5. Snapshot. `gravarSnapshot` já compara o hash e não duplica; a flag
     //    de configuração existe só para depuração, quando se quer registrar
     //    todo ciclo mesmo sem mudança.
     const rodadaAtual = Math.max(0, ...tabela.map((l) => l.jogos))
@@ -166,7 +174,7 @@ export async function executarCiclo(
       sempre: !cfg.WORKER_SNAPSHOT_SOMENTE_MUDANCA,
     })
 
-    // 5. Publicar o cache derivado
+    // 6. Publicar o cache derivado
     await cache.publicarResultado({
       temporada: t.ano,
       serie: t.serie,

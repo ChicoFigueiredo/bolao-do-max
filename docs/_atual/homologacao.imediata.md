@@ -1,0 +1,269 @@
+# Homologação imediata — Bolão do Max novo
+
+Como subir a pilha nova em localhost e o que conferir.
+
+> **Nada em produção é tocado.** O bolão atual continua rodando em
+> `bolao.maxmat1.com.br` no servidor, intacto, e `bolao-max-server/` segue no
+> repositório sem uma linha alterada. Tudo aqui roda na sua máquina.
+
+Este roteiro foi percorrido inteiro, do banco vazio ao navegador, em 10/08/2026.
+
+---
+
+## 1. Pré-requisitos
+
+| | |
+|---|---|
+| Bun | ≥ 1.3 (`bun --version`) |
+| Docker | com Compose v2 |
+| `.env` na raiz | já preenchido, com as duas chaves de API |
+
+As portas locais são **55432** (Postgres) e **56379** (Redis) — 5432 e 6379 já
+estão ocupadas por outros projetos nesta máquina.
+
+---
+
+## 2. Subir do zero
+
+Cinco comandos, na ordem. Tempo total: cerca de dois minutos.
+
+```bash
+bun install
+
+bun run infra:up        # Postgres 17 + Redis 8 locais, espelhando produção
+bun run db:migrate      # 14 tabelas
+bun run db:seed         # 9 temporadas de apostas
+bun run worker:ciclo    # primeiro ciclo: ingere as 380 partidas e publica o cache
+```
+
+Saída esperada de cada passo:
+
+```
+db:migrate    ✓ banco em dia
+
+db:seed       ✓ 34 clubes
+              ✓ 45 competidores · 21 apelidos
+              ✓ 9 temporadas
+              ✓ 1080 apostas do Clássico · 720 palpites de Posição
+
+worker:ciclo  partidas    380 novas · 0 atualizadas · 0 inalteradas
+              snapshot    gravado #1
+              cache       publicado
+```
+
+> O primeiro ciclo num banco vazio faz a varredura completa das 38 rodadas —
+> é a única vez. Depois disso ele busca só as rodadas de interesse, tipicamente
+> duas ou três.
+
+## 3. A interface
+
+```bash
+bun run web
+```
+
+### 👉 http://localhost:3000
+
+Deixe rodando. Para acompanhar a atualização automática, abra outro terminal:
+
+```bash
+bun run worker      # daemon: cadência decidida pelo calendário
+```
+
+---
+
+## 4. O que conferir na tela
+
+### Os três temas
+Menu sanduíche (canto superior direito) → **Tema** → Ocre, Claro, Escuro.
+
+- [ ] Os três são legíveis e coerentes
+- [ ] A escolha sobrevive a um F5
+- [ ] **Não há piscada** ao recarregar — o tema é aplicado antes da primeira pintura
+
+### As abas
+- [ ] **Clássico** e **Por Posição** trocam sem recarregar
+- [ ] A aba escolhida sobrevive a um F5
+- [ ] Setas ← → navegam entre elas pelo teclado
+
+### O detalhamento
+Clique em qualquer linha.
+
+- [ ] No Clássico: os 4 clubes com campanha completa — jogos, vitórias,
+      empates, derrotas, gols e aproveitamento
+- [ ] Em Por Posição: os 8 palpites com o chute, a posição de hoje, a distância
+      entre os dois e os pontos
+- [ ] Fecha com **Esc** e com toque fora
+- [ ] O foco volta para a linha de origem ao fechar
+
+### Marcador VOCÊ
+Menu → **Quem é você** → escolha seu nome.
+
+- [ ] Aparece um cartão destacado no topo
+- [ ] Sua linha ganha borda de destaque
+
+### Mobile
+DevTools → 360 px de largura.
+
+- [ ] Sem scroll horizontal
+- [ ] As linhas viram cartão com os clubes em uma linha de texto
+- [ ] Alvos de toque confortáveis
+
+### Busca
+- [ ] Digitar um nome filtra as duas abas
+
+---
+
+## 5. O que conferir nos números
+
+O que mais importa homologar é se **o cálculo está certo**.
+
+```bash
+bun run provider:doctor     # as fontes respondem?
+bun run worker:ciclo --forcar   # força a conferência com as APIs
+```
+
+Na saída do ciclo, a linha que interessa:
+
+```
+conferência ge + footballdata · 0 divergências de fato · 4 de ordenação · fatos conferem ✓
+```
+
+- **`0 divergências de fato`** é o que precisa estar zerado. Significa que a
+  tabela que o sistema calcula das partidas concorda com o que as fontes
+  informam, clube por clube.
+- **`4 de ordenação`** é esperado e não é defeito. A football-data.org desempata
+  por saldo de gols antes de vitórias — critério europeu — enquanto o
+  Brasileirão desempata por vitórias primeiro. Times empatados em pontos saem em
+  ordem diferente sem que nenhum número esteja errado.
+
+### Comparar com a produção atual
+
+```bash
+curl -s https://bolao.maxmat1.com.br/resultados | jq '.Competidores[0]'
+curl -s http://localhost:3000/api/resultados     | jq '.Competidores[0]'
+```
+
+O contrato de campos é o mesmo — `Nome`, `Pontos`, `Saldo_Gols`, `Posicao`,
+`Premio`, `Clubes`, `PalpitesPosicao` — de propósito: o endpoint atual tem CORS
+aberto e pode ter consumidores que ninguém mapeou.
+
+**Os prêmios de 2º e 3º vão divergir, e isso é a correção que você aprovou:**
+
+| | Produção atual | Local |
+|---|---|---|
+| 2º lugar | R$ 600,00 | **R$ 650,00** |
+| 3º lugar | R$ 300,00 | **R$ 350,00** |
+
+Com os valores corrigidos a arrecadação fecha exatamente nos R$ 530,00 da Mega
+da Virada; com os antigos sobrariam R$ 630,00.
+
+**Empates agora colapsam.** No Bolão por Posição você vai ver `1º, 2º, 2º, 4º,
+4º, 6º`. Três competidores podem ter os mesmos pontos em posições diferentes —
+não é defeito: quem tem pontos iguais mas perde num critério de desempate fica
+atrás. Vale conferir se essa leitura te agrada na tela.
+
+## 6. O histórico
+
+```bash
+bun run historico
+```
+
+Quatro temporadas que nunca tiveram resultado salvo em lugar nenhum:
+
+```
+2022  ✓  campeão do Clássico: Daiane   262 pts
+2023  ✓✓ campeão do Clássico: Daiane   240 pts
+2024  ✓✓ campeão do Clássico: Renato   241 pts
+2025  ✓  campeão do Clássico: Alan     260 pts
+```
+
+`✓✓` = conferido contra duas fontes independentes.
+
+> **Um ponto que precisa da sua decisão.** O comando avisa que os 8 palpites do
+> Chico em 2024 reproduzem a tabela final exata. Acertar 8 de 8 não acontece
+> como previsão — a aposta foi provavelmente preenchida depois do encerramento,
+> ao testar o Bolão por Posição, que estreou naquele ano. Se você lembrar da
+> aposta original, corrija `seeds/apostas/2024.json` e rode `bun run db:seed`
+> seguido de `bun run historico`.
+>
+> **2018 a 2021 não têm resultado.** Nenhuma fonte gratuita cobre essas
+> temporadas (ver §0 de [`cfg.fornecedores.md`](cfg.fornecedores.md)). As
+> apostas estão importadas; só a classificação final falta.
+
+---
+
+## 7. Verificação técnica
+
+```bash
+bun run test        # 39 testes, 539 asserções
+bun run typecheck   # worker, pacotes e web
+bun run web:build   # build de produção sob Bun
+```
+
+O teste que mais vale conhecer é o **teste de ouro**: ele reproduz a captura da
+produção de 09/08/2026 campo a campo — incluindo os prêmios errados e os
+empates não colapsados — antes de qualquer correção entrar. É o que garante que
+a reescrita não mudou resultado por acidente.
+
+---
+
+## 8. Tabela de referência
+
+| Comando | O que faz |
+|---|---|
+| `bun run infra:up` | sobe Postgres e Redis locais |
+| `bun run infra:down` | derruba, preservando os dados |
+| `bun run infra:reset` | derruba **apagando os volumes** e sobe limpo |
+| `bun run db:migrate` | aplica migrations (idempotente) |
+| `bun run db:seed` | carrega `seeds/` no banco (idempotente) |
+| `bun run worker:ciclo` | um ciclo e relatório |
+| `bun run worker:ciclo --forcar` | idem, forçando a conferência com as APIs |
+| `bun run worker` | daemon com cadência automática |
+| `bun run web` | interface em http://localhost:3000 |
+| `bun run provider:doctor` | diagnóstico das fontes |
+| `bun run historico` | recalcula as temporadas encerradas |
+| `bun run sync:partidas` | ressincroniza o calendário completo |
+| `bun run seeds:apostas` | reextrai as apostas dos arquivos legados |
+| `bun run seeds:tabelas` | rebusca as tabelas finais das APIs |
+| `bun run seeds:alias` | regera o mapa de nomes de clube por fonte |
+
+### Rotas
+
+| Rota | Conteúdo |
+|---|---|
+| `/` | a interface |
+| `/api/resultados` | contrato compatível com o `/resultados` atual |
+| `/api/competidor?nome=Alan` | detalhamento de um competidor, sob demanda |
+
+### Consultar o banco direto
+
+```bash
+docker exec -it bolao-dev-postgres psql -U bolao -d bolao
+```
+
+```sql
+select ano, tem_posicao, encerrada from temporada order by ano;
+select status, count(*) from partida group by status;
+select criado_em, rodada, origem from snapshot order by criado_em desc limit 5;
+select fonte, count(*), max(criado_em) from fonte_chamada group by fonte;
+select tipo, criado_em, detalhe from divergencia order by criado_em desc limit 5;
+```
+
+---
+
+## 9. Ainda não feito
+
+Para não haver surpresa na homologação:
+
+- **Deploy.** Nada foi ao servidor. As fases de deploy e virada (10 e 11 do
+  [plano](../plan/plan-refactor-bolao.md)) não foram executadas e dependem da
+  sua aprovação.
+- **Sparklines de trajetória.** O design prevê a mini-curva de evolução por
+  competidor. A série temporal já é gravada pelo worker, mas o gráfico não foi
+  desenhado.
+- **Páginas de temporada encerrada e hall da fama.** O cálculo existe e roda por
+  CLI; as rotas `/t/[ano]` e `/historico` não foram criadas.
+- **Simulador.** Fora do escopo desta entrega. O modelo de dados o viabiliza —
+  as 380 partidas com horário estão em banco e `calcularTabela` aceita placares
+  hipotéticos —, mas não há interface.
+- **2018 a 2021 sem resultado**, conforme §6.

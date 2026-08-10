@@ -29,6 +29,6 @@
       "@bolao/provider": ["packages/provider/src/index.ts"]
     }
   },
-  "include": ["apps/**/*.ts", "apps/**/*.tsx", "packages/**/*.ts"],
-  "exclude": ["node_modules", "bolao-max-server", "**/dist", "**/.next"]
+  "include": ["apps/worker/**/*.ts", "packages/**/*.ts"],
+  "exclude": ["node_modules", "bolao-max-server", "apps/web", "**/dist", "**/.next"]
 }
