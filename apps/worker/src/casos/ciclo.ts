@@ -190,7 +190,7 @@ export async function executarCiclo(
     })
 
     // 7. Pré-renderizar detalhe e séries: toque na tela vira leitura de chave.
-    const pre = await prerenderizar(db, cache, t.ano, classico, posicao)
+    const pre = await prerenderizar(db, cache, t.ano, t.id, classico, posicao)
 
     return {
       cadencia,

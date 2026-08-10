@@ -1,7 +1,7 @@
 
 import { carregarConfig } from '@bolao/config'
 import { abrirBanco, competidor, snapshot, snapshotCompetidor, temporada, type Banco } from '@bolao/db'
-import { and, asc, eq } from 'drizzle-orm'
+import { and, asc, desc, eq, gte } from 'drizzle-orm'
 
 /**
  * Séries temporais de posição, para a aba Evolução.
@@ -192,4 +192,59 @@ function reamostrar(
   const pontosReais = instantes.filter((t) => t >= inicio && t <= fim).length
 
   return { rotulos: grade.map((t) => rotular(new Date(t))), posicao, pontosReais }
+}
+
+export type Movimento = Record<string, { classico: number | null; posicao: number | null }>
+
+/**
+ * Variação de posição nas últimas 24 h, dos snapshots.
+ *
+ * É o que alimenta as setinhas do design. Vive aqui, e não na web, pelo mesmo
+ * motivo das séries: é leitura de snapshot, e quem lê snapshot é o worker. A
+ * web fazia isto por requisição, sem cache nenhum — três consultas e um pool de
+ * conexões em **toda** visita à home, com o Redis saudável ou não. Era o maior
+ * consumidor do sistema e não aparecia em nenhum relatório porque não era um
+ * caminho degradado: era o caminho comum.
+ */
+export async function calcularMovimento24h(db: Banco, temporadaId: number): Promise<Movimento> {
+  const ontem = new Date(Date.now() - DIA_MS)
+  const [antigo] = await db
+    .select({ id: snapshot.id })
+    .from(snapshot)
+    .where(and(eq(snapshot.temporadaId, temporadaId), gte(snapshot.criadoEm, ontem)))
+    .orderBy(asc(snapshot.criadoEm))
+    .limit(1)
+  const [recente] = await db
+    .select({ id: snapshot.id })
+    .from(snapshot)
+    .where(eq(snapshot.temporadaId, temporadaId))
+    .orderBy(desc(snapshot.criadoEm))
+    .limit(1)
+
+  if (!antigo || !recente || antigo.id === recente.id) return {}
+
+  const linhas = async (id: number) =>
+    db
+      .select({
+        nome: competidor.nome,
+        classico: snapshotCompetidor.classicoPosicao,
+        posicao: snapshotCompetidor.posicaoPosicao,
+      })
+      .from(snapshotCompetidor)
+      .innerJoin(competidor, eq(competidor.id, snapshotCompetidor.competidorId))
+      .where(eq(snapshotCompetidor.snapshotId, id))
+
+  const [antes, agora] = await Promise.all([linhas(antigo.id), linhas(recente.id)])
+  const mapaAntes = new Map(antes.map((l) => [l.nome, l]))
+
+  const mov: Movimento = {}
+  for (const a of agora) {
+    const b = mapaAntes.get(a.nome)
+    if (!b) continue
+    mov[a.nome] = {
+      classico: b.classico != null && a.classico != null ? b.classico - a.classico : null,
+      posicao: b.posicao != null && a.posicao != null ? b.posicao - a.posicao : null,
+    }
+  }
+  return mov
 }
