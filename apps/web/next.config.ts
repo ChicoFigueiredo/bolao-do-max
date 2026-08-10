@@ -31,7 +31,11 @@ const config: NextConfig = {
   // o Next os transpila junto. É o que mantém o repo sem build step extra.
   transpilePackages: ['@bolao/config', '@bolao/db', '@bolao/dominio', '@bolao/worker'],
   serverExternalPackages: ['postgres'],
-  output: 'standalone',
+  // Sem `output: 'standalone'`. O empacotamento standalone rastreia arquivos e
+  // monta um node_modules próprio — mas o do Bun é feito de links para o
+  // depósito `.bun`, e o que sai são links quebrados. O `next start` avisa em
+  // voz alta que os dois não combinam. A imagem roda `next start` com o
+  // node_modules podado à mão (infra/Dockerfile), que é o caminho verificado.
   eslint: { ignoreDuringBuilds: true },
 }
 

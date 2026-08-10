@@ -472,6 +472,8 @@ Cada fase termina verificável. Nenhuma depende de a seguinte existir.
 
 **Nenhuma fase está bloqueada.** A Fase 6 exige apenas o cadastro nas duas APIs para obter as chaves — grátis e sem cartão de crédito na API-Football.
 
+A ferramenta das fases 10 e 11 já existe e foi verificada até onde dá sem enviar nada ao servidor: `infra/` com deploy, retorno, backup, restore e acionamento do worker, tudo parametrizado em `infra/deploy.yml`. Roteiro e resultados em [`docs/_atual/deploy.e.backup.md`](../_atual/deploy.e.backup.md). Executar depende da sua aprovação.
+
 Ordem de valor: **2 → 5** é o coração. Um motor de regras que reproduz a produção e uma tabela calculada a partir das partidas tornam todo o resto mecânico.
 
 ## 13. Riscos

@@ -1,0 +1,43 @@
+# Contexto de build da imagem nova.
+#
+# Arquivo próprio, em vez de editar o `.dockerignore` da raiz: aquele ainda
+# serve o build do bolão atual (`docker-compose.yaml`), que copia
+# `bolao-max-server/`. Excluir aquela pasta lá quebraria a produção de hoje.
+# O BuildKit prefere `<Dockerfile>.dockerignore` quando existe.
+
+.git
+.github
+.vs
+.vscode
+.agents
+.codex
+.claude
+
+node_modules
+**/node_modules
+
+# Build do Next é refeito dentro da imagem: o de fora carrega caminhos
+# absolutos desta máquina.
+apps/web/.next
+**/*.tsbuildinfo
+
+# O sistema atual não entra na imagem nova.
+bolao-max-server
+apache
+azure
+doc
+docs
+
+# Infraestrutura e segredo nunca viajam dentro da imagem.
+infra/backups
+infra/.cache
+.env
+.env.*
+!.env.example
+
+# Volumes e sobras do stack antigo.
+cache-redis
+app-build
+process
+tmp
+*.log

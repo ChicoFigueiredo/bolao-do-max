@@ -302,7 +302,8 @@ Para não haver surpresa na homologação:
 
 - **Deploy.** Nada foi ao servidor. As fases de deploy e virada (10 e 11 do
   [plano](../plan/plan-refactor-bolao.md)) não foram executadas e dependem da
-  sua aprovação.
+  sua aprovação. Os scripts já existem e estão verificados até onde é possível
+  sem enviar nada: [deploy, backup e restore](deploy.e.backup.md).
 - **Sparklines de trajetória.** O design prevê a mini-curva de evolução por
   competidor. A série temporal já é gravada pelo worker, mas o gráfico não foi
   desenhado.
