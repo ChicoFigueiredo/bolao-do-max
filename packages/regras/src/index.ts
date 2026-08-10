@@ -71,6 +71,7 @@ export function calcularClassico(
       if (!t) throw new ClubeNaoEncontrado(c.clube)
       return {
         ...c,
+        posicaoTabela: t.posicao,
         pontos: t.pontos,
         jogos: t.jogos,
         vitorias: t.vitorias,

@@ -290,6 +290,17 @@ function ComposicaoClassico({ c }: { c: LinhaClassico }) {
                   {x.clube}
                   {x.coracao ? ' ❤️' : ''}
                 </span>
+                {/*
+                  Sem isto o cartão diz quanto o clube rendeu e não diz onde ele
+                  está. Condicional porque o detalhe vem pré-renderizado no
+                  Redis: durante uma troca de versão o payload guardado ainda é
+                  o antigo, e é melhor faltar a linha do que escrever "undefinedº".
+                */}
+                {x.posicaoTabela ? (
+                  <span style={{ fontSize: 12, color: 'var(--ink-3)' }}>
+                    {ord(x.posicaoTabela)} na tabela
+                  </span>
+                ) : null}
                 <span style={{ flex: 1 }} />
                 <span className="mono" style={{ fontSize: 20, fontWeight: 600 }}>
                   {x.pontos}

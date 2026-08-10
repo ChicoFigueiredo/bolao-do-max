@@ -308,10 +308,19 @@ export function Painel(d: DadosPainel) {
                 VOCÊ
               </span>
               <span style={{ flex: 1, minWidth: 0, fontSize: 15, fontWeight: 700 }}>{eu}</span>
+              {/*
+                Os dois bolões de uma vez, como no protótipo, e não só o da aba
+                aberta: a pergunta de quem chega é "como eu estou", e a resposta
+                são duas posições. Mostrar uma obriga a trocar de aba para ver a
+                outra.
+              */}
               <span className="mono" style={{ flex: 'none', fontSize: 12.5, color: 'var(--ink-2)' }}>
-                {aba === 'posicao'
-                  ? `${ord(meuP?.posicao ?? 0)} · ${meuP?.pontos ?? 0} pts`
-                  : `${ord(meuC?.posicao ?? 0)} · ${meuC?.pontos ?? 0} pts`}
+                {[
+                  meuC ? `${ord(meuC.posicao)} clássico` : null,
+                  meuP ? `${ord(meuP.posicao)} posição` : null,
+                ]
+                  .filter(Boolean)
+                  .join(' · ')}
               </span>
             </button>
           </div>

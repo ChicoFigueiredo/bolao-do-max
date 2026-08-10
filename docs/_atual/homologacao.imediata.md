@@ -304,9 +304,10 @@ Para não haver surpresa na homologação:
   [plano](../plan/plan-refactor-bolao.md)) não foram executadas e dependem da
   sua aprovação. Os scripts já existem e estão verificados até onde é possível
   sem enviar nada: [deploy, backup e restore](deploy.e.backup.md).
-- **Sparklines de trajetória.** O design prevê a mini-curva de evolução por
-  competidor. A série temporal já é gravada pelo worker, mas o gráfico não foi
-  desenhado.
+- ~~**Sparklines de trajetória.**~~ Estava listado aqui por engano: a mini-curva
+  por competidor existe, nas linhas da aba Evolução, com a mesma escala do
+  protótipo. As abas Clássico e Posição não têm coluna de gráfico — no protótipo
+  também não têm.
 - **Páginas de temporada encerrada e hall da fama.** O cálculo existe e roda por
   CLI; as rotas `/t/[ano]` e `/historico` não foram criadas.
 - **Simulador.** Fora do escopo desta entrega. O modelo de dados o viabiliza —

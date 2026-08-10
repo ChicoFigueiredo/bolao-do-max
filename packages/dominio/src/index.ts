@@ -63,6 +63,14 @@ export type RegrasTemporada = {
 // ── Resultado do Bolão Clássico ──────────────────────────────
 
 export type ClubeDoConjunto = ApostaClassico & {
+  /**
+   * Onde o clube está na tabela do Brasileirão — não no bolão.
+   *
+   * É o que o protótipo mostra ao lado do nome ("3º na tabela"): sem isso o
+   * cartão diz que o Palmeiras rendeu 45 pontos e não diz que o Palmeiras é
+   * terceiro, que é a informação que dá sentido ao número.
+   */
+  posicaoTabela: number
   pontos: number
   jogos: number
   vitorias: number
