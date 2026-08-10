@@ -4,14 +4,13 @@ Roteiro operacional dos quatro scripts de `infra/`. Todos leem os mesmos
 parâmetros de [`infra/deploy.yml`](../../infra/deploy.yml) e nenhum tem endereço
 ou senha embutidos.
 
-> **O deploy ainda não foi executado.** Este documento descreve o que os scripts
-> fazem e o que já foi verificado. O bolão atual continua no ar em
-> `bolao.maxmat1.com.br`, na porta 5001, com o Redis 7.2 dele — intocado. O
-> `/opt/bolao-do-max/` do servidor não existe ainda.
+> **No ar em <https://bolao-novo.maxmat1.com.br>** desde 10/08/2026, em
+> convivência. O bolão atual continua em `bolao.maxmat1.com.br`, na porta 5001,
+> com o Redis 7.2 e o dado dele — **intocado**. A virada de domínio é um passo
+> separado e depende da sua autorização.
 
-Verificado em 10/08/2026: imagem construída e rodando com dado real, YAML
-validado, dry-run completo contra o servidor, backup e restore percorridos de
-ponta a ponta, cron instalado.
+Primeiro deploy executado em 10/08/2026: 134 MB no fio, banco criado e semeado,
+vhost e certificado emitidos, `GET /` 200 por HTTPS de fora.
 
 ---
 
@@ -42,24 +41,38 @@ O que acontece, em ordem:
 | 1 | Verificação prévia | ssh, docker, redes `rede-banco`/`rede-cache`, containers `banco` e `cache`, porta 5002 livre, disco |
 | 2 | Banco e cache do projeto | Chama `/opt/banco/scripts/novo-banco.sh bolao` e `/opt/cache/scripts/novo-cache.sh bolao` — idempotentes — e **lê** as credenciais que o servidor gerou |
 | 3 | `.env` de produção | Montado em memória, validado pelo mesmo zod do boot, escrito em modo 600 pela entrada padrão do ssh |
-| 4 | Imagem | `docker build` aqui; 626 MB |
+| 4 | Imagem | `docker build` aqui; 626 MB em disco, 134 MB no fio |
 | 5 | Envio | `docker save` → rsync com delta → `docker load` |
 | 6 | Banco | `migrate`, `seed`, `seed-dados`, `ciclo` — **antes** de subir os serviços |
 | 7 | Subida | `docker compose up -d`, espera o healthcheck |
-| 8 | Conferência | `GET /` e `/api/resultados` de dentro do servidor, log do worker |
-| 9 | Limpeza | Guarda as 3 últimas versões para poder voltar |
+| 8 | nginx e TLS | Vhost de `bolao-novo.maxmat1.com.br` + certbot |
+| 9 | Conferência | `GET /` e `/api/resultados` por dentro, `https://` por fora, log do worker |
+| 10 | Limpeza | Guarda as 3 últimas versões para poder voltar |
 
-Depois disso falta **um passo manual**: o vhost em
-`bolao-novo.maxmat1.com.br` apontando para `127.0.0.1:5002`, com certbot. É
-manual de propósito — o nginx daquela máquina serve nove vhosts, e nenhum script
-deste repositório mexe neles.
+Um comando, do build ao HTTPS. Nada de túnel para ver no celular.
 
-Enquanto o vhost não existe, para ver a tela:
+### O passo de nginx, e o que ele não faz
 
-```bash
-ssh -N -L 8080:127.0.0.1:5002 root@ssh.chico-figueiredo.com.br
-# e abrir http://localhost:8080
-```
+Ele publica o vhost do **domínio de convivência** e nada mais. O vhost de
+`bolao.maxmat1.com.br` não é lido nem escrito — a virada é um passo separado,
+descrito em §9.
+
+Três travas, na ordem em que importam:
+
+1. **DNS conferido primeiro.** Sem o apontamento, o certbot falha com um erro de
+   validação que não explica a causa.
+2. **`nginx -t` antes do reload.** Reprovando, o link simbólico sai antes de
+   qualquer coisa recarregar, e o teste roda de novo para provar que voltou ao
+   estado anterior. Configuração inválida ativada derruba os nove vhosts da
+   máquina, não só o nosso.
+3. **Vhost existente é preservado.** O certbot escreve nele ao emitir o
+   certificado; reescrever do modelo apagaria o bloco TLS. `--refazer-vhost`
+   força, guardando uma cópia `.antes-do-deploy`.
+
+O upstream se chama `bolao_novo` porque o vhost atual já declara
+`upstream maxmat1` — nome repetido faz o nginx recusar a configuração inteira.
+
+Para pular o passo: `bun run deploy --sem-nginx`.
 
 ### Por que a imagem é construída aqui
 
@@ -67,9 +80,13 @@ O servidor tem 2 vCPU e 2,8 GB livres com oito containers de outros projetos.
 `next build` ali competiria com os vizinhos. O que viaja é imagem pronta.
 
 O envio é por **rsync sobre o mesmo arquivo tar**, sempre com o mesmo nome nas
-duas pontas. Do segundo deploy em diante sobem só os blocos que mudaram, não os
-626 MB inteiros. O preço é um `imagem.tar` parado em cada ponta — 48 GB livres lá,
-sobra de sobra.
+duas pontas. Do segundo deploy em diante sobem só os blocos que mudaram. O preço
+é um `imagem.tar` de 134 MB parado em cada ponta — 47 GB livres lá, sobra de
+sobra.
+
+Os dois números da imagem são diferentes e os dois são verdade: 626 MB é o que
+ela ocupa descomprimida no depósito do Docker, 134 MB é o que o `docker save`
+produz e o que viaja. O primeiro deploy real transferiu os 134 MB em 4,5 s.
 
 ### Retorno
 
@@ -83,8 +100,8 @@ containers. **O banco não é tocado** — só a imagem que o lê.
 
 | Falha | Retorno | Custo |
 |---|---|---|
-| Antes do vhost | Nenhuma ação: o antigo nunca parou | zero |
-| Depois do vhost | Reverter o `proxy_pass` e recarregar o nginx | segundos |
+| Antes da virada de domínio | Nenhuma ação: o antigo nunca parou | zero |
+| Depois da virada | Reverter uma linha do upstream e recarregar o nginx | segundos |
 | Imagem ruim | `bun run deploy --reverter` | um minuto |
 | Dado ruim | `bun run restaurar --destino=producao` | minutos |
 
@@ -148,9 +165,9 @@ As duas metades cobrem coisas diferentes, e vale saber qual é qual:
 O cron não recupera horário perdido. Máquina desligada às 3h = um dia sem cópia
 local, e o `bun run backup` na mão resolve.
 
-> Até o primeiro deploy o cron vai falhar todo dia com
-> `o database 'bolao' ainda não existe no servidor` no `backup.log`. É a
-> mensagem certa: não há o que copiar ainda.
+Primeira cópia real tirada em 10/08/2026, depois do deploy: **107 KB**, 14
+tabelas com dado no índice. O banco inteiro do bolão cabe num anexo de e-mail —
+o backup não é despesa, é hábito.
 
 ---
 
@@ -279,6 +296,9 @@ escrita daria erro de permissão, e só em produção.
 | `migrate`, `seed-dados` e um ciclo completo **de dentro da imagem** | ciclo em 934 ms · cache publicado · 60 detalhes + 6 séries |
 | Peso da imagem | 1,67 GB → **626 MB** (poda de binários de outra libc e de ferramenta de autoria) |
 | `deploy --dry-run` contra o servidor | Verificação prévia inteira passa; `.env` de produção validado pelo zod |
+| **Primeiro deploy real** | 134 MB enviados em 4,5 s · 380 partidas e 146 snapshots semeados · healthcheck `healthy` |
+| **HTTPS de fora** | `https://bolao-novo.maxmat1.com.br/` 200, certificado válido, `http` redireciona |
+| **O atual depois do deploy** | `https://bolao.maxmat1.com.br/` 200, 220 KB — a mesma página de antes |
 | Backup completo contra um database real | dump → download → `PGDMP` → sha256 → índice → retenção |
 | Restore com dado real | 146 snapshots chegaram no banco de destino |
 | Trava de dump corrompido | recusado com as duas somas na tela |
@@ -288,10 +308,27 @@ escrita daria erro de permissão, e só em produção.
 
 ---
 
-## 9. O que falta, e é decisão sua
+## 9. A virada, quando você autorizar
 
-1. **Rodar o deploy.** Nada foi enviado ao servidor ainda.
-2. **O vhost e o certbot** em `bolao-novo.maxmat1.com.br`.
-3. **A virada** de `bolao.maxmat1.com.br` para a porta 5002 — só depois da
-   convivência e da comparação lado a lado (plano §11.3).
-4. **Desligar o antigo**: só com ordem explícita, e não há pressa nenhuma.
+O novo está no ar em <https://bolao-novo.maxmat1.com.br> e o atual segue em
+`bolao.maxmat1.com.br`. Os dois lado a lado, pelo tempo que você quiser.
+
+A virada é **uma linha** em `/etc/nginx/sites-available/bolao.maxmat1.com.br`:
+
+```nginx
+upstream maxmat1 {
+	server localhost:5001 weight=1;   # ← passa para 5002
+}
+```
+
+E depois `nginx -t && systemctl reload nginx`. Voltar é a mesma linha ao
+contrário, com o mesmo reload: segundos, e o stack antigo nunca parou.
+
+Nenhum script deste repositório faz isso sozinho. Me peça quando quiser.
+
+Depois da virada, ainda em aberto e sem pressa nenhuma:
+
+1. **Desligar o stack antigo** (`/opt/bolao-maxmat1`, porta 5001, Redis 7.2
+   próprio) — só com ordem explícita. Enquanto ele estiver de pé, o retorno é
+   uma linha.
+2. **Apagar o domínio de convivência**, se você não quiser manter os dois.

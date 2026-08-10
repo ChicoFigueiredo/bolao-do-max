@@ -542,12 +542,19 @@ async function conferir() {
   if (codigo !== '200') erro(`GET / respondeu ${codigo}`)
   ok(`GET ${alvo}/ → 200`)
 
-  const api = await s.ler(`curl -s ${alvo}/api/resultados | head -c 400`)
-  const dados = JSON.parse(api) as { temporada?: number; rodada?: number; classico?: unknown[] }
-  ok(
-    `/api/resultados → temporada ${dados.temporada}, rodada ${dados.rodada}, ` +
-      `${(dados.classico as unknown[] | undefined)?.length ?? '?'} linhas no Clássico`,
+  // O corpo inteiro, sem `head -c`: cortar JSON e depois interpretar é um jeito
+  // garantido de falhar na conferência com o deploy perfeitamente bom.
+  const api = await s.ler(`curl -s ${alvo}/api/resultados`)
+  const dados = JSON.parse(api) as { ano?: number; Competidores?: unknown[] }
+  ok(`/api/resultados → temporada ${dados.ano}, ${dados.Competidores?.length ?? '?'} competidores`)
+
+  // De fora, como quem vai abrir no celular: prova o vhost, o TLS e o DNS de
+  // uma vez. Feito do servidor por simplicidade — o caminho público é o mesmo.
+  const publico = await s.tentar(
+    `curl -s -o /dev/null -w '%{http_code}' --max-time 15 https://${p.aplicacao.dominio}/`,
   )
+  if (publico.saida.trim() === '200') ok(`https://${p.aplicacao.dominio}/ → 200`)
+  else aviso(`https://${p.aplicacao.dominio}/ respondeu ${publico.saida.trim() || 'nada'}`)
 
   const logWorker = await s.tentar(compose('logs --tail 5 worker'))
   for (const l of logWorker.saida.split('\n').filter(Boolean)) info(l)
