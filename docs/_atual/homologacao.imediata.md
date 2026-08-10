@@ -117,8 +117,18 @@ Clique em qualquer linha.
 - [ ] Fecha com **Esc** e com toque fora
 - [ ] O foco volta para a linha de origem ao fechar
 
+### Primeira visita
+Abra numa janela anônima, ou limpe o `localStorage` do site.
+
+- [ ] Aparece o diálogo **"Quem é você?"** com a lista dos 30 apostadores
+- [ ] O botão de confirmar fica bloqueado até escolher um nome
+- [ ] Esc e clique fora **não** fecham — a escolha é obrigatória
+- [ ] "Não aposto, só estou olhando" dispensa o diálogo para sempre
+- [ ] Recarregar depois de escolher não pede de novo
+- [ ] Escolher "— ninguém —" no menu também não faz o diálogo voltar
+
 ### Marcador VOCÊ
-Menu → **Quem é você** → escolha seu nome.
+Menu → **Meu nome** → escolha seu nome.
 
 - [ ] Aparece um cartão destacado no topo
 - [ ] Sua linha ganha borda de destaque
@@ -132,6 +142,10 @@ DevTools → 360 px de largura.
 
 ### Busca
 - [ ] Digitar um nome filtra as duas abas
+
+### Regras
+- [ ] Botão no **fim de qualquer aba** abre as regras
+- [ ] O menu também tem o acesso
 
 ---
 

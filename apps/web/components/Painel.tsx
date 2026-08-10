@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Movimento } from '../lib/dados'
 import { Detalhe } from './Detalhe'
 import { Evolucao } from './Evolucao'
+import { Identificacao } from './Identificacao'
 import { Menu, Regras, type Tema } from './Menu'
 import { brl, ord, setaCor, setaTxt, sinal } from './ui'
 
@@ -60,6 +61,10 @@ export function Painel(d: DadosPainel) {
   const [menu, setMenu] = useState(false)
   const [regras, setRegras] = useState(false)
   const [detalhe, setDetalhe] = useState<{ nome: string; tipo: 'classico' | 'posicao' } | null>(null)
+  // `pronto` evita que o diálogo de identificação pisque antes de sabermos se a
+  // pessoa já se identificou numa visita anterior.
+  const [pronto, setPronto] = useState(false)
+  const [visitante, setVisitante] = useState(false)
   const tabs = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -69,8 +74,11 @@ export function Painel(d: DadosPainel) {
       const t = document.documentElement.getAttribute('data-tema') as Tema | null
       if (t) setTema(t)
       setEu(localStorage.getItem('bolao:eu'))
+      setVisitante(localStorage.getItem('bolao:visitante') === '1')
     } catch {
       /* localStorage bloqueado — segue nos padrões */
+    } finally {
+      setPronto(true)
     }
   }, [])
 
@@ -95,7 +103,20 @@ export function Painel(d: DadosPainel) {
   const definirEu = useCallback((n: string | null) => {
     setEu(n)
     guardar('bolao:eu', n)
+    // Escolher "— ninguém —" no menu é uma decisão consciente, não a ausência
+    // de uma: sem marcar isso, o diálogo de primeira visita voltaria a
+    // aparecer no próximo carregamento.
+    setVisitante(!n)
+    guardar('bolao:visitante', n ? null : '1')
   }, [])
+
+  const marcarVisitante = useCallback(() => {
+    setVisitante(true)
+    guardar('bolao:visitante', '1')
+  }, [])
+
+  // Primeira visita: ninguém escolhido e ninguém declarou-se visitante.
+  const pedirIdentificacao = pronto && !eu && !visitante
 
   const q = busca.trim().toLowerCase()
   const linhasC = useMemo(
@@ -349,7 +370,42 @@ export function Painel(d: DadosPainel) {
         <section role="tabpanel" id="painel-evolucao" aria-labelledby="tab-evolucao" tabIndex={0} hidden={aba !== 'evolucao'}>
           {aba === 'evolucao' && <Evolucao eu={eu} />}
         </section>
+
+        {/* Acesso rápido às regras no fim de qualquer aba: quem rolou até aqui
+            provavelmente está tentando entender a pontuação. */}
+        <div style={{ padding: '24px var(--gutter) 0' }}>
+          <button
+            type="button"
+            onClick={() => setRegras(true)}
+            style={{
+              width: '100%',
+              minHeight: 52,
+              padding: '10px 16px',
+              border: '1px solid var(--line)',
+              borderRadius: 14,
+              background: 'var(--surf)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              fontSize: 15,
+              fontWeight: 600,
+            }}
+          >
+            <span style={{ flex: 1 }}>Regras do bolão {d.temporada}</span>
+            <span style={{ color: 'var(--ink-3)', fontWeight: 400 }}>
+              como a pontuação funciona →
+            </span>
+          </button>
+        </div>
       </main>
+
+      {pedirIdentificacao && (
+        <Identificacao
+          nomes={d.classico.map((l) => l.nome)}
+          onEscolher={(n) => definirEu(n)}
+          onVisitante={marcarVisitante}
+        />
+      )}
 
       {menu && (
         <Menu
