@@ -1,0 +1,53 @@
+# Infraestrutura local descartável.
+#
+# Espelha as imagens de produção (pgvector/pg17 e redis:8) para que o que
+# funciona aqui funcione lá. Em produção a app NÃO sobe banco nem cache —
+# conecta nas instâncias compartilhadas `banco` e `cache` do servidor.
+#
+# Portas propositalmente fora do padrão: 5432 e 6379 já estão ocupadas por
+# outros projetos nesta máquina.
+
+name: bolao-do-max-dev
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    container_name: bolao-dev-postgres
+    environment:
+      POSTGRES_USER: bolao
+      POSTGRES_PASSWORD: bolao_local
+      POSTGRES_DB: bolao
+      TZ: America/Sao_Paulo
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bolao -d bolao"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:8-alpine
+    container_name: bolao-dev-redis
+    command: >
+      redis-server
+      --requirepass bolao_local
+      --save 20 1
+      --loglevel warning
+    ports:
+      - "127.0.0.1:56379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "bolao_local", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:

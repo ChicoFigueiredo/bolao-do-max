@@ -1,0 +1,164 @@
+[
+  {
+    "fonte": "apifootball",
+    "nome": "America Mineiro",
+    "canonico": "América-MG",
+    "via": "manual"
+  },
+  {
+    "fonte": "apifootball",
+    "nome": "Atletico Paranaense",
+    "canonico": "Athletico-PR",
+    "via": "manual"
+  },
+  {
+    "fonte": "apifootball",
+    "nome": "Atletico Goianiense",
+    "canonico": "Atlético-GO",
+    "via": "manual"
+  },
+  {
+    "fonte": "apifootball",
+    "nome": "Atletico-MG",
+    "canonico": "Atlético-MG",
+    "via": "manual"
+  },
+  {
+    "fonte": "apifootball",
+    "nome": "RB Bragantino",
+    "canonico": "Bragantino",
+    "via": "manual"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Paranaense",
+    "canonico": "Athletico-PR",
+    "via": "sigla"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Mineiro",
+    "canonico": "Atlético-MG",
+    "via": "sigla"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Bahia",
+    "canonico": "Bahia",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Botafogo",
+    "canonico": "Botafogo",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Bragantino",
+    "canonico": "Bragantino",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Chapecoense",
+    "canonico": "Chapecoense",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Corinthians",
+    "canonico": "Corinthians",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Coritiba",
+    "canonico": "Coritiba",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Cruzeiro",
+    "canonico": "Cruzeiro",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Flamengo",
+    "canonico": "Flamengo",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Fluminense",
+    "canonico": "Fluminense",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Grêmio",
+    "canonico": "Grêmio",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Internacional",
+    "canonico": "Internacional",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Mirassol",
+    "canonico": "Mirassol",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Palmeiras",
+    "canonico": "Palmeiras",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Clube do Remo",
+    "canonico": "Remo",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Santos",
+    "canonico": "Santos",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Recife",
+    "canonico": "Sport",
+    "via": "manual"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Sport Recife",
+    "canonico": "Sport",
+    "via": "manual"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "São Paulo",
+    "canonico": "São Paulo",
+    "via": "nome"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Vasco da Gama",
+    "canonico": "Vasco",
+    "via": "sigla"
+  },
+  {
+    "fonte": "footballdata",
+    "nome": "Vitória",
+    "canonico": "Vitória",
+    "via": "nome"
+  }
+]
