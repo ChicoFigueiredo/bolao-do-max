@@ -144,18 +144,34 @@ export class ProvedorGE implements ProvedorEsportivo {
   }
 
   /**
-   * Percorre as rodadas até uma vir vazia — que é como o GE sinaliza o fim
-   * do campeonato (a rodada 39 devolve `[]`). O teto evita laço infinito se
-   * a fonte passar a responder outra coisa.
+   * Busca partidas rodada a rodada.
+   *
+   * Sem `rodadas`, percorre até uma vir vazia — que é como o GE sinaliza o
+   * fim do campeonato (a 39 devolve `[]`). Isso custa 38 requisições e é
+   * trabalho de sincronismo diário, **não de cada ciclo**: o worker passa a
+   * lista das rodadas que interessam agora, tipicamente duas ou três.
    */
-  async obterPartidas(temporada: number, _serie?: string, tetoRodadas = 60): Promise<PartidaFonte[]> {
+  async obterPartidas(
+    temporada: number,
+    _serie?: string,
+    opcoes: { rodadas?: number[]; tetoRodadas?: number } = {},
+  ): Promise<PartidaFonte[]> {
     const todas: PartidaFonte[] = []
+    const alvo = opcoes.rodadas
+    const teto = opcoes.tetoRodadas ?? 60
 
-    for (let rodada = 1; rodada <= tetoRodadas; rodada++) {
+    for (let i = 0; ; i++) {
+      const rodada = alvo ? alvo[i] : i + 1
+      if (rodada === undefined) break
+      if (!alvo && rodada > teto) break
+
       const url = montarUrl(this.cfg.PROVIDER_GE_URL_AGENDA, { temporada, rodada })
       const bruto = await buscarJson(url, this.opcoes)
       const jogos = validar(respostaJogos, bruto, `rodada ${rodada}`)
-      if (jogos.length === 0) break
+      if (jogos.length === 0) {
+        if (alvo) continue
+        break
+      }
 
       for (const j of jogos) {
         todas.push({

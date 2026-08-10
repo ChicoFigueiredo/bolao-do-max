@@ -19,7 +19,11 @@
     "web": "bun --bun --cwd apps/web run dev",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
-    "sync:partidas": "bun run apps/worker/src/cli/sincronizar.ts"
+    "sync:partidas": "bun run apps/worker/src/cli/sincronizar.ts",
+    "historico": "bun run apps/worker/src/cli/reconstruir-historico.ts",
+    "seeds:tabelas": "bun run packages/db/src/cli/gerar-tabelas-finais.ts",
+    "seeds:apostas": "bun run packages/db/src/cli/extrair-apostas.ts",
+    "seeds:alias": "bun run packages/db/src/cli/gerar-alias-clubes.ts"
   },
   "devDependencies": {
     "@types/bun": "^1.2.0",

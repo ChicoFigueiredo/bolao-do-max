@@ -25,17 +25,23 @@ export async function garantirTemporada(db: Banco, ano: number, serie: string): 
   )
 }
 
+/**
+ * @param rodadas quando informado, busca só essas rodadas. O calendário
+ *   completo custa 38 requisições e é sincronismo diário; o ciclo do worker
+ *   passa apenas a rodada corrente e as vizinhas.
+ */
 export async function sincronizarCalendario(
   db: Banco,
   cfg: Configuracao,
   provedor: ProvedorEsportivo,
   ano = cfg.TEMPORADA_ATUAL,
+  rodadas?: number[],
 ): Promise<ResultadoSincronismo & { total: number }> {
   if (!provedor.obterPartidas)
     throw new Error(`provedor ${provedor.nome} não sabe buscar partidas`)
 
   const temporadaId = await garantirTemporada(db, ano, cfg.SERIE)
-  const partidas = await provedor.obterPartidas(ano, cfg.SERIE)
+  const partidas = await provedor.obterPartidas(ano, cfg.SERIE, rodadas ? { rodadas } : {})
   const r = await sincronizarPartidas(db, temporadaId, ano, provedor.nome, partidas)
   return { ...r, total: partidas.length }
 }

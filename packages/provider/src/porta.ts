@@ -46,7 +46,11 @@ export interface ProvedorEsportivo {
   /** Requisições que a operação consome da cota. 0 = fonte sem cota. */
   custo(operacao: Capacidade, temporada: number): number
   obterClassificacao?(temporada: number, serie: string): Promise<LinhaClassificacaoFonte[]>
-  obterPartidas?(temporada: number, serie: string): Promise<PartidaFonte[]>
+  obterPartidas?(
+    temporada: number,
+    serie?: string,
+    opcoes?: { rodadas?: number[]; tetoRodadas?: number },
+  ): Promise<PartidaFonte[]>
 }
 
 // ── Erros tipados ────────────────────────────────────────────
