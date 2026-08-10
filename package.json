@@ -25,7 +25,8 @@
     "seeds:apostas": "bun run packages/db/src/cli/extrair-apostas.ts",
     "seeds:alias": "bun run packages/db/src/cli/gerar-alias-clubes.ts",
     "web:build": "bun run --filter '@bolao/web' build",
-    "web:start": "bun run --filter '@bolao/web' start"
+    "web:start": "bun run --filter '@bolao/web' start",
+    "snapshots:replay": "bun run apps/worker/src/cli/reconstruir-snapshots.ts"
   },
   "devDependencies": {
     "@types/bun": "^1.2.0",
