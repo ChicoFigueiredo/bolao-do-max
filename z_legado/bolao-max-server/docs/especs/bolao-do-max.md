@@ -612,7 +612,7 @@ Credenciais versionadas em texto claro em ambos os arquivos.
 docker compose -f bolao-max-server/localhost/docker-compose.yaml up -d
 
 # App
-cd bolao-max-server
+cd z_legado/bolao-max-server
 npm install
 PORT=3000 CACHE_URL=localhost CACHE_PORT=6399 \
 CACHE_PW=eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t82 npm start

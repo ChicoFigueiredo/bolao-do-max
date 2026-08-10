@@ -3,7 +3,7 @@
 Como subir a pilha nova em localhost e o que conferir.
 
 > **Nada em produção é tocado.** O bolão atual continua rodando em
-> `bolao.maxmat1.com.br` no servidor, intacto, e `bolao-max-server/` segue no
+> `bolao.maxmat1.com.br` no servidor, intacto, e `z_legado/bolao-max-server/` segue no
 > repositório sem uma linha alterada. Tudo aqui roda na sua máquina.
 
 Este roteiro foi percorrido inteiro, do banco vazio ao navegador, em 10/08/2026.

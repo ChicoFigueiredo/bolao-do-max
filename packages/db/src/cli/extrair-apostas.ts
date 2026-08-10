@@ -17,7 +17,7 @@
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const ORIGEM = 'bolao-max-server/json'
+const ORIGEM = 'z_legado/bolao-max-server/json'
 const DESTINO = 'seeds/apostas'
 
 type ClubeLegado = { Grupo: string; Clube: string; Coracao?: boolean }

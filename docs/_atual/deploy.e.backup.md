@@ -369,7 +369,7 @@ Aconteceu em 10/08/2026, nesta ordem:
 
 | | O que | Resultado |
 |---|---|---|
-| 1 | Dado do Redis antigo capturado para `infra/legado/` | 4 chaves, 112 KB, JSON válido com 30 competidores |
+| 1 | Dado do Redis antigo capturado para `z_legado/redis-final/` | 4 chaves, 112 KB, JSON válido com 30 competidores |
 | 2 | Cópia do vhost em `bolao.maxmat1.com.br.antes-da-virada-2026-08-10` | no servidor |
 | 3 | `upstream maxmat1` de 5001 para 5002 | `nginx -t` ok, reload |
 | 4 | **Bloco `location /` corrigido** | de 25 s para 0,3 s — ver abaixo |
@@ -413,9 +413,9 @@ O que garante que isso funciona, verificado em 10/08/2026 depois do `down`:
 | `node/bolao.maxmat1.com.br:latest` | no disco, 1,66 GB |
 | `redis:7.2-alpine3.18` | no disco |
 | `/opt/bolao-maxmat1/cache-redis/dump.rdb` | 18 KB, com `SAVE` final |
-| `/opt/bolao-maxmat1/bolao-max-server/` | 54 MB, código intacto |
+| `/opt/bolao-maxmat1/z_legado/bolao-max-server/` | 54 MB, código intacto |
 | Cópia do vhost | `.antes-da-virada-2026-08-10` |
-| `infra/legado/` | o Redis do antigo em JSON, versionado |
+| `z_legado/redis-final/` | o Redis do antigo em JSON, versionado |
 
 Custo do retorno: um reload de nginx (segundos) mais um `up -d` (o container
 sobe em segundos, e o Redis dele recarrega o `dump.rdb`).

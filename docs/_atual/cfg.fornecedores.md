@@ -268,4 +268,4 @@ Esse comando faz parte da entrega da Fase 6 e é o critério de verificação de
 - [ ] `bun run provider:doctor` com as três fontes concordando
 - [ ] `.env` de produção em `/opt/bolao-do-max/.env`, fora do git
 
-> Nenhuma chave entra no repositório. O projeto atual versiona credenciais de Redis em `app.js`, `docker-compose.yaml` e nos arquivos de instrução — esse padrão não se repete aqui.
+> Nenhuma chave entra no repositório. O projeto atual versiona credenciais de Redis em `app.js`, `z_legado/docker-compose.yaml` e nos arquivos de instrução — esse padrão não se repete aqui.

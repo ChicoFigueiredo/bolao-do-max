@@ -10,16 +10,16 @@ Este é um projeto pequeno e antigo de bolão do Brasileirão baseado em:
 - Redis como cache obrigatório
 - Scraping da tabela atual do Brasileirão
 
-O código principal fica em `bolao-max-server/`.
+O código principal fica em `z_legado/bolao-max-server/`.
 
 ## Primeiro lugar para olhar
 
 - `README.md`
-- `bolao-max-server/app.js`
-- `bolao-max-server/routes/index.js`
-- `bolao-max-server/helper/regras.bolao.js`
-- `bolao-max-server/atualiza-redis.js`
-- `docker-compose.yaml`
+- `z_legado/bolao-max-server/app.js`
+- `z_legado/bolao-max-server/routes/index.js`
+- `z_legado/bolao-max-server/helper/regras.bolao.js`
+- `z_legado/bolao-max-server/atualiza-redis.js`
+- `z_legado/docker-compose.yaml`
 
 ## Como pensar mudanças aqui
 
@@ -40,19 +40,19 @@ Sem Redis, o sistema fica incompleto.
 
 ## Arquivos que merecem cuidado extra
 
-### `bolao-max-server/json/bolao.json`
+### `z_legado/bolao-max-server/json/bolao.json`
 
 É a base de dados ativa do bolão. Mudanças aqui afetam a produção.
 
-### `bolao-max-server/helper/regras.bolao.js`
+### `z_legado/bolao-max-server/helper/regras.bolao.js`
 
 Contém desempates, cálculo de pontos e prêmios. Pequenas alterações mudam o ranking final.
 
-### `bolao-max-server/helper/campeonato-brasileiro-modificado-chico.js`
+### `z_legado/bolao-max-server/helper/campeonato-brasileiro-modificado-chico.js`
 
 Depende da estrutura HTML/JS de um site externo. Falhas podem não ser culpa do código local.
 
-### `rebuild-docker.sh`
+### `z_legado/rebuild-docker.sh`
 
 É destrutivo e faz `git reset --hard`. Não use sem autorização explícita.
 
@@ -61,7 +61,7 @@ Depende da estrutura HTML/JS de um site externo. Falhas podem não ser culpa do 
 ### App local
 
 ```bash
-cd bolao-max-server
+cd z_legado/bolao-max-server
 npm install
 PORT=3000 CACHE_URL=localhost CACHE_PORT=6399 CACHE_PW=eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t82 npm start
 ```
@@ -69,7 +69,7 @@ PORT=3000 CACHE_URL=localhost CACHE_PORT=6399 CACHE_PW=eYVX7EwVmmxKPC-DmwMtyKVge
 ### Redis local
 
 ```bash
-docker compose -f bolao-max-server/localhost/docker-compose.yaml up -d
+docker compose -f z_legado/bolao-max-server/localhost/docker-compose.yaml up -d
 ```
 
 ### Stack principal
@@ -83,8 +83,8 @@ docker compose up --build -d
 Há diferença entre configurações de Redis:
 
 - `app.js`: porta `6399`, senha final `82`
-- `docker-compose.yaml`: porta `6379`, senha final `81`
-- `bolao-max-server/localhost/docker-compose.yaml`: porta `6399`, senha final `82`
+- `z_legado/docker-compose.yaml`: porta `6379`, senha final `81`
+- `z_legado/bolao-max-server/localhost/docker-compose.yaml`: porta `6399`, senha final `82`
 
 Se a tarefa tocar em ambiente, deploy ou cache, confirme primeiro qual arquivo é a fonte de verdade.
 

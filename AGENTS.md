@@ -4,10 +4,10 @@
 
 Este repositório hospeda o **Bolão do Max**, um app Node.js/Express com views em Pug que mostra a classificação de um bolão do Brasileirão.
 
-- App principal: `bolao-max-server/`
-- Infra principal: `Dockerfile`, `docker-compose.yaml`, `apache/`
-- Dados do bolão em uso: `bolao-max-server/json/bolao.json`
-- Dados históricos: `bolao-max-server/json/bolao.<ano>.json` e planilhas `Bolao.<ano>.xlsx`
+- App principal: `z_legado/bolao-max-server/`
+- Infra principal: `Dockerfile`, `z_legado/docker-compose.yaml`, `apache/`
+- Dados do bolão em uso: `z_legado/bolao-max-server/json/bolao.json`
+- Dados históricos: `z_legado/bolao-max-server/json/bolao.<ano>.json` e planilhas `Bolao.<ano>.xlsx`
 
 O sistema depende de:
 
@@ -17,17 +17,17 @@ O sistema depende de:
 
 ## Estrutura importante
 
-- `bolao-max-server/app.js`: bootstrap do Express, conexão Redis e registro do job de atualização.
-- `bolao-max-server/routes/index.js`: rota `/` e endpoint `/resultados`.
-- `bolao-max-server/helper/regras.bolao.js`: cálculo de pontuação, ranking e prêmios.
-- `bolao-max-server/helper/campeonato-brasileiro-modificado-chico.js`: scraping da classificação atual.
-- `bolao-max-server/views/index.pug`: interface principal.
-- `bolao-max-server/public/`: CSS e JS simples, sem bundler.
+- `z_legado/bolao-max-server/app.js`: bootstrap do Express, conexão Redis e registro do job de atualização.
+- `z_legado/bolao-max-server/routes/index.js`: rota `/` e endpoint `/resultados`.
+- `z_legado/bolao-max-server/helper/regras.bolao.js`: cálculo de pontuação, ranking e prêmios.
+- `z_legado/bolao-max-server/helper/campeonato-brasileiro-modificado-chico.js`: scraping da classificação atual.
+- `z_legado/bolao-max-server/views/index.pug`: interface principal.
+- `z_legado/bolao-max-server/public/`: CSS e JS simples, sem bundler.
 
 ## Como trabalhar neste projeto
 
 - Leia primeiro `README.md` e este arquivo antes de editar.
-- Trate `bolao-max-server/` como a aplicação real. O `package.json` da raiz não define scripts úteis.
+- Trate `z_legado/bolao-max-server/` como a aplicação real. O `package.json` da raiz não define scripts úteis.
 - Prefira mudanças pequenas e localizadas. O projeto é simples e acoplado.
 - Preserve compatibilidade com CommonJS e Node 14, que é a base do `Dockerfile`.
 - Não introduza TypeScript, bundlers ou refactors grandes sem pedido explícito.
@@ -37,14 +37,14 @@ O sistema depende de:
 ### Instalar dependências do app
 
 ```bash
-cd bolao-max-server
+cd z_legado/bolao-max-server
 npm install
 ```
 
 ### Subir Redis local isolado
 
 ```bash
-docker compose -f bolao-max-server/localhost/docker-compose.yaml up -d
+docker compose -f z_legado/bolao-max-server/localhost/docker-compose.yaml up -d
 ```
 
 ### Subir stack principal
@@ -58,7 +58,7 @@ docker compose up --build -d
 Defina as variáveis explicitamente. Não confie nos defaults sem checar o alvo:
 
 ```bash
-cd bolao-max-server
+cd z_legado/bolao-max-server
 PORT=3000 \
 CACHE_URL=localhost \
 CACHE_PORT=6399 \
@@ -73,14 +73,14 @@ npm start
 Há divergências entre os defaults e os arquivos de compose:
 
 - `app.js` usa fallback `CACHE_PORT=6399` e senha terminando em `82`.
-- `docker-compose.yaml` principal usa porta `6379` e senha terminando em `81`.
-- `bolao-max-server/localhost/docker-compose.yaml` expõe `6399` e senha terminando em `82`.
+- `z_legado/docker-compose.yaml` principal usa porta `6379` e senha terminando em `81`.
+- `z_legado/bolao-max-server/localhost/docker-compose.yaml` expõe `6399` e senha terminando em `82`.
 
 Antes de corrigir ou padronizar isso, confirme com o usuário qual ambiente é a referência.
 
 ### Script destrutivo
 
-`rebuild-docker.sh` executa:
+`z_legado/rebuild-docker.sh` executa:
 
 - `git reset --hard origin/master`
 - `docker system prune -f`
@@ -103,7 +103,7 @@ O cálculo depende do HTML atual do Globo Esporte. Mudanças na página podem qu
 
 ### Dados anuais
 
-O código em produção lê `bolao-max-server/json/bolao.json`.
+O código em produção lê `z_legado/bolao-max-server/json/bolao.json`.
 
 - Arquivos `bolao.<ano>.json` funcionam como histórico ou apoio.
 - Ao atualizar o bolão de um ano novo, confirme com o usuário se `bolao.json` também deve ser sincronizado.
@@ -136,6 +136,6 @@ Este repositório não tem suíte de testes automatizada. Sempre que possível:
 
 1. A mudança respeita Node 14 e CommonJS.
 2. Redis continua atendendo o fluxo esperado.
-3. `bolao-max-server/json/bolao.json` continua íntegro.
+3. `z_legado/bolao-max-server/json/bolao.json` continua íntegro.
 4. Nenhum script destrutivo foi usado.
 5. O usuário recebeu aviso claro se houver risco em deploy, dados anuais ou credenciais.

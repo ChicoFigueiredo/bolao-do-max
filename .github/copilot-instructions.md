@@ -4,7 +4,7 @@
 
 This repository contains a small Node.js/Express application for the "Bolao do Max" Brasileirao pool.
 
-- Main app directory: `bolao-max-server/`
+- Main app directory: `z_legado/bolao-max-server/`
 - Runtime: Node 14, CommonJS
 - Views: Pug
 - Frontend: static CSS and vanilla JS
@@ -12,12 +12,12 @@ This repository contains a small Node.js/Express application for the "Bolao do M
 
 ## Key files
 
-- `bolao-max-server/app.js`: Express bootstrap and Redis connection
-- `bolao-max-server/routes/index.js`: `/` and `/resultados`
-- `bolao-max-server/atualiza-redis.js`: cron-based cache refresh
-- `bolao-max-server/helper/regras.bolao.js`: scoring, ranking, tiebreakers, prizes
-- `bolao-max-server/helper/campeonato-brasileiro-modificado-chico.js`: external scraping
-- `bolao-max-server/json/bolao.json`: active pool data
+- `z_legado/bolao-max-server/app.js`: Express bootstrap and Redis connection
+- `z_legado/bolao-max-server/routes/index.js`: `/` and `/resultados`
+- `z_legado/bolao-max-server/atualiza-redis.js`: cron-based cache refresh
+- `z_legado/bolao-max-server/helper/regras.bolao.js`: scoring, ranking, tiebreakers, prizes
+- `z_legado/bolao-max-server/helper/campeonato-brasileiro-modificado-chico.js`: external scraping
+- `z_legado/bolao-max-server/json/bolao.json`: active pool data
 
 ## Coding expectations
 
@@ -25,15 +25,15 @@ This repository contains a small Node.js/Express application for the "Bolao do M
 - Preserve CommonJS module style.
 - Do not introduce TypeScript, build tools, or framework migrations unless explicitly requested.
 - Avoid broad reformatting in legacy files.
-- Treat `bolao-max-server/json/bolao.json` as production data.
+- Treat `z_legado/bolao-max-server/json/bolao.json` as production data.
 
 ## Redis and environment caveat
 
 There is a real configuration mismatch across the repo:
 
 - `app.js` fallback uses port `6399` and password ending in `82`
-- root `docker-compose.yaml` uses port `6379` and password ending in `81`
-- `bolao-max-server/localhost/docker-compose.yaml` uses port `6399` and password ending in `82`
+- root `z_legado/docker-compose.yaml` uses port `6379` and password ending in `81`
+- `z_legado/bolao-max-server/localhost/docker-compose.yaml` uses port `6399` and password ending in `82`
 
 Do not auto-normalize these values without confirming the target environment.
 
@@ -46,6 +46,6 @@ Do not auto-normalize these values without confirming the target environment.
 
 ## Safety constraints
 
-- Never use or suggest `rebuild-docker.sh` casually; it runs `git reset --hard` and prunes Docker data.
+- Never use or suggest `z_legado/rebuild-docker.sh` casually; it runs `git reset --hard` and prunes Docker data.
 - Do not add new secrets to the repository.
-- Do not rename or replace `bolao-max-server/json/bolao.json` without updating the full data flow.
+- Do not rename or replace `z_legado/bolao-max-server/json/bolao.json` without updating the full data flow.

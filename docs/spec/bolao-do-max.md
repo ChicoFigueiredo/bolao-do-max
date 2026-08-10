@@ -4,7 +4,7 @@ Especificação funcional e técnica do sistema em produção em https://bolao.m
 
 | | |
 |---|---|
-| **Aplicação** | `bolao-max-server` |
+| **Aplicação** | `z_legado/bolao-max-server` |
 | **Domínio** | bolao.maxmat1.com.br |
 | **Temporada ativa** | Brasileirão Série A 2026 |
 | **Competidores** | 30 |
@@ -80,7 +80,7 @@ Não há bundler, transpilador, TypeScript, testes automatizados nem linter. Tod
 
 ## 3. Ingestão de dados externos
 
-**Arquivo:** [`helper/campeonato-brasileiro-modificado-chico.js`](../../bolao-max-server/helper/campeonato-brasileiro-modificado-chico.js)
+**Arquivo:** [`helper/campeonato-brasileiro-modificado-chico.js`](../../z_legado/bolao-max-server/helper/campeonato-brasileiro-modificado-chico.js)
 
 Monkey-patch sobre o pacote npm `campeonato-brasileiro`, substituindo o método `tabela(serie)`.
 
@@ -89,7 +89,7 @@ Monkey-patch sobre o pacote npm `campeonato-brasileiro`, substituindo o método 
 3. `JSON.parse` do grupo capturado e leitura de `.classificacao`.
 4. Mapeia cada clube para o formato interno.
 
-A série é fixada em `'a'` em [`atualiza-redis.js:5`](../../bolao-max-server/atualiza-redis.js#L5) e [`routes/index.js:9`](../../bolao-max-server/routes/index.js#L9).
+A série é fixada em `'a'` em [`atualiza-redis.js:5`](../../z_legado/bolao-max-server/atualiza-redis.js#L5) e [`routes/index.js:9`](../../z_legado/bolao-max-server/routes/index.js#L9).
 
 ### Formato de cada clube após o mapeamento
 
@@ -106,14 +106,14 @@ A série é fixada em `'a'` em [`atualiza-redis.js:5`](../../bolao-max-server/at
 | `saldoGols` | `saldo_gols` | number |
 | `percentual` | `aproveitamento` | number |
 
-A `posicao` **não** vem da fonte: é atribuída em [`regras.bolao.js:5-6`](../../bolao-max-server/helper/regras.bolao.js#L5-L6) pela ordem do array recebido (1 a 20).
+A `posicao` **não** vem da fonte: é atribuída em [`regras.bolao.js:5-6`](../../z_legado/bolao-max-server/helper/regras.bolao.js#L5-L6) pela ordem do array recebido (1 a 20).
 
 ### Fragilidades da ingestão
 
 - Depende de o Globo Esporte embutir `const classificacao = {...};` no HTML. Qualquer mudança de front-end quebra o scraping.
 - O casamento entre aposta e clube é por **string exata** de `nome_popular` (`t.Clube === posicaoAtual.nome`). Uma renomeação na fonte (ex.: "Athletico-PR" → "Athletico Paranaense") zera silenciosamente os pontos daquele clube.
 - Falhas são engolidas: quando a regex não casa, a Promise **nunca resolve nem rejeita** — fica pendente para sempre e o cache simplesmente não é atualizado, mantendo o valor antigo sem nenhum aviso na tela.
-- No branch de erro do `request`, a variável `error` do callback sombreia o `error` do `reject` da Promise ([linhas 13 e 42](../../bolao-max-server/helper/campeonato-brasileiro-modificado-chico.js#L42)) — a chamada `error({...})` invoca o objeto de erro, não o reject, lançando `TypeError`.
+- No branch de erro do `request`, a variável `error` do callback sombreia o `error` do `reject` da Promise ([linhas 13 e 42](../../z_legado/bolao-max-server/helper/campeonato-brasileiro-modificado-chico.js#L42)) — a chamada `error({...})` invoca o objeto de erro, não o reject, lançando `TypeError`.
 
 ---
 
@@ -182,7 +182,7 @@ Os grupos são dados, não código — vivem apenas dentro de `bolao.json`. Não
 }
 ```
 
-> **`BolaoNovo` compartilha as referências de objeto com `Competidores`** ([`regras.bolao.js:102`](../../bolao-max-server/helper/regras.bolao.js#L102) usa `.slice(0)`, cópia rasa). Os dois arrays são ordenações distintas do mesmo conjunto de objetos. Consequência: cada competidor carrega simultaneamente os campos dos dois bolões, e o JSON serializa cada objeto **duas vezes** — o que responde por boa parte dos 112 KB do payload.
+> **`BolaoNovo` compartilha as referências de objeto com `Competidores`** ([`regras.bolao.js:102`](../../z_legado/bolao-max-server/helper/regras.bolao.js#L102) usa `.slice(0)`, cópia rasa). Os dois arrays são ordenações distintas do mesmo conjunto de objetos. Consequência: cada competidor carrega simultaneamente os campos dos dois bolões, e o JSON serializa cada objeto **duas vezes** — o que responde por boa parte dos 112 KB do payload.
 
 ### 4.4 Campos calculados por competidor
 
@@ -218,7 +218,7 @@ Os grupos são dados, não código — vivem apenas dentro de `bolao.json`. Não
 
 ## 5. Regras de negócio — Bolão Clássico
 
-**Arquivo:** [`helper/regras.bolao.js:12-99`](../../bolao-max-server/helper/regras.bolao.js#L12-L99)
+**Arquivo:** [`helper/regras.bolao.js:12-99`](../../z_legado/bolao-max-server/helper/regras.bolao.js#L12-L99)
 
 ### 5.1 Pontuação
 
@@ -240,7 +240,7 @@ Exemplo real (Alan, líder em 09/08/2026):
 
 ### 5.2 Critérios de desempate
 
-Aplicados em cascata ([`regras.bolao.js:81-93`](../../bolao-max-server/helper/regras.bolao.js#L81-L93)):
+Aplicados em cascata ([`regras.bolao.js:81-93`](../../z_legado/bolao-max-server/helper/regras.bolao.js#L81-L93)):
 
 1. **Pontos** (maior primeiro)
 2. **Saldo de gols** somado dos 4 clubes (maior primeiro)
@@ -266,7 +266,7 @@ A última posição é detectada por `pos == bolao.Competidores.length` — acom
 
 ## 6. Regras de negócio — Bolão por Posição
 
-**Arquivo:** [`helper/regras.bolao.js:42-77, 101-134`](../../bolao-max-server/helper/regras.bolao.js#L42-L134)
+**Arquivo:** [`helper/regras.bolao.js:42-77, 101-134`](../../z_legado/bolao-max-server/helper/regras.bolao.js#L42-L134)
 
 Cada apostador crava 8 palpites: os 4 primeiros colocados (G4, posições 1–4) e os 4 últimos (Z4, posições 17–20), **com a posição exata de cada um**.
 
@@ -311,7 +311,7 @@ Prêmio único de **R$ 1.000,00** para o 1º lugar, dividido igualmente em caso 
 PremioG4Z4 = 'R$ ' + (1000 / dividirPremio).toFixed(2)
 ```
 
-O contador `dividirPremio` ([linhas 114-130](../../bolao-max-server/helper/regras.bolao.js#L114-L130)) percorre o ranking e incrementa enquanto os pontos continuarem iguais aos do líder; ao encontrar o primeiro valor diferente, marca `pontosAnterior = -1` para travar novos empates. Todos os empatados recebem `PosicaoG4Z4 = 1`.
+O contador `dividirPremio` ([linhas 114-130](../../z_legado/bolao-max-server/helper/regras.bolao.js#L114-L130)) percorre o ranking e incrementa enquanto os pontos continuarem iguais aos do líder; ao encontrar o primeiro valor diferente, marca `pontosAnterior = -1` para travar novos empates. Todos os empatados recebem `PosicaoG4Z4 = 1`.
 
 **Limitações:**
 - Só empates **na 1ª posição** são colapsados. Empates em qualquer outra posição são exibidos como posições distintas. Exemplo real de 09/08/2026: Alan e Chico têm ambos 16 pontos e aparecem como 2º e 3º; Gilson e Daiane têm ambos 14 e aparecem como 4º e 5º.
@@ -337,7 +337,7 @@ Renato, líder do Bolão por Posição em 09/08/2026 com **17 pontos**:
 
 ## 7. Interface
 
-**Arquivos:** [`views/layout.pug`](../../bolao-max-server/views/layout.pug), [`views/index.pug`](../../bolao-max-server/views/index.pug), [`public/stylesheets/`](../../bolao-max-server/public/stylesheets/), [`public/javascripts/bolao.js`](../../bolao-max-server/public/javascripts/bolao.js)
+**Arquivos:** [`views/layout.pug`](../../z_legado/bolao-max-server/views/layout.pug), [`views/index.pug`](../../z_legado/bolao-max-server/views/index.pug), [`public/stylesheets/`](../../z_legado/bolao-max-server/public/stylesheets/), [`public/javascripts/bolao.js`](../../z_legado/bolao-max-server/public/javascripts/bolao.js)
 
 Página única, server-rendered, sem navegação. Estrutura vertical:
 
@@ -390,7 +390,7 @@ A ordem dos itens segue a ordem do array `PalpitesPosicao`, filtrada por `posica
 
 **Toda linha das duas tabelas é clicável.** Não há indicação visual disso além de `cursor: pointer` e, no desktop, realce amarelo no hover. O clique dispara um `alert()` nativo do navegador com o detalhamento da pontuação.
 
-O wiring é feito por atributo `onclick` inline gerado no servidor, com o objeto inteiro do competidor serializado via `JSON.stringify` dentro do HTML ([`index.pug:26`](../../bolao-max-server/views/index.pug#L26) e [`index.pug:52`](../../bolao-max-server/views/index.pug#L52)).
+O wiring é feito por atributo `onclick` inline gerado no servidor, com o objeto inteiro do competidor serializado via `JSON.stringify` dentro do HTML ([`index.pug:26`](../../z_legado/bolao-max-server/views/index.pug#L26) e [`index.pug:52`](../../z_legado/bolao-max-server/views/index.pug#L52)).
 
 **Clique na tabela do Clássico** → `demonstrativo(competidor)`. Saída real (Alan, 1º lugar):
 
@@ -432,7 +432,7 @@ O detalhe do Clássico mostra pontos, saldo de gols e jogos por clube — **não
 
 ### 7.4 Estratégia responsiva
 
-Não há CSS responsivo. A escolha da folha de estilo é feita **no servidor**, por detecção de user-agent ([`routes/index.js:14`](../../bolao-max-server/routes/index.js#L14) com o pacote `browser-detect`, consumido em [`index.pug:5`](../../bolao-max-server/views/index.pug#L5)):
+Não há CSS responsivo. A escolha da folha de estilo é feita **no servidor**, por detecção de user-agent ([`routes/index.js:14`](../../z_legado/bolao-max-server/routes/index.js#L14) com o pacote `browser-detect`, consumido em [`index.pug:5`](../../z_legado/bolao-max-server/views/index.pug#L5)):
 
 ```pug
 link(rel='stylesheet', href= brw.mobile ? '/stylesheets/style.mob.css' : '/stylesheets/style.css')
@@ -468,7 +468,7 @@ Classes efetivamente definidas: `.centro`, `.direita`, `.vermelho`, `.coracao`, 
 
 O handler de erro renderiza `message`, `status` e **`error.stack`** — o stack trace só é preenchido quando `NODE_ENV=development`; em produção o `<pre>` sai vazio.
 
-`res.send(500)` em [`routes/index.js:21`](../../bolao-max-server/routes/index.js#L21) funciona — no Express 4.16 a forma numérica ainda define `statusCode = 500` e envia `Internal Server Error` como corpo —, mas está **depreciada** e emite aviso a cada chamada. A forma atual é `res.sendStatus(500)`. Em Express 5 esse comportamento muda: o número passa a ser tratado como corpo.
+`res.send(500)` em [`routes/index.js:21`](../../z_legado/bolao-max-server/routes/index.js#L21) funciona — no Express 4.16 a forma numérica ainda define `statusCode = 500` e envia `Internal Server Error` como corpo —, mas está **depreciada** e emite aviso a cada chamada. A forma atual é `res.sendStatus(500)`. Em Express 5 esse comportamento muda: o número passa a ser tratado como corpo.
 
 Já `/resultados` responde a falha de cache com **status 200** e corpo `{ msg: 'Cache com erro!' }`, o que impede qualquer consumidor de distinguir erro de sucesso pelo status.
 
@@ -487,7 +487,7 @@ Já `/resultados` responde a falha de cache com **status 200** e corpo `{ msg: '
 
 ## 9. Cache e atualização
 
-**Arquivo:** [`atualiza-redis.js`](../../bolao-max-server/atualiza-redis.js)
+**Arquivo:** [`atualiza-redis.js`](../../z_legado/bolao-max-server/atualiza-redis.js)
 
 ### 9.1 Chaves Redis
 
@@ -528,8 +528,8 @@ Levantados na leitura do código e confirmados contra a produção em 09/08/2026
 
 | | 2º lugar | 3º lugar |
 |---|---|---|
-| Texto exibido — [`index.pug:85`](../../bolao-max-server/views/index.pug#L85) | R$ 650,00 | R$ 350,00 |
-| Coluna "Prêmio" — [`regras.bolao.js:98`](../../bolao-max-server/helper/regras.bolao.js#L98) | R$ 600,00 | R$ 300,00 |
+| Texto exibido — [`index.pug:85`](../../z_legado/bolao-max-server/views/index.pug#L85) | R$ 650,00 | R$ 350,00 |
+| Coluna "Prêmio" — [`regras.bolao.js:98`](../../z_legado/bolao-max-server/helper/regras.bolao.js#L98) | R$ 600,00 | R$ 300,00 |
 
 Confirmado em produção: Chamon (2º) exibe R$ 600,00 e Max (3º) exibe R$ 300,00, logo acima de um texto que promete R$ 650,00 e R$ 350,00.
 
@@ -559,7 +559,7 @@ Se a regex não casar, a Promise fica pendente indefinidamente. O cache mantém 
 
 ### 10.6 Race condition no boot
 
-[`app.js:92`](../../bolao-max-server/app.js#L92) chama `atualiza_redis(app)` de forma síncrona no carregamento do módulo, enquanto a conexão Redis é estabelecida numa IIFE assíncrona ([`app.js:39-61`](../../bolao-max-server/app.js#L39-L61)). A primeira tentativa de atualização pode ocorrer antes de o client estar conectado.
+[`app.js:92`](../../z_legado/bolao-max-server/app.js#L92) chama `atualiza_redis(app)` de forma síncrona no carregamento do módulo, enquanto a conexão Redis é estabelecida numa IIFE assíncrona ([`app.js:39-61`](../../z_legado/bolao-max-server/app.js#L39-L61)). A primeira tentativa de atualização pode ocorrer antes de o client estar conectado.
 
 ### 10.7 Estado global mutável compartilhado
 
@@ -576,8 +576,8 @@ O `README.md` e o diretório `apache/` documentam deploy via Apache com `mod_pro
 | Origem | Porta | Senha (final) |
 |---|---|---|
 | `app.js` (fallback) | 6399 | ...82 |
-| `docker-compose.yaml` | 6379 | ...81 |
-| `bolao-max-server/localhost/docker-compose.yaml` | 6399 | ...82 |
+| `z_legado/docker-compose.yaml` | 6379 | ...81 |
+| `z_legado/bolao-max-server/localhost/docker-compose.yaml` | 6399 | ...82 |
 
 Credenciais versionadas em texto claro em ambos os arquivos.
 
@@ -585,7 +585,7 @@ Credenciais versionadas em texto claro em ambos os arquivos.
 
 - `views/bolao.pug` é uma versão antiga e órfã da tabela do Clássico — nenhuma rota a renderiza. Usa `++i` sobre uma global implícita para numerar as linhas.
 - `Dockerfile` roda `npm install` e depois `npm ci --only=production`, duplicando a instalação. Tem dois `CMD` — só o último vale; o primeiro (`cd /home/node/app/`) é inócuo.
-- `docker-compose.yaml` monta `./app-build:/usr/src/app` e define `working_dir: /usr/src/app`, mas o `Dockerfile` instala em `/home/node/app` e o `CMD` usa caminho absoluto — o volume e o working_dir não afetam a execução.
+- `z_legado/docker-compose.yaml` monta `./app-build:/usr/src/app` e define `working_dir: /usr/src/app`, mas o `Dockerfile` instala em `/home/node/app` e o `CMD` usa caminho absoluto — o volume e o working_dir não afetam a execução.
 - O pacote `request` está deprecado desde 2020.
 - Node 14 está fora de suporte desde abril de 2023.
 
@@ -609,10 +609,10 @@ Credenciais versionadas em texto claro em ambos os arquivos.
 
 ```bash
 # Redis isolado
-docker compose -f bolao-max-server/localhost/docker-compose.yaml up -d
+docker compose -f z_legado/bolao-max-server/localhost/docker-compose.yaml up -d
 
 # App
-cd bolao-max-server
+cd z_legado/bolao-max-server
 npm install
 PORT=3000 CACHE_URL=localhost CACHE_PORT=6399 \
 CACHE_PW=eYVX7EwVmmxKPC-DmwMtyKVge8oLd2t82 npm start

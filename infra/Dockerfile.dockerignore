@@ -22,10 +22,7 @@ apps/web/.next
 **/*.tsbuildinfo
 
 # O sistema atual não entra na imagem nova.
-bolao-max-server
-apache
-azure
-doc
+z_legado
 docs
 
 # Infraestrutura e segredo nunca viajam dentro da imagem.

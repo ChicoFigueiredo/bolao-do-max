@@ -33,7 +33,7 @@ Três ganhos que a arquitetura atual não consegue entregar:
 | Estratégia de corte | Paralelo, imagens separadas, dado novo | Domínio provisório `bolao-novo.maxmat1.com.br`; rollback = não fazer nada |
 | Histórico | Apostas importadas + tabelas finais como seed | Recálculo com as regras da época. As tabelas finais de **2022–2025** saem das APIs; **2018–2021 não tem fonte gratuita** (§6.5) |
 | ORM | **Drizzle** | Nativo de Bun, SQL explícito, sem engine binário — importa numa máquina de 3,8 GB |
-| Repositório | Monorepo **dentro da repo atual** | `bolao-max-server/` permanece intacto; histórico do git contínuo |
+| Repositório | Monorepo **dentro da repo atual** | `z_legado/bolao-max-server/` permanece intacto; histórico do git contínuo |
 
 ## 3. Ambiente de destino
 
@@ -113,7 +113,7 @@ A classificação de provedor continua sendo ingerida, mas como **conferência**
 
 ```
 bolao.maxmat1.com.br/
-├─ bolao-max-server/          ← INTOCADO, continua em produção
+├─ z_legado/bolao-max-server/          ← INTOCADO, continua em produção
 ├─ apps/
 │  ├─ web/                    Next.js App Router, sob Bun
 │  └─ worker/                 Bun: cron, ingestão, cálculo, snapshots
@@ -505,7 +505,7 @@ Ordem de valor: **2 → 5** é o coração. Um motor de regras que reproduz a pr
 
 ## 14. O que não será feito
 
-- Descartar `bolao-max-server/` — permanece no repositório e em produção até ordem explícita
+- Descartar `z_legado/bolao-max-server/` — permanece no repositório e em produção até ordem explícita
 - Parar ou alterar qualquer container existente no servidor
 - Provisionar Postgres ou Redis novos — os compartilhados já existem
 - Alterar as regras do bolão sem decisão registrada

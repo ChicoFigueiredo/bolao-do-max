@@ -30,5 +30,5 @@
     }
   },
   "include": ["apps/worker/**/*.ts", "packages/**/*.ts", "infra/bin/**/*.ts"],
-  "exclude": ["node_modules", "bolao-max-server", "apps/web", "**/dist", "**/.next"]
+  "exclude": ["node_modules", "z_legado", "apps/web", "**/dist", "**/.next"]
 }
