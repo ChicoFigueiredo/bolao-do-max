@@ -59,6 +59,13 @@ services:
     working_dir: /app
     command: ["bun", "run", "apps/worker/src/index.ts"]
     mem_limit: ${BOLAO_MEM_WORKER}
+    # Desligado de propósito. A imagem é uma só para os dois serviços, e o
+    # HEALTHCHECK dela pede uma resposta HTTP — que o worker não serve. Herdado,
+    # ele falharia para sempre e marcaria como doente justamente o container que
+    # está trabalhando: sinal quebrado é pior que sinal nenhum. Se o worker
+    # morrer, `restart: unless-stopped` cuida.
+    healthcheck:
+      disable: true
     # O worker trata SIGTERM: fecha o ciclo, encerra Redis e banco. Vale
     # esperar em vez de matar no meio de uma transação.
     stop_grace_period: 30s
