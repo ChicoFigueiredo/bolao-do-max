@@ -4,6 +4,7 @@ import postgres from 'postgres'
 import { esquema } from './schema.ts'
 
 export * from './schema.ts'
+export * from './repositorio/index.ts'
 export { esquema }
 
 export type Banco = ReturnType<typeof abrirBanco>['db']

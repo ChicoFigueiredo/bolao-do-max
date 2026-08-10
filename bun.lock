@@ -11,6 +11,17 @@
         "typescript": "^5.7.3",
       },
     },
+    "apps/worker": {
+      "name": "@bolao/worker",
+      "version": "0.1.0",
+      "dependencies": {
+        "@bolao/config": "workspace:*",
+        "@bolao/db": "workspace:*",
+        "@bolao/dominio": "workspace:*",
+        "@bolao/provider": "workspace:*",
+        "@bolao/regras": "workspace:*",
+      },
+    },
     "packages/config": {
       "name": "@bolao/config",
       "version": "0.1.0",
@@ -60,6 +71,8 @@
     "@bolao/provider": ["@bolao/provider@workspace:packages/provider"],
 
     "@bolao/regras": ["@bolao/regras@workspace:packages/regras"],
+
+    "@bolao/worker": ["@bolao/worker@workspace:apps/worker"],
 
     "@drizzle-team/brocli": ["@drizzle-team/brocli@0.10.2", "", {}, "sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w=="],
 

@@ -18,7 +18,8 @@
     "worker:ciclo": "bun run apps/worker/src/cli/ciclo.ts",
     "web": "bun --bun --cwd apps/web run dev",
     "test": "bun test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sync:partidas": "bun run apps/worker/src/cli/sincronizar.ts"
   },
   "devDependencies": {
     "@types/bun": "^1.2.0",
