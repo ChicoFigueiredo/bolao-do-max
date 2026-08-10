@@ -8,8 +8,46 @@ Template pronto: [`.env.example`](../../.env.example) na raiz do repositório.
 | Fonte | Papel | Cadastro | Cartão de crédito | Custo |
 |---|---|---|---|---|
 | **GE** `api.globoesporte.globo.com` | Primária, alta frequência | não tem | não | zero |
-| **API-Football** (API-Sports) | Conferência e fallback | necessário | **não** | zero no free tier |
-| **football-data.org** | Desempate e calendário | necessário | não | zero no free tier |
+| **football-data.org** | **Conferência da temporada corrente** | necessário | não | zero no free tier |
+| **API-Football** (API-Sports) | Histórico de 2022–2024 apenas | necessário | **não** | zero no free tier |
+
+## 0. Cobertura real do free tier
+
+> Medido chamando cada API em 09/08/2026. **Difere do que a pesquisa indicava** —
+> a documentação promete mais do que o plano gratuito entrega.
+
+| Temporada | GE | API-Football | football-data |
+|---|---|---|---|
+| 2018–2021 | ✗ | ✗ | ✗ |
+| 2022 | ✗ | ✓ | ✗ |
+| 2023 | ✗ | ✓ | ✓ |
+| 2024 | ✗ | ✓ | ✓ |
+| 2025 | ✗ | ✗ | ✓ |
+| **2026 (corrente)** | **✓** | **✗** | **✓** |
+
+Três consequências:
+
+1. **A API-Football não serve de conferência ao vivo.** O plano gratuito responde
+   literalmente *"Free plans do not have access to this season, try from 2022 to
+   2024"* para 2025 e 2026. O papel de conferência da temporada corrente é da
+   **football-data.org**.
+2. **O GE só serve a temporada corrente.** O UUID `d1a37fa4-…` devolve 404 para
+   qualquer ano anterior, tanto em `/classificacao/` quanto em `/jogos/`.
+3. **2018–2021 não tem nenhuma fonte gratuita.** A reconstrução histórica
+   automática alcança 2022–2025; as quatro temporadas anteriores exigem curadoria
+   manual ou plano pago.
+
+### Ordenação: football-data usa critério europeu
+
+Ela desempata por **saldo de gols** antes de vitórias; o Brasileirão desempata por
+**vitórias** primeiro. Times empatados em pontos saem em ordem diferente sem que
+ninguém erre os números.
+
+Verificado em 09/08/2026 — Cruzeiro e Bahia com 33 pontos (9 × 8 vitórias) e
+Mirassol e Internacional com 23 (6 × 5). Por isso a reconciliação separa
+divergência de **estatística** (problema real) de divergência de **ordenação**
+(convenção). As estatísticas da football-data conferem; a ordenação dela não deve
+ser adotada.
 
 ---
 

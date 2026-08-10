@@ -31,7 +31,7 @@ Três ganhos que a arquitetura atual não consegue entregar:
 | Redis compartilhado | Já existe: `cache`, redis:8-alpine | App nunca sobe Redis próprio em produção; chaves sob prefixo |
 | PostgreSQL | Já existe: `banco`, pgvector/pg17, **vazio** | Database e role próprios; migrations nunca saem do schema do bolão |
 | Estratégia de corte | Paralelo, imagens separadas, dado novo | Domínio provisório `bolao-novo.maxmat1.com.br`; rollback = não fazer nada |
-| Histórico | Apostas importadas + tabelas finais como seed | Recálculo de todas as temporadas com as regras da época. **As tabelas finais vêm da API-Football, que cobre 2010–2026** — 8 requisições, sem curadoria manual |
+| Histórico | Apostas importadas + tabelas finais como seed | Recálculo com as regras da época. As tabelas finais de **2022–2025** saem das APIs; **2018–2021 não tem fonte gratuita** (§6.5) |
 | ORM | **Drizzle** | Nativo de Bun, SQL explícito, sem engine binário — importa numa máquina de 3,8 GB |
 | Repositório | Monorepo **dentro da repo atual** | `bolao-max-server/` permanece intacto; histórico do git contínuo |
 
@@ -294,11 +294,23 @@ Levantamento consolidado em *APIs Para Jogos Do Brasileirão* (pesquisa fornecid
 
 ### Papéis escolhidos
 
+> **Corrigido em 09/08/2026 após medir cada API.** O free tier entrega menos do
+> que a documentação promete. A tabela abaixo reflete o que foi verificado, não
+> o que foi prometido. Detalhe em [`docs/_atual/cfg.fornecedores.md`](../_atual/cfg.fornecedores.md) §0.
+
+| Temporada | GE | API-Football | football-data |
+|---|---|---|---|
+| 2018–2021 | ✗ | ✗ | ✗ |
+| 2022 | ✗ | ✓ | ✗ |
+| 2023–2024 | ✗ | ✓ | ✓ |
+| 2025 | ✗ | ✗ | ✓ |
+| **2026 (corrente)** | **✓** | **✗** | **✓** |
+
 | Fonte | Papel | Por quê |
 |---|---|---|
-| **GE (JSON)** | Primária de alta frequência | Custo zero e tempo real. Sem cota, absorve todo o polling durante as partidas |
-| **API-Football** | Conferência e fallback | Fonte autoritativa. 15 s de latência é a melhor do free tier, e mídias e escudos **não contam** na cota diária |
-| **football-data.org** | Desempate e calendário | 10 req/min sem teto diário publicado a torna ideal para a terceira opinião de §6.2 |
+| **GE (JSON)** | Primária de alta frequência | Custo zero, tempo real, sem cota. Só cobre a temporada corrente |
+| **football-data.org** | **Conferência da temporada corrente** | É a única API que enxerga 2026 no free tier. 10 req/min, sem teto diário publicado |
+| **API-Football** | Histórico de 2022–2024 | O plano gratuito recusa 2025 e 2026 — não serve de conferência ao vivo |
 
 Isso implementa literalmente o pedido — as APIs como **fallback e check** — e mantém o dado sempre fresco sem gastar cota: a frequência fica na fonte gratuita, a autoridade fica na fonte com cota.
 
@@ -452,7 +464,7 @@ Cada fase termina verificável. Nenhuma depende de a seguinte existir.
 | **4** | Provedor base | Porta + `GeGloboProvider` reescrito + validação | Busca a tabela de hoje e valida; falha vira erro tipado |
 | **5** | Partidas | Schema, ingestão de calendário e resultados, cálculo da tabela | **Tabela calculada == tabela do ge.globo hoje** |
 | **6** | APIs | `ApiFootballProvider` + `FootballDataProvider`, governo de cota, reconciliação, `divergencia` | Três fontes concordam na tabela de hoje; consumo diário ≤ 10 req na API-Football |
-| **7** | Histórico | `seeds/tabelas-finais/` 2018–2025 **geradas da API-Football** (8 req) e versionadas + recálculo | Todas as temporadas com campeão e ranking coerentes; 2023 confere com Palmeiras campeão, 70 pts |
+| **7** | Histórico | `seeds/tabelas-finais/` de **2022–2025** geradas das APIs e versionadas + recálculo. **2018–2021 não tem fonte gratuita** — ficam sem resultado ou exigem curadoria manual | 2023 confere com Palmeiras campeão (70 pts) e 2024 com Botafogo (79 pts) |
 | **8** | Worker | Cron, cadência por calendário, snapshots, cache | 24 h rodando; snapshots só quando muda; cota respeitada |
 | **9** | Web | Next.js, porte do design, três temas, abas, histórico | Design fiel; 360 px sem scroll horizontal; página muito menor que 220 KB |
 | **10** | Deploy | `/opt/bolao-do-max/`, vhost, TLS, imagem de fora | `bolao-novo.maxmat1.com.br` no ar, antigo intacto |

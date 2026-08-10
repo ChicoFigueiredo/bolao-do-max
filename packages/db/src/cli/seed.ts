@@ -79,6 +79,36 @@ try {
     )
     .onConflictDoNothing()
 
+  // Como cada fonte externa escreve cada clube. Gerado por
+  // `gerar-alias-clubes.ts` e revisado à mão quando necessário.
+  type AliasFonte = { fonte: string; nome: string; canonico: string; via: string }
+  let aliasFontes: AliasFonte[] = []
+  try {
+    aliasFontes = ler<AliasFonte[]>('seeds/clubes-alias.json')
+  } catch {
+    /* opcional: só existe depois de rodar o gerador */
+  }
+  const semCanonico = aliasFontes.filter((a) => !clubes.has(a.canonico))
+  if (semCanonico.length)
+    throw new Error(
+      `clubes-alias.json aponta para clubes inexistentes: ${semCanonico
+        .map((a) => `${a.fonte}:${a.nome} → ${a.canonico}`)
+        .join(', ')}`,
+    )
+  if (aliasFontes.length)
+    await db
+      .insert(clubeAlias)
+      .values(
+        aliasFontes.map((a) => ({
+          clubeId: clubes.get(a.canonico)!,
+          fonte: a.fonte,
+          tipo: 'nome' as const,
+          chave: a.nome,
+          temporadaAno: null,
+        })),
+      )
+      .onConflictDoNothing()
+
   // ── Competidores e apelidos ──────────────────────────────
   const canonicos = [...new Set(temporadas.flatMap((t) => t.competidores.map((c) => c.nome)))].sort()
 
