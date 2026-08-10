@@ -81,17 +81,28 @@ Menu sanduíche (canto superior direito) → **Tema** → Ocre, Claro, Escuro.
 - [ ] **Não há piscada** ao recarregar — o tema é aplicado antes da primeira pintura
 
 ### As abas
-- [ ] **Clássico** e **Por Posição** trocam sem recarregar
+- [ ] **Clássico**, **Por Posição** e **Evolução** trocam sem recarregar
 - [ ] A aba escolhida sobrevive a um F5
-- [ ] Setas ← → navegam entre elas pelo teclado
+- [ ] Setas ← → navegam entre as três pelo teclado
+
+### A aba Evolução
+- [ ] As três janelas funcionam: 48 horas, 30 dias e Campeonato (por semana)
+- [ ] A curva em destaque é a sua, se você se marcou no menu
+- [ ] Tocar num nome da lista traz a curva dele para o gráfico grande
+- [ ] Os blocos de quem subiu e caiu batem com as setas nas outras abas
+
+### Premiação
+- [ ] Quem é premiado tem **★** ao lado do nome — inclusive o último colocado
+- [ ] O valor aparece na coluna Prêmio (desktop) e no `title` da estrela
 
 ### O detalhamento
 Clique em qualquer linha.
 
 - [ ] No Clássico: os 4 clubes com campanha completa — jogos, vitórias,
       empates, derrotas, gols e aproveitamento
-- [ ] Em Por Posição: os 8 palpites com o chute, a posição de hoje, a distância
-      entre os dois e os pontos
+- [ ] Em Por Posição: os 8 palpites num eixo de 1º a 20º — círculo vazado é o
+      chute, cheio é onde o clube está hoje — com a distância em texto
+- [ ] Nas duas abas: quatro tiles de estatística e o gráfico de trajetória
 - [ ] Fecha com **Esc** e com toque fora
 - [ ] O foco volta para a linha de origem ao fechar
 
@@ -199,6 +210,12 @@ bun run test        # 39 testes, 539 asserções
 bun run typecheck   # worker, pacotes e web
 bun run web:build   # build de produção sob Bun
 ```
+
+> **Não rode `web:build` com o `bun run web` no ar.** Os dois escrevem em
+> `apps/web/.next`, e o build sobrescreve os chunks que o servidor de
+> desenvolvimento está servindo — o navegador passa a pedir um `main-app.js`
+> que não existe mais e a página quebra com 404 no console. Se acontecer: pare
+> o servidor, `rm -rf apps/web/.next` e suba de novo.
 
 O teste que mais vale conhecer é o **teste de ouro**: ele reproduz a captura da
 produção de 09/08/2026 campo a campo — incluindo os prêmios errados e os

@@ -5,7 +5,7 @@ import type { Movimento } from '../lib/dados'
 import { Detalhe } from './Detalhe'
 import { Evolucao } from './Evolucao'
 import { Menu, Regras, type Tema } from './Menu'
-import { brl, brlCurto, ord, setaCor, setaTxt, sinal } from './ui'
+import { brl, ord, setaCor, setaTxt, sinal } from './ui'
 
 type Aba = 'classico' | 'posicao' | 'evolucao'
 
@@ -441,6 +441,26 @@ function Lista({ children, vazio }: { children: React.ReactNode; vazio: boolean 
   )
 }
 
+/**
+ * Marca de premiado.
+ *
+ * A coluna Prêmio já mostra o valor no desktop, então repetir a quantia ao lado
+ * do nome era redundância. No mobile essa coluna não existe, e por isso o valor
+ * vai no `title` e no rótulo acessível da linha — a estrela sinaliza, e a
+ * quantia continua alcançável.
+ */
+function Estrela({ premio }: { premio: number }) {
+  return (
+    <span
+      title={`Premiado: ${brl(premio)}`}
+      aria-hidden="true"
+      style={{ flex: 'none', fontSize: 13, lineHeight: 1, color: 'var(--accent)' }}
+    >
+      ★
+    </span>
+  )
+}
+
 function Seta({ mov }: { mov: number | null }) {
   if (mov === null || mov === 0) return null
   return (
@@ -485,7 +505,9 @@ function LinhaC({
       <button
         type="button"
         onClick={onAbrir}
-        aria-label={`${l.nome}, ${ord(l.posicao)} lugar, ${l.pontos} pontos. Ver detalhamento.`}
+        aria-label={`${l.nome}, ${ord(l.posicao)} lugar, ${l.pontos} pontos${
+          l.premioCentavos ? `, prêmio de ${brl(l.premioCentavos)}` : ''
+        }. Ver detalhamento.`}
         style={linhaBase(eu, 'var(--cols-c)')}
       >
         <span
@@ -513,23 +535,7 @@ function LinhaC({
             >
               {l.nome}
             </span>
-            {l.premioCentavos > 0 && (
-              <span
-                style={{
-                  flex: 'none',
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: '.06em',
-                  padding: '2px 6px',
-                  borderRadius: 5,
-                  background: podio ? 'var(--accent)' : 'transparent',
-                  color: podio ? 'var(--on-accent)' : 'var(--ink-2)',
-                  border: `1px solid ${podio ? 'var(--accent)' : 'var(--line)'}`,
-                }}
-              >
-                {podio ? brlCurto(l.premioCentavos) : 'LANTERNA'}
-              </span>
-            )}
+            {l.premioCentavos > 0 && <Estrela premio={l.premioCentavos} />}
             <Seta mov={mov} />
           </span>
           <span
@@ -620,7 +626,9 @@ function LinhaP({
       <button
         type="button"
         onClick={onAbrir}
-        aria-label={`${l.nome}, ${ord(l.posicao)} lugar, ${l.pontos} pontos, ${l.exatos} palpites na mosca. Ver palpites.`}
+        aria-label={`${l.nome}, ${ord(l.posicao)} lugar, ${l.pontos} pontos, ${l.exatos} palpites na mosca${
+          l.premioCentavos ? `, prêmio de ${brl(l.premioCentavos)}` : ''
+        }. Ver palpites.`}
         style={linhaBase(eu, 'var(--cols-p)')}
       >
         <span
@@ -648,22 +656,7 @@ function LinhaP({
             >
               {l.nome}
             </span>
-            {l.premioCentavos > 0 && (
-              <span
-                style={{
-                  flex: 'none',
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: '.06em',
-                  padding: '2px 6px',
-                  borderRadius: 5,
-                  background: 'var(--accent)',
-                  color: 'var(--on-accent)',
-                }}
-              >
-                {brlCurto(l.premioCentavos)}
-              </span>
-            )}
+            {l.premioCentavos > 0 && <Estrela premio={l.premioCentavos} />}
             <Seta mov={mov} />
           </span>
           <span style={{ display: 'var(--mb)', fontSize: 12, color: 'var(--ink-3)' }}>
