@@ -25,6 +25,8 @@ type Serie = {
  * porque são 30 séries de até 48 pontos, e quem nunca abre a aba não deve
  * pagar por elas.
  */
+const JANELAS: Janela[] = ['hora', 'dia', 'semana']
+
 export function Evolucao({ eu }: { eu: string | null }) {
   const [bolao, setBolao] = useState<Bolao>('classico')
   const [janela, setJanela] = useState<Janela>('dia')
@@ -32,6 +34,28 @@ export function Evolucao({ eu }: { eu: string | null }) {
   const [carregando, setCarregando] = useState(true)
   const [erro, setErro] = useState<string | null>(null)
   const [foco, setFoco] = useState<string | null>(null)
+
+  // A janela escolhida sobrevive ao recarregamento, como no protótipo. Com três
+  // janelas, voltar sempre para "30 dias" faz a pessoa reescolher toda vez.
+  // Lido num efeito, e não no valor inicial do estado, porque `localStorage`
+  // não existe no servidor e a primeira renderização é dele.
+  useEffect(() => {
+    try {
+      const g = localStorage.getItem('bolao:janela') as Janela | null
+      if (g && JANELAS.includes(g)) setJanela(g)
+    } catch {
+      /* navegador sem storage: fica no padrão */
+    }
+  }, [])
+
+  const escolherJanela = (j: Janela) => {
+    setJanela(j)
+    try {
+      localStorage.setItem('bolao:janela', j)
+    } catch {
+      /* idem */
+    }
+  }
 
   useEffect(() => {
     let vivo = true
@@ -105,7 +129,7 @@ export function Evolucao({ eu }: { eu: string | null }) {
             { k: 'semana', rot: 'Campeonato' },
           ]}
           valor={janela}
-          onMudar={(k) => setJanela(k as Janela)}
+          onMudar={(k) => escolherJanela(k as Janela)}
         />
       </div>
 
