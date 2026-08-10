@@ -14,8 +14,8 @@ export async function GET(req: Request) {
   const janela = (u.searchParams.get('janela') ?? 'dia') as Janela
   const bolao = (u.searchParams.get('bolao') ?? 'classico') as Bolao
 
-  if (janela !== 'hora' && janela !== 'dia')
-    return Response.json({ erro: 'janela deve ser hora ou dia' }, { status: 400 })
+  if (janela !== 'hora' && janela !== 'dia' && janela !== 'semana')
+    return Response.json({ erro: 'janela deve ser hora, dia ou semana' }, { status: 400 })
   if (bolao !== 'classico' && bolao !== 'posicao')
     return Response.json({ erro: 'bolao deve ser classico ou posicao' }, { status: 400 })
 

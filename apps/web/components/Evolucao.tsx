@@ -4,7 +4,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { Rotulo, ord, polilinha, setaCor, setaTxt, sparkline } from './ui'
 
 type Bolao = 'classico' | 'posicao'
-type Janela = 'hora' | 'dia'
+type Janela = 'hora' | 'dia' | 'semana'
+
+const PERIODO: Record<Janela, string> = {
+  hora: 'últimas 48 horas',
+  dia: 'últimos 30 dias',
+  semana: 'campeonato inteiro, por semana',
+}
 
 type Serie = {
   rotulos: string[]
@@ -95,7 +101,8 @@ export function Evolucao({ eu }: { eu: string | null }) {
           rotuloGrupo="Escolher janela de tempo"
           opcoes={[
             { k: 'hora', rot: '48 horas' },
-            { k: 'dia', rot: '21 dias' },
+            { k: 'dia', rot: '30 dias' },
+            { k: 'semana', rot: 'Campeonato' },
           ]}
           valor={janela}
           onMudar={(k) => setJanela(k as Janela)}
@@ -136,8 +143,7 @@ export function Evolucao({ eu }: { eu: string | null }) {
               </span>
               <span style={{ flex: 1 }} />
               <span style={{ fontSize: 12, color: 'var(--ink-3)' }}>
-                {janela === 'hora' ? 'últimas 48 horas' : 'últimos 21 dias'} ·{' '}
-                {serie.pontosReais} snapshots
+                {PERIODO[janela]} · {serie.rotulos.length} pontos · {serie.pontosReais} snapshots
               </span>
             </div>
 
