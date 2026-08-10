@@ -96,7 +96,14 @@ export class ErroDeConfiguracao extends Error {
   }
 }
 
-export function carregarConfig(fonte: Record<string, string | undefined> = Bun.env): Configuracao {
+/**
+ * `process.env` e não `Bun.env`: o mesmo código roda no worker sob Bun e
+ * dentro do bundle do Next, onde o global `Bun` não existe. `process.env`
+ * funciona nos dois.
+ */
+export function carregarConfig(
+  fonte: Record<string, string | undefined> = process.env,
+): Configuracao {
   const r = esquema.safeParse(fonte)
   if (!r.success) {
     throw new ErroDeConfiguracao(

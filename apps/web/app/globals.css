@@ -1,0 +1,157 @@
+/*
+ * Três temas em custom properties. Nenhuma cor fora daqui.
+ *
+ * Ocre é o padrão e a assinatura do produto. Claro e escuro cobrem sol e
+ * madrugada. O tema é aplicado antes da primeira pintura por um script
+ * inline no <head> — sem piscada.
+ */
+
+:root {
+  --bg: #efe3cc;
+  --surf: #f9f1e1;
+  --surf-2: #f3e7d0;
+  --line: #dac7a4;
+  --line-soft: #e7d9be;
+  --ink: #2a2013;
+  --ink-2: #6b5a3f;
+  --ink-3: #8b7a5e;
+  --accent: #8f5410;
+  --accent-soft: #ebd9b8;
+  --on-accent: #fff8ec;
+  --ok: #3c6828;
+  --neg: #a32e1b;
+  --shadow: 0 10px 34px rgba(60, 40, 10, 0.22);
+
+  --gutter: 14px;
+  --max: 1140px;
+  --row-min: 58px;
+  --fs-nome: 15px;
+  --dt: none;
+  --mb: flex;
+  --mbb: block;
+  --cols-c: 32px minmax(0, 1fr) auto;
+  --cols-p: 32px minmax(0, 1fr) auto auto;
+  --sheet-align: flex-end;
+  --sheet-w: 100%;
+  --sheet-r: 22px 22px 0 0;
+}
+
+[data-tema='claro'] {
+  --bg: #f6f5f3;
+  --surf: #ffffff;
+  --surf-2: #f1f0ed;
+  --line: #dfddd8;
+  --line-soft: #eceae6;
+  --ink: #171614;
+  --ink-2: #5c5952;
+  --ink-3: #807c75;
+  --accent: #8a4e0c;
+  --accent-soft: #f3e6d4;
+  --on-accent: #ffffff;
+  --ok: #2e6529;
+  --neg: #ac2a15;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.13);
+}
+
+[data-tema='escuro'] {
+  --bg: #141210;
+  --surf: #1e1b17;
+  --surf-2: #272219;
+  --line: #37312a;
+  --line-soft: #2b2620;
+  --ink: #f1ebe1;
+  --ink-2: #aea190;
+  --ink-3: #8e8272;
+  --accent: #e4ab59;
+  --accent-soft: #3a2d1a;
+  --on-accent: #1a140c;
+  --ok: #9dcb71;
+  --neg: #f28a70;
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 820px) {
+  :root {
+    --gutter: 28px;
+    --row-min: 52px;
+    --fs-nome: 16px;
+    --dt: flex;
+    --mb: none;
+    --mbb: none;
+    --cols-c: 44px minmax(110px, 1.5fr) 62px 58px 104px repeat(4, minmax(82px, 1fr));
+    --cols-p: 44px minmax(110px, 1.4fr) 62px 122px 104px;
+    --sheet-align: center;
+    --sheet-w: min(780px, 92vw);
+    --sheet-r: 18px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Archivo, 'Helvetica Neue', Helvetica, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::placeholder {
+  color: var(--ink-3);
+  opacity: 1;
+}
+
+.mono {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@keyframes sobe {
+  from {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes surge {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

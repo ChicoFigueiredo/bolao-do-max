@@ -10,5 +10,11 @@
     "@bolao/dominio": "workspace:*",
     "@bolao/provider": "workspace:*",
     "@bolao/regras": "workspace:*"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./cache": "./src/cache.ts",
+    "./calcular": "./src/casos/calcular.ts",
+    "./ciclo": "./src/casos/ciclo.ts"
   }
 }

@@ -151,3 +151,6 @@ dist
 cache-redis/
 app-build/
 process/
+# Next.js
+apps/web/.next/
+apps/web/next-env.d.ts
