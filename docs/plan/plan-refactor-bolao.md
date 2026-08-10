@@ -491,8 +491,16 @@ Ordem de valor: **2 → 5** é o coração. Um motor de regras que reproduz a pr
 
 ### Decisões pendentes
 
-1. **Prêmio de lanterna em caso de empate** — com posições colapsadas, dividir os R$ 120,00 entre os empatados na última posição (§7.1). É o que farei salvo instrução contrária.
-2. **Contas nas APIs** — cadastro na API-Football e na football-data.org para gerar as chaves. Ver [`docs/_atual/cfg.fornecedores.md`](../_atual/cfg.fornecedores.md).
+1. ~~**Prêmio de lanterna em caso de empate**~~ — **fechado.** Os empatados na última posição dividem os R$ 120,00, com o pódio tendo precedência quando as posições colidem. Implementado em `packages/regras/src/index.ts` e coberto por dois testes em `correcoes.test.ts`.
+2. ~~**Contas nas APIs**~~ — **fechado.** Chaves em `.env`, as três fontes respondendo.
+
+### Situação em 10/08/2026
+
+O plano saiu inteiro na **v2.0.0**. Duas coisas ficaram para trás, e ficam registradas aqui para não se perderem:
+
+**Tabelas finais de 2018–2021 — bloqueado por dado, não por código.** Sondadas as duas APIs neste dia, ano a ano: a API-Football recusa por plano (*"Free plans do not have access to..."*) e a football-data.org devolve `403`. As apostas dessas quatro temporadas estão em `seeds/apostas/` e as temporadas existem no banco; falta a classificação final. Preencher de memória não é opção — erro silencioso no ranking é o modo de falha que esta reescrita existe para eliminar. Sai da mesa quando houver fonte, paga ou curada com procedência registrada.
+
+**`/t/[ano]` e `/historico` não foram construídas.** Estão na tabela de rotas da §9 e não existem em `apps/web/app/`. O dado para sustentá-las existe para 2022–2025: `bun run historico` reconstrói o hall da fama pelas regras de cada temporada, com 2022 e 2023 para Daiane 'Pipoka', 2024 para Renato e 2025 para Alan. Mas hoje isso é CLI que imprime na tela — não persiste nem alimenta a web. Construir as rotas é feature, não pendência de acabamento, e por isso ficou fora da v2.1.0.
 
 ### Decisões fechadas em 09/08/2026
 

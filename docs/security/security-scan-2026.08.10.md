@@ -1,5 +1,65 @@
 # Security Review: bolao.maxmat1.com.br
 
+---
+
+## Desfecho — 10/08/2026
+
+Os três achados estão corrigidos em `a3c1be5`, junto de dois problemas da mesma
+causa que esta varredura não alcançou. Plano em
+[`docs/plan/plan-correcoes-seguranca-2026.08.10.md`](../plan/plan-correcoes-seguranca-2026.08.10.md).
+
+| Achado | Estado | Onde |
+|---|---|---|
+| 1 — evolução recalcula na queda do cache | **corrigido** | coalescência + TTL de 60 s em `apps/web/app/api/evolucao/route.ts` |
+| 2 — resultados recalcula por requisição | **corrigido** | coalescência + TTL de 15 s em `apps/web/lib/dados.ts` |
+| 3 — competidor calcula antes de validar nome | **corrigido** | o cálculo é compartilhado, então N nomes inválidos custam um; teto de 80 caracteres antes de qualquer I/O |
+| follow-up — concorrência anônima sem teto | **corrigido, atrás de flag** | `bun run deploy --limites`: 20 r/s por IP, rajada de 40 |
+| follow-up — Compose legado de Redis | **não se aplica** | a stack legada saiu do ar na virada de 10/08; está arquivada em `z_legado/` |
+
+### O que a varredura não viu
+
+**A causa era conexões, não CPU.** `abrirBanco()` cria um pool de até
+`DATABASE_POOL_MAX` (8), e a web o chamava **por requisição**. Com o Redis
+fora, N requisições simultâneas custavam N pools × 8 conexões — o Postgres
+esgota `max_connections`, levando junto o worker e os outros inquilinos da
+instância, muito antes de a CPU sentir. O relatório dimensionou o problema em
+CPU e I/O; era uma ordem de grandeza pior.
+
+**O maior consumidor não era um caminho degradado.** `lerMovimento24h()` ia
+direto ao Postgres em **toda** visita à home — três consultas e um pool por
+pessoa, com o cache saudável ou não. Não apareceu na varredura porque ela
+procurou fallbacks de cache, e este código nunca teve cache para falhar. Agora
+é pré-renderizado pelo worker.
+
+### Medição
+
+Com o Redis parado, contra o log de statements do Postgres:
+
+```
+60 requisições anônimas em três rajadas, dentro da janela → 1 cálculo de ranking
+```
+
+O `limit_req` foi validado contra nginx de verdade: de 200 requisições
+simultâneas, 42 passam (rajada de 40 mais a taxa) e 158 recebem 429;
+navegação humana logo depois passa limpa.
+
+### O que continua em aberto
+
+As duas perguntas de operação do relatório seguem abertas, porque são de
+infraestrutura e não de código: capacidade real do Postgres sob carga
+concorrente, e o que o proxy compartilhado faz com concorrência hoje. O teto do
+nginx torna as duas menos urgentes sem respondê-las.
+
+### O que não mudou, deliberadamente
+
+`Access-Control-Allow-Origin: *` em `/api/resultados` e `Cache-Control:
+no-store` nas rotas seguem como estavam. O primeiro é contrato legado com
+consumidores não mapeados, sobre dado público de leitura; o segundo sustenta o
+desenho em que a idade do dado é informação de primeira classe. Razões
+completas na §3 do plano.
+
+---
+
 ## Scope
 
 Entire repository Deep scan; canonical threat model synthesized from terminal discovery worker models.
