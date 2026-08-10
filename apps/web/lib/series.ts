@@ -117,10 +117,13 @@ function reamostrar(
   const inicioGrade = agora - (passos - 1) * intervaloMs
   const primeiro = instantes[0]!
 
+  // A célula só entra se já existir snapshot para preenchê-la. Admitir uma
+  // célula anterior ao primeiro snapshot deixava toda série mais curta que a
+  // grade e, com a checagem de completude abaixo, rejeitava todas elas.
   const grade: number[] = []
   for (let i = 0; i < passos; i++) {
     const t = inicioGrade + i * intervaloMs
-    if (t >= primeiro - intervaloMs) grade.push(t)
+    if (t >= primeiro) grade.push(t)
   }
   if (grade.length < 2) return VAZIA
 
@@ -128,19 +131,22 @@ function reamostrar(
   for (const m of dados.values()) for (const n of m.keys()) nomes.add(n)
 
   const posicao: Record<string, number[]> = {}
-  let usados = new Set<number>()
+  const usados = new Set<number>()
 
   for (const nome of nomes) {
     const serie: number[] = []
     let ultimo: number | null = null
+    let i = 0
+    // Um ponteiro só sobre `instantes`, que já está ordenado — evita
+    // revarrer a lista inteira em cada célula da grade.
     for (const alvo of grade) {
-      for (const inst of instantes) {
-        if (inst > alvo) break
-        const v = dados.get(inst)!.get(nome)?.[campo]
+      while (i < instantes.length && instantes[i]! <= alvo) {
+        const v = dados.get(instantes[i]!)!.get(nome)?.[campo]
         if (v != null) {
           ultimo = v
-          usados.add(inst)
+          usados.add(instantes[i]!)
         }
+        i++
       }
       if (ultimo != null) serie.push(ultimo)
     }

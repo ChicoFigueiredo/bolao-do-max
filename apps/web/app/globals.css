@@ -31,9 +31,13 @@
   --mbb: block;
   --cols-c: 32px minmax(0, 1fr) auto;
   --cols-p: 32px minmax(0, 1fr) auto auto;
+  --cols-e: 32px minmax(0, 1fr) 84px 46px;
+  --cols-mov: 1fr;
+  --gold: #8a6410;
   --sheet-align: flex-end;
   --sheet-w: 100%;
   --sheet-r: 22px 22px 0 0;
+  --sheet-maxh: 92vh;
 }
 
 [data-tema='claro'] {
@@ -54,6 +58,7 @@
 }
 
 [data-tema='escuro'] {
+  --gold: #dbb763;
   --bg: #141210;
   --surf: #1e1b17;
   --surf-2: #272219;
@@ -80,9 +85,12 @@
     --mbb: none;
     --cols-c: 44px minmax(110px, 1.5fr) 62px 58px 104px repeat(4, minmax(82px, 1fr));
     --cols-p: 44px minmax(110px, 1.4fr) 62px 122px 104px;
+    --cols-e: 44px minmax(110px, 1fr) 240px 64px;
+    --cols-mov: 1fr 1fr;
     --sheet-align: center;
     --sheet-w: min(780px, 92vw);
     --sheet-r: 18px;
+    --sheet-maxh: 86vh;
   }
 }
 
@@ -154,4 +162,44 @@ select {
   to {
     opacity: 1;
   }
+}
+
+/*
+ * Marcadores de palpite do Bolão por Posição.
+ *
+ * São 240 na página — 30 competidores × 8 palpites. Com estilo inline cada um
+ * custava ~140 bytes e os 240 somavam 60 KB; como classe, custam ~45 bytes.
+ * O mesmo desenho, um terço do peso.
+ */
+.pt {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: transparent;
+}
+.pt.faixa {
+  border-color: var(--accent);
+}
+.pt.exato {
+  border-color: var(--ok);
+  background: var(--ok);
+}
+.pts {
+  display: flex;
+  gap: 3px;
+}
+.leg {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: transparent;
+}
+.leg.faixa {
+  border-color: var(--accent);
+}
+.leg.exato {
+  border-color: var(--ok);
+  background: var(--ok);
 }

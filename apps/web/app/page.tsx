@@ -46,15 +46,28 @@ export default async function Pagina() {
         premioCentavos: l.premioCentavos,
         clubes: l.clubes.map((c) => ({ clube: c.clube, coracao: Boolean(c.coracao) })),
       }))}
-      posicao={r.posicao.map((l) => ({
-        nome: l.nome,
-        posicao: l.posicao,
-        pontos: l.pontos,
-        acertosFaixa: l.acertosFaixa,
-        acertosG4: l.acertosG4,
-        acertosZ4: l.acertosZ4,
-        premioCentavos: l.premioCentavos,
-      }))}
+      posicao={r.posicao.map((l) => {
+        // Um marcador por palpite, na ordem G4 (1–4) e Z4 (17–20). Só o estado
+        // do acerto cruza para o cliente — o palpite completo fica no detalhe.
+        const marca = (p: (typeof l.palpites)[number]) => ({
+          exato: p.acertoPosicao,
+          naFaixa: p.acertoG4 || p.acertoZ4,
+          titulo: `${p.clube}: palpite ${p.posicao}º, hoje ${p.posicaoAtual ?? '—'}º`,
+        })
+        const ordenado = [...l.palpites].sort((a, b) => a.posicao - b.posicao)
+        return {
+          nome: l.nome,
+          posicao: l.posicao,
+          pontos: l.pontos,
+          acertosFaixa: l.acertosFaixa,
+          acertosG4: l.acertosG4,
+          acertosZ4: l.acertosZ4,
+          exatos: l.palpites.filter((p) => p.acertoPosicao).length,
+          premioCentavos: l.premioCentavos,
+          g4: ordenado.filter((p) => p.posicao <= 4).map(marca),
+          z4: ordenado.filter((p) => p.posicao >= 17).map(marca),
+        }
+      })}
       movimento={movimento}
       fontes={r.fontes}
       origemLeitura={r.origemLeitura}
