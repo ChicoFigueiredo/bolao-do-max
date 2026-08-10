@@ -36,11 +36,16 @@ Fonte autoritativa. É dela que sai a conferência de tabela e o resgate quando 
 
 ### Endpoints que o projeto usa
 
+`league=71` é a Série A — confirmado em 09/08/2026, com temporadas de **2010 a 2026**.
+
 | Endpoint | Quando | Custo |
 |---|---|---|
-| `/fixtures?league=X&season=Y` | 1× no início da temporada — traz os 380 jogos com data, hora, estádio, rodada | 1 req |
-| `/fixtures?league=X&season=Y&from=&to=` | 1×/dia às 03:00 — captura remarcação da CBF | 1 req |
-| `/standings?league=X&season=Y` | ao fim de cada bloco de jogos — conferência | 1 req |
+| `/fixtures?league=71&season=2026` | 1× no início da temporada — traz os 380 jogos com data, hora, estádio, rodada | 1 req |
+| `/fixtures?league=71&season=2026&from=&to=` | 1×/dia às 03:00 — captura remarcação da CBF | 1 req |
+| `/standings?league=71&season=2026` | ao fim de cada bloco de jogos — conferência | 1 req |
+| `/standings?league=71&season=<2018…2025>` | **uma única vez**, na reconstrução histórica | 8 req |
+
+A cobertura desde 2010 é o que dispensa curadoria manual das tabelas finais: as oito temporadas do histórico saem de oito requisições, e o resultado é versionado em `seeds/tabelas-finais/` para ser revisável e reproduzível. Conferido: 2023 devolve Palmeiras campeão com 70 pontos e América-MG lanterna com 24.
 
 ### Limites
 
@@ -116,12 +121,47 @@ Fonte primária de alta frequência. Sem cadastro, sem chave, sem custo.
 
 ### O que fazer
 
-Nada de cadastro. Mas **é preciso mapear a rota JSON** antes de escrever o adaptador — a estrutura não é documentada e pode mudar sem aviso.
+**Nada.** As rotas já foram descobertas e validadas ao vivo em 09/08/2026 — as duas respondem HTTP 200 para a temporada 2026 e já estão preenchidas no `.env.example`.
 
-1. Abrir https://ge.globo.com/futebol/brasileirao-serie-a/ no navegador
-2. DevTools → Network → filtrar por `api.globoesporte`
-3. Registrar a rota de classificação e a de agenda/rodadas, com o formato exato do payload
-4. Anotar as duas em `PROVIDER_GE_URL_*`
+```
+BASE = https://api.globoesporte.globo.com
+UUID = d1a37fa4-e948-43a6-ba53-ab24ab3a45b1     ← Série A, estável desde 2020
+FASE = fase-unica-campeonato-brasileiro-{temporada}
+
+classificação   GET {BASE}/tabela/{UUID}/fase/{FASE}/classificacao/
+jogos da rodada GET {BASE}/tabela/{UUID}/fase/{FASE}/rodada/{1..38}/jogos/
+```
+
+Conferir a qualquer momento:
+
+```bash
+curl -s -H 'User-Agent: BolaoDoMax/1.0 (+https://bolao.maxmat1.com.br)' \
+  'https://api.globoesporte.globo.com/tabela/d1a37fa4-e948-43a6-ba53-ab24ab3a45b1/fase/fase-unica-campeonato-brasileiro-2026/classificacao/' \
+  | jq '.classificacao[0] | {ordem, nome_popular, pontos, equipe_id}'
+```
+
+> **Exceção de slug:** em 2020 a fase era `fase-unica-seriea-2020`; de 2021 em diante, `fase-unica-campeonato-brasileiro-<ano>`. Relevante só para a reconstrução histórica.
+
+Origem: o pacote R [`williamorim/brasileirao`](https://github.com/williamorim/brasileirao/blob/master/data-raw/scraping_matches.R) usa essas rotas desde 2020, o que é boa evidência de estabilidade — mas não é garantia, e é por isso que existem duas outras fontes.
+
+### O que o payload entrega
+
+Bem mais do que o scraping de HTML atual:
+
+**Classificação** — `ordem` (posição pronta, sem inferir da ordem do array), `variacao` (variação de posição), **`equipe_id`** (inteiro estável — resolve o casamento por nome), `pontos`, `vitorias`, `empates`, `derrotas`, `gols_pro`, `gols_contra`, `saldo_gols`, `jogos`, `aproveitamento`, `escudo` (SVG), `ultimos_jogos` (`["v","v","d","v","e"]`) e `faixa_classificacao` com as zonas nomeadas (Libertadores, Pré-Libertadores, Sul-Americana, Rebaixados).
+
+**Jogos** — `id` da partida, `data_realizacao` em ISO, `hora_realizacao`, `placar_oficial_mandante`/`_visitante`, `equipes.{mandante,visitante}` com `id`/`nome_popular`/`sigla`/`escudo`, `sede.nome_popular`, `transmissao.broadcast.id` (estado) e `jogo_ja_comecou`.
+
+### Peculiaridades confirmadas nos testes
+
+| Observação | Consequência |
+|---|---|
+| Rodada 39 devolve array vazio | Forma limpa de detectar o fim do campeonato |
+| Jogos distantes vêm com `T12:00` | Horário **provisório**, não o real. O campo `inicio_confirmado` só é preenchido quando firma |
+| Jogo adiado pode ter `data_realizacao: null` **com** `sede` preenchida | Rodada 21, Botafogo × Grêmio. O schema precisa aceitar data nula |
+| `sede` vem `null` em jogos futuros | Estádio só é definido perto da data |
+
+As três últimas são exatamente o caso "sempre pode mudar" que motivou a tabela `partida_alteracao`.
 
 ### Riscos aceitos
 
@@ -181,12 +221,12 @@ Esse comando faz parte da entrega da Fase 6 e é o critério de verificação de
 
 ## 6. Checklist
 
-- [ ] Conta criada na API-Football e chave copiada
-- [ ] `league id` da Série A descoberto e anotado
-- [ ] Chave da football-data.org recebida por e-mail
-- [ ] Acesso ao `BSA` confirmado no plano gratuito
-- [ ] Rotas JSON do GE mapeadas no DevTools
-- [ ] `.env` preenchido a partir do `.env.example`
+- [x] Rotas JSON do GE descobertas e validadas ao vivo — 09/08/2026
+- [x] Conta criada na API-Football e chave copiada
+- [x] Chave da football-data.org recebida
+- [x] `league id` da Série A = **71**, anotado em `PROVIDER_APIFOOTBALL_LEAGUE_ID`
+- [x] Acesso ao `BSA` confirmado no plano gratuito da football-data.org
+- [x] `.env` completo a partir do `.env.example`
 - [ ] `bun run provider:doctor` com as três fontes concordando
 - [ ] `.env` de produção em `/opt/bolao-do-max/.env`, fora do git
 

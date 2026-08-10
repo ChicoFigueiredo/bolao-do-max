@@ -31,7 +31,7 @@ Três ganhos que a arquitetura atual não consegue entregar:
 | Redis compartilhado | Já existe: `cache`, redis:8-alpine | App nunca sobe Redis próprio em produção; chaves sob prefixo |
 | PostgreSQL | Já existe: `banco`, pgvector/pg17, **vazio** | Database e role próprios; migrations nunca saem do schema do bolão |
 | Estratégia de corte | Paralelo, imagens separadas, dado novo | Domínio provisório `bolao-novo.maxmat1.com.br`; rollback = não fazer nada |
-| Histórico | Apostas importadas + tabelas finais como seed | Recálculo de todas as temporadas com as regras da época |
+| Histórico | Apostas importadas + tabelas finais como seed | Recálculo de todas as temporadas com as regras da época. **As tabelas finais vêm da API-Football, que cobre 2010–2026** — 8 requisições, sem curadoria manual |
 | ORM | **Drizzle** | Nativo de Bun, SQL explícito, sem engine binário — importa numa máquina de 3,8 GB |
 | Repositório | Monorepo **dentro da repo atual** | `bolao-max-server/` permanece intacto; histórico do git contínuo |
 
@@ -452,7 +452,7 @@ Cada fase termina verificável. Nenhuma depende de a seguinte existir.
 | **4** | Provedor base | Porta + `GeGloboProvider` reescrito + validação | Busca a tabela de hoje e valida; falha vira erro tipado |
 | **5** | Partidas | Schema, ingestão de calendário e resultados, cálculo da tabela | **Tabela calculada == tabela do ge.globo hoje** |
 | **6** | APIs | `ApiFootballProvider` + `FootballDataProvider`, governo de cota, reconciliação, `divergencia` | Três fontes concordam na tabela de hoje; consumo diário ≤ 10 req na API-Football |
-| **7** | Histórico | `seeds/tabelas-finais/` 2018–2025 + recálculo | Todas as temporadas com campeão e ranking coerentes |
+| **7** | Histórico | `seeds/tabelas-finais/` 2018–2025 **geradas da API-Football** (8 req) e versionadas + recálculo | Todas as temporadas com campeão e ranking coerentes; 2023 confere com Palmeiras campeão, 70 pts |
 | **8** | Worker | Cron, cadência por calendário, snapshots, cache | 24 h rodando; snapshots só quando muda; cota respeitada |
 | **9** | Web | Next.js, porte do design, três temas, abas, histórico | Design fiel; 360 px sem scroll horizontal; página muito menor que 220 KB |
 | **10** | Deploy | `/opt/bolao-do-max/`, vhost, TLS, imagem de fora | `bolao-novo.maxmat1.com.br` no ar, antigo intacto |
@@ -471,7 +471,7 @@ Ordem de valor: **2 → 5** é o coração. Um motor de regras que reproduz a pr
 | GE bloqueia por IP ou muda o payload | Duas APIs independentes assumem; a tabela também é calculada das partidas (§4.2) |
 | Nomes de clube divergem entre fontes | `clube_apelido` por temporada e fonte; nome não resolvido é erro, não zero |
 | Calendário muda | `partida_alteracao` registra tudo; reingestão é idempotente |
-| Curadoria das tabelas finais errada | Seed versionado, revisável em PR; recálculo é reproduzível |
+| Tabela final histórica errada | Gerada da API-Football, conferida contra a football-data.org, versionada como seed e revisável em PR |
 | Memória do servidor | Build fora; limites de memória no compose |
 | Reescrita muda resultado sem querer | Teste de ouro na Fase 2 antes de qualquer correção |
 
