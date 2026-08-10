@@ -1,18 +1,15 @@
 {
-  "name": "@bolao/db",
+  "name": "@bolao/provider",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./schema": "./src/schema.ts"
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@bolao/config": "workspace:*",
-    "drizzle-orm": "^0.38.3",
-    "postgres": "^3.4.5",
     "@bolao/dominio": "workspace:*",
-    "@bolao/regras": "workspace:*"
+    "zod": "^3.24.1"
   }
 }

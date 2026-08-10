@@ -1,0 +1,818 @@
+{
+  "temporada": 2018,
+  "serie": "A",
+  "temClassico": true,
+  "temPosicao": false,
+  "competidores": [
+    {
+      "nome": "Max",
+      "nomeNaTemporada": "Max",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Santos",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Chapecoense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Vitória",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Francisco",
+      "nomeNaTemporada": "Francisco",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Grêmio",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Vasco",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Chapecoense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Paraná",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Daiane",
+      "nomeNaTemporada": "Daiane",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Palmeiras",
+          "coracao": true
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Vasco",
+          "coracao": false
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Chapecoense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Paraná",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Leandro",
+      "nomeNaTemporada": "Leandro",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Cruzeiro",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Atlético-PR",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Ceará",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Tiago",
+      "nomeNaTemporada": "Tiago",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Corinthians",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Vasco",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Fluminense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Paraná",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Renato",
+      "nomeNaTemporada": "Renato",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Grêmio",
+          "coracao": true
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Atlético-MG",
+          "coracao": false
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Bahia",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "América-MG",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Marilda",
+      "nomeNaTemporada": "Marilda",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Corinthians",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Fluminense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Vitória",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Wagner",
+      "nomeNaTemporada": "Wagner",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Palmeiras",
+          "coracao": true
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Botafogo",
+          "coracao": false
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Bahia",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Ceará",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Miguel",
+      "nomeNaTemporada": "Miguel",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Santos",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Atlético-PR",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Terezinha",
+      "nomeNaTemporada": "Terezinha",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Corinthians",
+          "coracao": true
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Atlético-MG",
+          "coracao": false
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Sport",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Paraná",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Guilherme",
+      "nomeNaTemporada": "Guilherme",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Cruzeiro",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Atlético-PR",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Vitória",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Rômulo",
+      "nomeNaTemporada": "Rômulo",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Santos",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Bahia",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Willian",
+      "nomeNaTemporada": "Willian",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Grêmio",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Sport",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Diego",
+      "nomeNaTemporada": "Diego",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Cruzeiro",
+          "coracao": true
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Vasco",
+          "coracao": false
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Sport",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Vitória",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Jean",
+      "nomeNaTemporada": "Jean",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Palmeiras",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Atlético-PR",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "América-MG",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Eduardo",
+      "nomeNaTemporada": "Eduardo",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Corinthians",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Botafogo",
+          "coracao": false
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Sport",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": true
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Paulo",
+      "nomeNaTemporada": "Paulo",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Corinthians",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Vasco",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Bahia",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Vitória",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Geovane",
+      "nomeNaTemporada": "Geovane",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Palmeiras",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Sport",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Sérgio",
+      "nomeNaTemporada": "Sérgio",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Santos",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Fluminense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Chamon",
+      "nomeNaTemporada": "Chamon",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Palmeiras",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Chapecoense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Ceará",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Ronaldo",
+      "nomeNaTemporada": "Ronaldo",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Grêmio",
+          "coracao": true
+        },
+        {
+          "grupo": "GP2",
+          "clube": "São Paulo",
+          "coracao": false
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Fluminense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Paraná",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Fatinha",
+      "nomeNaTemporada": "Fatinha",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Palmeiras",
+          "coracao": true
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Atlético-MG",
+          "coracao": false
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Bahia",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Vitória",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Ana Cristina",
+      "nomeNaTemporada": "Ana Cristina",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Palmeiras",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Atlético-PR",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Carol",
+      "nomeNaTemporada": "Carol",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Palmeiras",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Fluminense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Vitória",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Midão",
+      "nomeNaTemporada": "Midão",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Grêmio",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Fluminense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Waldemir",
+      "nomeNaTemporada": "Waldemir",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Palmeiras",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Botafogo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Fluminense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Ceará",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Anna Maria",
+      "nomeNaTemporada": "Anna Maria",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Cruzeiro",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Bahia",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Lucas",
+      "nomeNaTemporada": "Lucas",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Corinthians",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Botafogo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Fluminense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "João Vitor",
+      "nomeNaTemporada": "João Vitor",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Corinthians",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Flamengo",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Fluminense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Paraná",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    },
+    {
+      "nome": "Adriel",
+      "nomeNaTemporada": "Adriel",
+      "clubes": [
+        {
+          "grupo": "GP1",
+          "clube": "Palmeiras",
+          "coracao": false
+        },
+        {
+          "grupo": "GP2",
+          "clube": "Vasco",
+          "coracao": true
+        },
+        {
+          "grupo": "GP3",
+          "clube": "Chapecoense",
+          "coracao": false
+        },
+        {
+          "grupo": "GP4",
+          "clube": "Internacional",
+          "coracao": false
+        }
+      ],
+      "palpites": []
+    }
+  ]
+}

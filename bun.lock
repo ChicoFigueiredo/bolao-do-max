@@ -23,6 +23,8 @@
       "version": "0.1.0",
       "dependencies": {
         "@bolao/config": "workspace:*",
+        "@bolao/dominio": "workspace:*",
+        "@bolao/regras": "workspace:*",
         "drizzle-orm": "^0.38.3",
         "postgres": "^3.4.5",
       },
@@ -30,6 +32,15 @@
     "packages/dominio": {
       "name": "@bolao/dominio",
       "version": "0.1.0",
+    },
+    "packages/provider": {
+      "name": "@bolao/provider",
+      "version": "0.1.0",
+      "dependencies": {
+        "@bolao/config": "workspace:*",
+        "@bolao/dominio": "workspace:*",
+        "zod": "^3.24.1",
+      },
     },
     "packages/regras": {
       "name": "@bolao/regras",
@@ -45,6 +56,8 @@
     "@bolao/db": ["@bolao/db@workspace:packages/db"],
 
     "@bolao/dominio": ["@bolao/dominio@workspace:packages/dominio"],
+
+    "@bolao/provider": ["@bolao/provider@workspace:packages/provider"],
 
     "@bolao/regras": ["@bolao/regras@workspace:packages/regras"],
 

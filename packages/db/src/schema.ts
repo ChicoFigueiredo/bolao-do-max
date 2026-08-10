@@ -14,6 +14,7 @@
  *
  * 3. Dinheiro em centavos. Inteiro, nunca ponto flutuante.
  */
+import type { RegrasTemporada } from '@bolao/dominio'
 import {
   boolean,
   date,
@@ -59,20 +60,11 @@ export const tipoDivergencia = pgEnum('tipo_divergencia', [
 /**
  * `regras` guarda a premiação e os parâmetros daquele ano. Ficam aqui, e não
  * no código, porque é o que permite recalcular 2018 com as regras de 2018.
+ *
+ * O tipo vive em `@bolao/dominio` e é reusado aqui de propósito: o motor de
+ * regras e a coluna do banco têm que falar da mesma coisa.
  */
-export type RegrasTemporada = {
-  valorAposta: number // centavos
-  classico: {
-    premios: { posicao: number; centavos: number }[]
-    premioLanternaCentavos: number
-  }
-  posicao: {
-    premioPrimeiroCentavos: number
-    pontosFaixa: number
-    pontosPosicaoExata: number
-  }
-  megaSenaCentavos: number
-}
+export type { RegrasTemporada } from '@bolao/dominio'
 
 export const temporada = pgTable(
   'temporada',
