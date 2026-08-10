@@ -1,6 +1,6 @@
 # Deploy, backup e restore — Bolão do Max novo
 
-Roteiro operacional dos quatro scripts de `infra/`. Todos leem os mesmos
+Roteiro operacional dos cinco scripts de `infra/`. Todos leem os mesmos
 parâmetros de [`infra/deploy.yml`](../../infra/deploy.yml) e nenhum tem endereço
 ou senha embutidos.
 
@@ -19,6 +19,7 @@ ou senha embutidos.
 | `bun run backup` | Dump do banco de produção para `infra/backups/` (fora do servidor) |
 | `bun run restaurar` | Último backup → banco local; ou produção, com confirmação |
 | `bun run worker:remoto <ação>` | Aciona o worker no servidor sem esperar a cadência |
+| `bun run tunel` | Audita a exposição do banco e abre um túnel SSH até ele |
 
 Todos aceitam `--dry-run`, que mostra o plano inteiro sem tocar em nada.
 
@@ -215,6 +216,64 @@ bun run worker:remoto ciclo --alvo=local
 
 Cada passo é idempotente por conta própria — partidas por chave natural,
 snapshots por hash. Rodar de novo em caso de dúvida é seguro.
+
+---
+
+## 6. Chegar no banco de produção
+
+```bash
+bun run tunel              # audita, abre 127.0.0.1:35132 e fica de pé
+bun run tunel --verificar  # só a auditoria, não abre nada
+bun run tunel --credencial # grava a senha num arquivo 600 para colar no cliente
+```
+
+No cliente de banco: **host 127.0.0.1, porta 35132**, banco e usuário `bolao`.
+Enquanto o processo viver, o túnel existe; Ctrl-C encerra.
+
+### O banco não tem porta na internet, e isso é verificado a cada abertura
+
+Duas barreiras independentes, e a redundância é de propósito:
+
+1. **O docker publica em `127.0.0.1:5432`.** A regra de DNAT tem
+   `-d 127.0.0.1/32`, então só casa com tráfego destinado ao loopback. Isto
+   também é o que evita a armadilha clássica de o Docker furar o ufw: quem
+   publica em `0.0.0.0` fura, quem publica no loopback não tem por onde.
+2. **ufw ativo, `default deny (incoming)`**, liberando só 22, 80 e 443.
+
+O script confere as duas **e depois tenta conectar pela internet**, desta
+máquina, em cada porta que deve estar fechada. Configuração lida prova intenção;
+pacote que não volta prova resultado. Medido em 10/08/2026:
+
+| Porta | De fora |
+|---|---|
+| 5432 (Postgres) | sem resposta — descartada |
+| 6380 (Redis) | sem resposta — descartada |
+| 5002 (web interna) | sem resposta — descartada |
+| 22 (SSH) | aberta, como tem de ser |
+
+A linha do 22 é controle positivo: se ela também aparecesse fechada, o teste
+estaria medindo a saída da minha rede e não a entrada do servidor, e o resultado
+das outras três não valeria nada.
+
+Achando porta aberta, o script **para** em vez de abrir o túnel — o túnel existe
+justamente para que a porta não precise ficar aberta. `--fechar
+--confirmar=firewall` remove regras que liberem essas portas, e nunca toca 22,
+80 e 443: derrubar a 22 por script é serrar o galho em que se está sentado.
+
+### Detalhes que não são decoração
+
+- **`-L 127.0.0.1:35132:...`**, com o `127.0.0.1` explícito. Sem ele o túnel
+  poderia atender a rede local, republicando o banco de produção para a casa
+  inteira — o oposto do objetivo.
+- **`ExitOnForwardFailure=yes`**: sem isso o ssh conecta, o encaminhamento falha
+  e o script anunciaria um túnel que não existe.
+- **A senha vai para arquivo, nunca para a tela.** A primeira versão imprimia; eu
+  rodei uma vez para conferir e a senha do banco de produção foi para o histórico
+  do terminal. Agora vai para `infra/.cache/conexao.txt` em modo 600, numa pasta
+  gitignored.
+- **Prova de vida com consulta**, não com TCP: o script roda um `select` de
+  verdade pelo túnel antes de dizer que está pronto. Conferido com `psql`: 146
+  snapshots, 380 partidas.
 
 ---
 

@@ -71,6 +71,13 @@ const esquema = z.object({
     minimo_guardado: z.number().int().min(1).max(1000),
     cron: z.string().min(9),
   }),
+  tunel: z.object({
+    porta_local: z.number().int().min(1024).max(65535),
+    alvo_host: z.string().min(1),
+    alvo_porta: z.number().int().min(1).max(65535),
+    portas_fechadas: z.array(z.number().int().min(1).max(65535)).min(1),
+    intocaveis: z.array(z.number().int().min(1).max(65535)).min(1),
+  }),
   deploy: z.object({
     cache: z.string().min(1),
     passos: z.array(z.enum(['migrate', 'seed', 'seed-dados', 'ciclo'])),

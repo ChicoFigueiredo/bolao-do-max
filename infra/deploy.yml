@@ -100,6 +100,20 @@ backup:
   # então isto é a segunda cópia, fora do servidor — que é a que importa.
   cron: "0 3 * * *"
 
+tunel:
+  # Porta nesta máquina. O cliente de banco aponta para 127.0.0.1:35132.
+  porta_local: 35132
+  # Do outro lado: a porta que o docker publica no loopback do servidor. É o
+  # mesmo 127.0.0.1:5432 que o `banco` expõe, e que a internet não alcança.
+  alvo_host: 127.0.0.1
+  alvo_porta: 5432
+  # Portas que NUNCA devem responder da internet. Auditadas a cada abertura de
+  # túnel, de fora para dentro — configuração lida não prova nada.
+  portas_fechadas: [5432, 6380, 5002]
+  # Regras de firewall que o audit não pode remover, mesmo com --fechar.
+  # Derrubar a 22 por script é como serrar o galho em que se está sentado.
+  intocaveis: [22, 80, 443]
+
 deploy:
   # Onde fica o tar da imagem entre deploys, para enviar só o que mudou.
   cache: infra/.cache

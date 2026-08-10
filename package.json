@@ -19,6 +19,7 @@
     "backup": "bun run infra/bin/backup.ts",
     "restaurar": "bun run infra/bin/restaurar.ts",
     "worker:remoto": "bun run infra/bin/worker.ts",
+    "tunel": "bun run infra/bin/tunel.ts",
     "provider:doctor": "bun run packages/provider/src/cli/doctor.ts",
     "worker": "bun run apps/worker/src/index.ts",
     "worker:ciclo": "bun run apps/worker/src/cli/ciclo.ts",
@@ -39,7 +40,8 @@
     "typescript": "^5.7.3",
     "drizzle-kit": "^0.30.1",
     "drizzle-orm": "^0.38.3",
-    "zod": "^3.24.1"
+    "zod": "^3.24.1",
+    "postgres": "^3.4.5"
   },
   "dependencies": {}
 }
