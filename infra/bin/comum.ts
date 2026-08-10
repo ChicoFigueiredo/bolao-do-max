@@ -55,6 +55,13 @@ const esquema = z.object({
     credencial: z.string().startsWith('/'),
     prefixo: z.string().min(1),
   }),
+  nginx: z.object({
+    habilitado: z.boolean(),
+    upstream: z.string().regex(/^[a-z][a-z0-9_]*$/),
+    sites_available: z.string().startsWith('/'),
+    sites_enabled: z.string().startsWith('/'),
+    certbot: z.boolean(),
+  }),
   ambiente: z.record(z.string(), z.union([z.string(), z.number()])),
   backup: z.object({
     pasta_local: z.string().min(1),

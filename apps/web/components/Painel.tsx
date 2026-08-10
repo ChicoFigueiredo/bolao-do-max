@@ -140,6 +140,19 @@ export function Painel(d: DadosPainel) {
 
   const meuC = eu ? d.classico.find((l) => l.nome === eu) : undefined
   const meuP = eu ? d.posicao.find((l) => l.nome === eu) : undefined
+
+  /**
+   * Nomes em ordem alfabética para as listas de escolha.
+   *
+   * `d.classico` vem em ordem de classificação, que é o certo para a tabela e o
+   * errado para procurar o próprio nome numa lista de trinta. `localeCompare`
+   * com 'pt-BR' porque acento tem lugar definido no alfabeto: Júnior vem depois
+   * de Jane, e a ordenação binária mandaria os acentuados todos para o fim.
+   */
+  const nomes = useMemo(
+    () => d.classico.map((l) => l.nome).sort((a, b) => a.localeCompare(b, 'pt-BR')),
+    [d.classico],
+  )
   const atualizado = new Date(d.atualizadoEm).toLocaleString('pt-BR', {
     day: '2-digit',
     month: 'short',
@@ -412,7 +425,7 @@ export function Painel(d: DadosPainel) {
 
       {pedirIdentificacao && (
         <Identificacao
-          nomes={d.classico.map((l) => l.nome)}
+          nomes={nomes}
           onEscolher={(n) => definirEu(n)}
           onVisitante={marcarVisitante}
         />
@@ -422,7 +435,7 @@ export function Painel(d: DadosPainel) {
         <Menu
           tema={tema}
           eu={eu}
-          nomes={d.classico.map((l) => l.nome)}
+          nomes={nomes}
           atualizado={atualizado}
           fontes={d.fontes}
           origemLeitura={d.origemLeitura}

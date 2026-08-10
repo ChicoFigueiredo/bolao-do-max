@@ -23,7 +23,7 @@
  * **Nada do bolão atual é tocado.** Pasta, rede, porta, domínio e Redis são
  * outros. Antes da virada do nginx, voltar atrás é não fazer nada.
  */
-import { existsSync, mkdirSync, statSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs'
 import { resolve } from 'node:path'
 import {
   RAIZ,
@@ -151,6 +151,9 @@ async function deployar() {
   etapa('subindo')
   await s.rodar(compose('up -d --remove-orphans'), 'web e worker no ar')
   await esperarSaude()
+
+  etapa('nginx e TLS')
+  await publicarVhost()
 
   etapa('conferência')
   await conferir()
@@ -447,6 +450,88 @@ async function esperarSaude() {
   erro(`a web não ficou saudável. Últimas linhas:\n${log.saida}`)
 }
 
+/**
+ * Publica o vhost do domínio de convivência e emite o certificado.
+ *
+ * Existe porque sem ele o site só abre por túnel SSH, e o ponto do primeiro
+ * deploy é justamente olhar no celular. O que este passo NÃO faz é a virada: o
+ * vhost de bolao.maxmat1.com.br não é lido nem escrito aqui.
+ *
+ * A trava que importa é a ordem: `nginx -t` ANTES do reload, e se reprovar o
+ * link simbólico sai antes de qualquer coisa recarregar. Uma configuração
+ * inválida ativada derruba os nove vhosts da máquina, não só o nosso.
+ */
+async function publicarVhost() {
+  if (!p.nginx.habilitado || arg('sem-nginx') !== undefined)
+    return info('nginx desligado nos parâmetros — só o túnel SSH alcança o site')
+
+  const dominio = p.aplicacao.dominio
+  const disponivel = `${p.nginx.sites_available}/${dominio}`
+  const ativo = `${p.nginx.sites_enabled}/${dominio}`
+
+  const temNginx = await s.tentar('command -v nginx >/dev/null && echo sim')
+  if (temNginx.saida.trim() !== 'sim') return aviso('nginx não instalado no servidor — pulando')
+
+  // DNS antes de tudo. O certbot precisa alcançar este domínio de fora; sem o
+  // apontamento ele falha com um erro de validação que não explica a causa.
+  const ip = await s.ler('curl -s -4 --max-time 10 ifconfig.me || true')
+  const aponta = await s.tentar(`getent hosts ${dominio} | head -1 | cut -d' ' -f1`)
+  if (!aponta.saida.trim()) erro(`${dominio} não resolve — crie o registro DNS antes`)
+  if (ip && aponta.saida.trim() !== ip)
+    erro(
+      `${dominio} aponta para ${aponta.saida.trim()} e o servidor é ${ip}.\n` +
+        `  O certbot não conseguiria validar o domínio.`,
+    )
+  ok(`${dominio} → ${ip}`)
+
+  const existe = await s.tentar(`test -f ${disponivel} && echo sim`)
+  if (existe.saida.trim() === 'sim' && arg('refazer-vhost') === undefined) {
+    info(`${disponivel} já existe — preservado (o certbot escreve nele)`)
+  } else {
+    const modelo = readFileSync(resolve(RAIZ, 'infra/nginx/vhost.conf.template'), 'utf8')
+      .replaceAll('{{DOMINIO}}', dominio)
+      .replaceAll('{{PORTA}}', String(p.aplicacao.porta_publicada))
+      .replaceAll('{{UPSTREAM}}', p.nginx.upstream)
+    if (existe.saida.trim() === 'sim')
+      await s.rodar(`cp ${disponivel} ${disponivel}.antes-do-deploy`, 'vhost anterior guardado')
+    await s.escreverArquivo(disponivel, modelo, '644')
+  }
+
+  const jaAtivo = await s.tentar(`test -L ${ativo} && echo sim`)
+  const criouLink = jaAtivo.saida.trim() !== 'sim'
+  if (criouLink) await s.rodar(`ln -s ${disponivel} ${ativo}`, `${ativo} ativado`)
+  else info(`${ativo} já estava ativo`)
+
+  const teste = await s.tentar('nginx -t 2>&1')
+  if (teste.codigo !== 0) {
+    // Desfaz antes de reclamar: o objetivo é o nginx continuar servindo os
+    // vizinhos exatamente como estava um minuto atrás.
+    if (criouLink) await s.rodar(`rm -f ${ativo}`, 'link removido — configuração restaurada')
+    const depois = await s.tentar('nginx -t 2>&1')
+    erro(
+      `nginx -t reprovou a configuração:\n  ${teste.erroSaida || teste.saida}\n` +
+        `  Estado atual: ${depois.codigo === 0 ? 'válido, nada foi ativado' : 'AINDA INVÁLIDO — confira à mão'}`,
+    )
+  }
+  ok('nginx -t aprovado')
+  await s.rodar('systemctl reload nginx', 'nginx recarregado')
+
+  if (!p.nginx.certbot) return info('certbot desligado nos parâmetros — só http')
+
+  const temCert = await s.tentar(
+    `certbot certificates 2>/dev/null | grep -q "Domains: ${dominio}$" && echo sim`,
+  )
+  if (temCert.saida.trim() === 'sim') {
+    info('certificado já existe para este domínio')
+  } else {
+    await s.rodar(
+      `certbot --nginx -d ${dominio} --non-interactive --agree-tos --redirect ` +
+        `--keep-until-expiring --no-eff-email 2>&1 | tail -5`,
+      `certificado emitido para ${dominio}`,
+    )
+  }
+}
+
 async function conferir() {
   if (seco) return info('[seco] conferiria HTTP e o log do worker')
 
@@ -481,19 +566,19 @@ async function limparVersoes(atual: string) {
 
 function resumo(versao: string) {
   console.log(`\n${negrito('no ar')} — ${p.aplicacao.imagem}:${versao}`)
+  console.log(`  ${negrito(`https://${p.aplicacao.dominio}`)}  ← abre no celular`)
   console.log(`  servidor  ${s.endereco}:${PASTA}`)
   console.log(`  interno   http://127.0.0.1:${p.aplicacao.porta_publicada}`)
-  console.log(`  túnel     ssh -N -L 8080:127.0.0.1:${p.aplicacao.porta_publicada} ${s.endereco}`)
-  console.log(`\n${negrito('o bolão atual continua no ar, intocado')} — porta 5001, Redis próprio, dado próprio.`)
-  console.log(apagado(`\nFalta o vhost em ${p.aplicacao.dominio} para acesso público:`))
+  console.log(
+    `\n${negrito('o bolão atual continua no ar, intocado')} — bolao.maxmat1.com.br, porta 5001, ` +
+      `Redis e dado próprios.`,
+  )
   console.log(
     apagado(
-      `  1. /etc/nginx/sites-available/${p.aplicacao.dominio} com proxy_pass para ` +
-        `http://127.0.0.1:${p.aplicacao.porta_publicada}\n` +
-        `  2. ln -s ... sites-enabled/ && nginx -t && systemctl reload nginx\n` +
-        `  3. certbot --nginx -d ${p.aplicacao.dominio}\n` +
-        `É passo manual de propósito: mexer em nginx é mexer nos nove vhosts vizinhos.`,
+      `\nA virada é um passo separado, e é uma linha: no vhost de ` +
+        `bolao.maxmat1.com.br,\no \`upstream maxmat1\` passa de 5001 para ` +
+        `${p.aplicacao.porta_publicada}. Voltar é a mesma linha ao contrário.\nMe peça quando quiser.`,
     ),
   )
-  console.log(apagado(`\nRetorno:  bun run deploy --reverter`))
+  console.log(apagado(`\nRetorno da versão:  bun run deploy --reverter`))
 }

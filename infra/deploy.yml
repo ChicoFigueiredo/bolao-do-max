@@ -61,6 +61,19 @@ cache:
   credencial: /opt/cache/credenciais/bolao.env
   prefixo: "bolao:v1:"
 
+nginx:
+  # O deploy publica o vhost do domínio de convivência para o site abrir no
+  # celular sem túnel. Ele NUNCA toca o vhost de bolao.maxmat1.com.br — a virada
+  # é um passo separado, pedido por você.
+  habilitado: true
+  # Nome do upstream. Precisa ser diferente do `maxmat1` que o vhost atual já
+  # declara: nome repetido faz o nginx recusar a configuração dos nove vhosts.
+  upstream: bolao_novo
+  sites_available: /etc/nginx/sites-available
+  sites_enabled: /etc/nginx/sites-enabled
+  # Emite o certificado com o certbot que já gerencia os outros domínios.
+  certbot: true
+
 ambiente:
   # Variáveis que o deploy escreve no .env do servidor, sobrepondo o que vier
   # do .env local. As chaves de provedor vêm do .env local sem alteração.
