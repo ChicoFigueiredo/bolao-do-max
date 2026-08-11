@@ -55,6 +55,19 @@ const arg = (nome: string) => {
   return a.includes('=') ? a.split('=').slice(1).join('=') : ''
 }
 
+const ZONA_LIMITES = '/etc/nginx/conf.d/bolao-limites.conf'
+const CONTEUDO_ZONA = `# Escrito por infra/bin/deploy.ts --limites.
+#
+# Declarar a zona não limita nada sozinho: só passa a valer no vhost que a
+# referencia com \`limit_req\`. Enquanto nenhum referenciar, este arquivo é
+# inerte para os outros vhosts da máquina.
+limit_req_zone $binary_remote_addr zone=bolao:10m rate=20r/s;
+`
+const REGRA_LIMITES = [
+  '\t\tlimit_req zone=bolao burst=40 nodelay;',
+  '\t\tlimit_req_status 429;',
+].join('\n')
+
 try {
   if (arg('versoes') !== undefined) await listarVersoes()
   else if (arg('reverter') !== undefined) await reverter(arg('reverter') || undefined)
@@ -154,6 +167,9 @@ async function deployar() {
 
   etapa('nginx e TLS')
   await publicarVhost()
+
+  etapa('limites de requisição')
+  await aplicarLimites()
 
   etapa('conferência')
   await conferir()
@@ -530,6 +546,106 @@ async function publicarVhost() {
       `certificado emitido para ${dominio}`,
     )
   }
+}
+
+/**
+ * Teto de requisições por IP, no nginx.
+ *
+ * A aplicação já limita o **custo** de cada requisição — coalescência e janela
+ * de TTL fazem N requisições simultâneas custarem um cálculo. Isto limita a
+ * **quantidade**, que é a outra metade. Defesa em profundidade para os achados
+ * de CWE-400 de 10/08/2026.
+ *
+ * Fica atrás de `--limites` e fora do caminho padrão do deploy, de propósito:
+ * é a única etapa que encosta em configuração compartilhada, e precisa poder
+ * ser revertida sozinha sem desfazer a aplicação.
+ *
+ * O risco está bem localizado e é tratado em duas medidas:
+ *
+ *   a zona   vai para um arquivo NOVO em conf.d/. `limit_req_zone` só vale no
+ *            bloco http, que é compartilhado — mas declarar uma zona que
+ *            nenhum vhost referencia não muda o comportamento de ninguém. É
+ *            aditivo, e seguro por construção.
+ *   a regra  vai para o vhost do bolão, que pertence ao certbot. Cópia antes,
+ *            `nginx -t` depois, e **desfaz antes de reclamar** se reprovar —
+ *            a mesma ordem de publicarVhost(), pelo mesmo motivo: uma
+ *            configuração inválida ativada derruba os nove vhosts da máquina.
+ *
+ * Sobre os números: uma visita humana dispara a página mais três chamadas de
+ * API. 20 r/s com rajada de 40 é folgado para uma pessoa e para operadora
+ * móvel que compartilha IP por NAT, e é teto duro para uma inundação. O falso
+ * positivo aqui é usuário real vendo 429, então começar generoso é o certo.
+ */
+async function aplicarLimites() {
+  if (arg('limites') === undefined)
+    return info('sem --limites — teto de requisições não alterado nesta passada')
+
+  const dominio = arg('limites-dominio') || p.aplicacao.dominio
+  const vhost = `${p.nginx.sites_available}/${dominio}`
+
+  if (seco) return info(`[seco] declararia a zona em ${ZONA_LIMITES} e limitaria ${dominio}`)
+
+  const temNginx = await s.tentar('command -v nginx >/dev/null && echo sim')
+  if (temNginx.saida.trim() !== 'sim') return aviso('nginx não instalado no servidor — pulando')
+
+  // Sem este include a zona ficaria escrita e nunca lida, e o `limit_req` do
+  // vhost referenciaria uma zona inexistente — que é justamente o erro que
+  // reprova a configuração inteira.
+  const inclui = await s.tentar(
+    `grep -qE '^\\s*include\\s+/etc/nginx/conf\\.d/\\*\\.conf;' /etc/nginx/nginx.conf && echo sim`,
+  )
+  if (inclui.saida.trim() !== 'sim')
+    erro(
+      `/etc/nginx/nginx.conf não inclui conf.d/*.conf.\n` +
+        `  A zona precisa do bloco http e não há onde declará-la sem editar\n` +
+        `  arquivo compartilhado. Confira à mão antes de insistir.`,
+    )
+
+  const temVhost = await s.tentar(`test -f ${vhost} && echo sim`)
+  if (temVhost.saida.trim() !== 'sim')
+    erro(`${vhost} não existe — rode o deploy sem --limites primeiro, ou passe --limites-dominio=`)
+
+  const jaTem = await s.tentar(`grep -q 'zone=bolao' ${vhost} && echo sim`)
+  if (jaTem.saida.trim() === 'sim') {
+    await s.escreverArquivo(ZONA_LIMITES, CONTEUDO_ZONA, '644')
+    return ok(`${dominio} já tem o teto — zona reescrita, vhost intacto`)
+  }
+
+  await s.escreverArquivo(ZONA_LIMITES, CONTEUDO_ZONA, '644')
+  await s.rodar(`cp ${vhost} ${vhost}.antes-do-limite`, 'vhost guardado')
+
+  // Entra em todo `location /` do arquivo: depois do certbot passar, o vhost
+  // tem dois blocos server, e limitar só o :80 deixaria o :443 — que é por
+  // onde todo mundo entra — sem teto nenhum.
+  const insercao = REGRA_LIMITES.replaceAll('\t', '\\t').replaceAll('\n', '\\n')
+  await s.rodar(
+    `sed -i 's|^\\(\\s*\\)location / {|&\\n${insercao}|' ${vhost}`,
+    'limit_req inserido nos blocos location /',
+  )
+
+  const quantos = await s.ler(`grep -c 'zone=bolao' ${vhost} || true`)
+  if (Number(quantos.trim()) < 1) {
+    await s.rodar(`mv ${vhost}.antes-do-limite ${vhost}`, 'vhost restaurado')
+    erro(`o sed não encontrou nenhum 'location / {' em ${vhost} — nada foi alterado`)
+  }
+
+  const teste = await s.tentar('nginx -t 2>&1')
+  if (teste.codigo !== 0) {
+    // Desfaz antes de reclamar. Nada foi recarregado ainda, então o nginx em
+    // execução segue com a configuração antiga — restaurar o arquivo fecha o
+    // ciclo sem que ninguém tenha sentido nada.
+    await s.rodar(`mv ${vhost}.antes-do-limite ${vhost}`, 'vhost restaurado')
+    await s.rodar(`rm -f ${ZONA_LIMITES}`, 'zona removida')
+    const depois = await s.tentar('nginx -t 2>&1')
+    erro(
+      `nginx -t reprovou a configuração com o limite:\n  ${teste.erroSaida || teste.saida}\n` +
+        `  Estado atual: ${depois.codigo === 0 ? 'válido, nada foi ativado' : 'AINDA INVÁLIDO — confira à mão'}`,
+    )
+  }
+  ok('nginx -t aprovado')
+  await s.rodar('systemctl reload nginx', 'nginx recarregado')
+  ok(`${dominio}: 20 r/s por IP, rajada de 40, excedente recebe 429`)
+  info(`para desfazer: mv ${vhost}.antes-do-limite ${vhost} && rm -f ${ZONA_LIMITES} && nginx -t && systemctl reload nginx`)
 }
 
 async function conferir() {

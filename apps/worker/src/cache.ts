@@ -83,6 +83,19 @@ export class Cache {
     return bruto ? (JSON.parse(bruto) as T) : null
   }
 
+  private chaveMovimento(temporada: number) {
+    return this.k(`movimento:${temporada}`)
+  }
+
+  async publicarMovimento(temporada: number, movimento: unknown) {
+    await this.cliente.set(this.chaveMovimento(temporada), JSON.stringify(movimento))
+  }
+
+  async lerMovimento<T>(temporada: number): Promise<T | null> {
+    const bruto = await this.cliente.get(this.chaveMovimento(temporada))
+    return bruto ? (JSON.parse(bruto) as T) : null
+  }
+
   /** Marca quando a interface foi acessada — alimenta a cadência do worker. */
   async registrarAcesso(): Promise<void> {
     await this.cliente.set(this.k('ultimo_acesso'), new Date().toISOString())

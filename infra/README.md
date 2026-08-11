@@ -24,6 +24,12 @@ bun run deploy
 bun run deploy --versoes
 bun run deploy --reverter
 
+# Teto de 20 r/s por IP, rajada de 40, excedente recebe 429.
+# Fora do caminho padrão de propósito: é a única etapa que encosta em
+# configuração compartilhada com os outros nove vhosts da máquina.
+bun run deploy --limites
+bun run deploy --limites --limites-dominio=bolao.maxmat1.com.br
+
 bun run backup
 bun run backup --listar
 bun run backup --instalar-cron

@@ -12,7 +12,7 @@
 import type { LinhaClassico, LinhaPosicao } from '@bolao/dominio'
 import type { Banco } from '@bolao/db'
 import type { Cache } from '../cache.ts'
-import { calcularHistorico, type Bolao, type Janela } from './series.ts'
+import { calcularHistorico, calcularMovimento24h, type Bolao, type Janela } from './series.ts'
 
 export type DetalhePronto = {
   nome: string
@@ -31,10 +31,15 @@ export async function prerenderizar(
   db: Banco,
   cache: Cache,
   temporada: number,
+  temporadaId: number,
   classico: LinhaClassico[],
   posicao: LinhaPosicao[],
 ): Promise<{ detalhes: number; series: number }> {
   const historico = await calcularHistorico(db)
+
+  // O movimento de 24 h entra aqui pelo mesmo motivo que o resto: a home o
+  // pedia por requisição, direto no Postgres.
+  await cache.publicarMovimento(temporada, await calcularMovimento24h(db, temporadaId))
 
   let series = 0
   for (const b of BOLOES)
