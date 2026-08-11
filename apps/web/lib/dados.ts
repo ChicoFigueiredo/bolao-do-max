@@ -1,24 +1,55 @@
 import 'server-only'
 import { carregarConfig } from '@bolao/config'
-import { abrirBanco, snapshot, snapshotCompetidor, competidor, temporada } from '@bolao/db'
+import { abrirBanco, temporada } from '@bolao/db'
 import type { LinhaClassico, LinhaPosicao, Tabela } from '@bolao/dominio'
 import { Cache, type PayloadCache } from '@bolao/worker/cache'
 import { calcularRankings } from '@bolao/worker/calcular'
-import { and, asc, desc, eq, gte } from 'drizzle-orm'
+import { calcularMovimento24h, type Movimento } from '@bolao/worker/series'
+import { and, eq } from 'drizzle-orm'
+import { umDeCadaVez } from './um-de-cada-vez'
+
+/**
+ * Janelas do modo degradado.
+ *
+ * Curtas o bastante para não esconder a recuperação do Redis, longas o
+ * bastante para absorver uma rajada. Só valem no caminho de exceção.
+ */
+const TTL_RESULTADO_MS = 15_000
+const TTL_MOVIMENTO_MS = 60_000
 
 export type Resultado = PayloadCache & { origemLeitura: 'cache' | 'banco' }
 
 /**
- * Um cliente Redis por processo, não por requisição.
+ * Conexões por processo, não por requisição.
  *
- * Abrir e fechar a cada render derruba a conexão com operações em voo e
- * produz rejeições não tratadas — foi exatamente o que aconteceu na primeira
+ * Abrir e fechar o Redis a cada render derruba a conexão com operações em voo
+ * e produz rejeições não tratadas — foi exatamente o que aconteceu na primeira
  * versão. O client é barato de manter aberto e reconecta sozinho.
+ *
+ * O mesmo vale para o Postgres, e por um motivo mais duro: `abrirBanco()` cria
+ * um *pool* de até DATABASE_POOL_MAX conexões. Uma por requisição significa que
+ * N requisições simultâneas custam N × max conexões, e o Postgres esgota
+ * `max_connections` — levando junto o worker e os outros inquilinos da
+ * instância — muito antes de a CPU sentir. Era o dente do achado de
+ * CWE-400 de 10/08/2026.
+ *
+ * `globalThis` porque o hot-reload do `next dev` reavalia o módulo e um
+ * singleton de módulo acumularia uma conexão por recompilação.
  */
-let clienteCache: Cache | undefined
+type Conexoes = { cache?: Cache; banco?: ReturnType<typeof abrirBanco> }
+const conexoes: Conexoes = ((globalThis as { __bolao?: Conexoes }).__bolao ??= {})
+
 export function cacheCompartilhado(cfg: ReturnType<typeof carregarConfig>): Cache {
-  if (!clienteCache) clienteCache = new Cache(cfg)
-  return clienteCache
+  if (!conexoes.cache) conexoes.cache = new Cache(cfg)
+  return conexoes.cache
+}
+
+/**
+ * O pool do processo. Não se fecha: fechar por requisição é o bug.
+ */
+export function bancoCompartilhado() {
+  if (!conexoes.banco) conexoes.banco = abrirBanco()
+  return conexoes.banco.db
 }
 
 /**
@@ -41,8 +72,10 @@ export async function lerResultado(): Promise<Resultado | null> {
     /* Redis fora do ar — segue para o banco, que é a fonte da verdade */
   }
 
-  const { db, fechar } = abrirBanco()
-  try {
+  // Daqui para baixo é o modo degradado, e ele é compartilhado: mil
+  // requisições simultâneas custam um cálculo, não mil.
+  return umDeCadaVez('resultado', TTL_RESULTADO_MS, async () => {
+    const db = bancoCompartilhado()
     const [t] = await db
       .select()
       .from(temporada)
@@ -61,72 +94,40 @@ export async function lerResultado(): Promise<Resultado | null> {
       origem: 'leitura direta',
       origemLeitura: 'banco',
     }
-  } finally {
-    await fechar()
-  }
+  })
 }
 
-export type Movimento = Record<string, { classico: number | null; posicao: number | null }>
+export type { Movimento }
 
 /**
- * Variação de posição nas últimas 24 h, dos snapshots.
+ * Variação de posição nas últimas 24 h.
  *
- * É o que alimenta as setinhas do design. Sai da série temporal, que só
- * existe porque o worker snapshota — dado que o sistema atual joga fora.
+ * Caminho comum: leitura de uma chave que o worker montou no fim do ciclo.
+ * Antes esta função ia direto ao Postgres em toda visita à home — três
+ * consultas e um pool de conexões por pessoa, com o cache saudável ou não.
+ *
+ * Caminho de exceção: a chave não está lá (worker ainda não rodou, cache
+ * limpo). Aí calcula, coalescido, para a tela não perder as setinhas.
  */
 export async function lerMovimento24h(): Promise<Movimento> {
   const cfg = carregarConfig()
-  const { db, fechar } = abrirBanco()
+
   try {
+    const pronto = await cacheCompartilhado(cfg).lerMovimento<Movimento>(cfg.TEMPORADA_ATUAL)
+    if (pronto) return pronto
+  } catch {
+    /* Redis fora do ar — calcula */
+  }
+
+  return umDeCadaVez("movimento", TTL_MOVIMENTO_MS, async () => {
+    const db = bancoCompartilhado()
     const [t] = await db
       .select({ id: temporada.id })
       .from(temporada)
       .where(and(eq(temporada.ano, cfg.TEMPORADA_ATUAL), eq(temporada.serie, cfg.SERIE)))
     if (!t) return {}
-
-    const ontem = new Date(Date.now() - 86_400_000)
-    const [antigo] = await db
-      .select({ id: snapshot.id })
-      .from(snapshot)
-      .where(and(eq(snapshot.temporadaId, t.id), gte(snapshot.criadoEm, ontem)))
-      .orderBy(asc(snapshot.criadoEm))
-      .limit(1)
-    const [recente] = await db
-      .select({ id: snapshot.id })
-      .from(snapshot)
-      .where(eq(snapshot.temporadaId, t.id))
-      .orderBy(desc(snapshot.criadoEm))
-      .limit(1)
-
-    if (!antigo || !recente || antigo.id === recente.id) return {}
-
-    const linhas = async (id: number) =>
-      db
-        .select({
-          nome: competidor.nome,
-          classico: snapshotCompetidor.classicoPosicao,
-          posicao: snapshotCompetidor.posicaoPosicao,
-        })
-        .from(snapshotCompetidor)
-        .innerJoin(competidor, eq(competidor.id, snapshotCompetidor.competidorId))
-        .where(eq(snapshotCompetidor.snapshotId, id))
-
-    const [antes, agora] = await Promise.all([linhas(antigo.id), linhas(recente.id)])
-    const mapaAntes = new Map(antes.map((l) => [l.nome, l]))
-
-    const mov: Movimento = {}
-    for (const a of agora) {
-      const b = mapaAntes.get(a.nome)
-      if (!b) continue
-      mov[a.nome] = {
-        classico: b.classico != null && a.classico != null ? b.classico - a.classico : null,
-        posicao: b.posicao != null && a.posicao != null ? b.posicao - a.posicao : null,
-      }
-    }
-    return mov
-  } finally {
-    await fechar()
-  }
+    return calcularMovimento24h(db, t.id)
+  })
 }
 
 export type { LinhaClassico, LinhaPosicao, Tabela }

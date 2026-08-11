@@ -4,6 +4,8 @@ import type { DetalhePronto } from '@bolao/worker/prerender'
 
 export const dynamic = 'force-dynamic'
 
+const TETO_NOME = 80
+
 /**
  * Detalhe de um competidor.
  *
@@ -19,6 +21,11 @@ export async function GET(req: Request) {
   const nome = u.searchParams.get('nome')
   const tipo = u.searchParams.get('tipo') === 'posicao' ? 'posicao' : 'classico'
   if (!nome) return Response.json({ erro: 'informe ?nome=' }, { status: 400 })
+  // `nome` vem do público e vira sufixo de chave no Redis. Não há injeção — o
+  // client fala RESP e trata o valor como argumento — mas tamanho de chave sem
+  // teto é entrada não limitada vinda de fora. Nome de competidor não chega
+  // perto disto.
+  if (nome.length > TETO_NOME) return Response.json({ erro: 'nome longo demais' }, { status: 400 })
 
   const cfg = carregarConfig()
 
@@ -33,6 +40,10 @@ export async function GET(req: Request) {
     /* Redis fora do ar — monta na hora */
   }
 
+  // O resultado vem antes da checagem do nome, e continua vindo: `lerResultado`
+  // coalesce o modo degradado, então mil nomes inválidos simultâneos custam um
+  // cálculo, não mil. Inverter a ordem exigiria publicar e manter uma lista de
+  // nomes válidos — estado novo para uma propriedade que a coalescência já dá.
   const r = await lerResultado()
   if (!r) return Response.json({ erro: 'sem resultado publicado' }, { status: 503 })
 

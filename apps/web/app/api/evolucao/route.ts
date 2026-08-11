@@ -1,9 +1,13 @@
 import { carregarConfig } from '@bolao/config'
 import type { Bolao, Janela, SerieTemporal } from '@bolao/worker/series'
 import { calcularHistorico } from '@bolao/worker/series'
-import { cacheCompartilhado } from '../../../lib/dados'
+import { bancoCompartilhado, cacheCompartilhado } from '../../../lib/dados'
+import { umDeCadaVez } from '../../../lib/um-de-cada-vez'
 
 export const dynamic = 'force-dynamic'
+
+/** A varredura da temporada é a mais cara das três — janela mais larga. */
+const TTL_HISTORICO_MS = 60_000
 
 /**
  * Séries de trajetória para a aba Evolução.
@@ -35,7 +39,11 @@ export async function GET(req: Request) {
     /* Redis fora do ar — calcula */
   }
 
-  const h = await calcularHistorico()
+  // Modo degradado compartilhado: varrer a temporada inteira é caro, e sem
+  // coalescência cada requisição anônima pagaria a varredura de novo.
+  const h = await umDeCadaVez('historico', TTL_HISTORICO_MS, () =>
+    calcularHistorico(bancoCompartilhado()),
+  )
   return Response.json(h[janela][bolao], {
     headers: { 'Cache-Control': 'no-store', 'X-Origem': 'calculado' },
   })
