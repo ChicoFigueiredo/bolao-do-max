@@ -71,7 +71,12 @@ const REGRA_LIMITES = [
 try {
   if (arg('versoes') !== undefined) await listarVersoes()
   else if (arg('reverter') !== undefined) await reverter(arg('reverter') || undefined)
-  else await deployar()
+  // Só o nginx, sem tocar na aplicação. Existe porque aplicar um teto de
+  // requisições não deveria custar uma recriação de container em produção.
+  else if (arg('so-limites') !== undefined) {
+    etapa('limites de requisição')
+    await aplicarLimites()
+  } else await deployar()
 } finally {
   s.fechar()
 }
@@ -577,7 +582,7 @@ async function publicarVhost() {
  * positivo aqui é usuário real vendo 429, então começar generoso é o certo.
  */
 async function aplicarLimites() {
-  if (arg('limites') === undefined)
+  if (arg('limites') === undefined && arg('so-limites') === undefined)
     return info('sem --limites — teto de requisições não alterado nesta passada')
 
   const dominio = arg('limites-dominio') || p.aplicacao.dominio
