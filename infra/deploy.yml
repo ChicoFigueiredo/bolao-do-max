@@ -31,9 +31,15 @@ aplicacao:
   # 5001 é o bolão atual, que continua no ar — não colidir.
   porta_publicada: 5002
   porta_interna: 3000
-  # Domínio provisório da convivência. A virada para bolao.maxmat1.com.br é um
-  # passo manual no nginx, feito só depois de aprovação (docs/plan §11.3).
+  # Domínio de convivência: sempre aponta para cá, e é por ele que o deploy
+  # confere que a subida funcionou.
   dominio: bolao-novo.maxmat1.com.br
+  # O domínio de verdade. A virada aconteceu em 10/08/2026 — o `upstream maxmat1`
+  # dele já aponta para a porta_publicada abaixo. O deploy NÃO escreve neste
+  # vhost; só lê, para saber se a virada está feita e conferir o domínio certo.
+  # Enquanto ele apontar para cá, todo deploy recria o container que serve
+  # produção: há um piscar de indisponibilidade, e o relatório final diz isso.
+  dominio_producao: bolao.maxmat1.com.br
   # Redes externas já existentes no servidor. `banco` e `cache` só escutam em
   # 127.0.0.1: entrar nelas é o único caminho até as instâncias compartilhadas.
   redes_externas:

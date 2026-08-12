@@ -38,6 +38,7 @@ const esquema = z.object({
     porta_publicada: z.number().int().min(1).max(65535),
     porta_interna: z.number().int().min(1).max(65535).default(3000),
     dominio: z.string().min(1),
+    dominio_producao: z.string().min(1),
     redes_externas: z.array(z.string().min(1)).min(1),
     memoria_web: z.string().regex(/^\d+[mg]$/),
     memoria_worker: z.string().regex(/^\d+[mg]$/),

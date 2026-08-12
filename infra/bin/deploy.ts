@@ -182,7 +182,7 @@ async function deployar() {
   etapa('limpeza')
   await limparVersoes(versao)
 
-  resumo(versao)
+  await resumo(versao)
 }
 
 async function calcularVersao(): Promise<string> {
@@ -653,29 +653,81 @@ async function aplicarLimites() {
   info(`para desfazer: mv ${vhost}.antes-do-limite ${vhost} && rm -f ${ZONA_LIMITES} && nginx -t && systemctl reload nginx`)
 }
 
+/**
+ * A virada está feita? Pergunte ao nginx, não ao texto.
+ *
+ * Este script afirmou por semanas, no relatório final, que produção continuava
+ * intocada na 5001. Depois da virada de 10/08/2026 isso virou mentira impressa
+ * — e mentira no relatório é pior que silêncio, porque quem deploya confia nela
+ * e não confere. Agora a linha sai do vhost real.
+ */
+async function viradaFeita(): Promise<boolean> {
+  const r = await s.tentar(
+    `grep -qE '(localhost|127\\.0\\.0\\.1):${p.aplicacao.porta_publicada}([^0-9]|$)' ` +
+      `${p.nginx.sites_available}/${p.aplicacao.dominio_producao} && echo sim || echo nao`,
+  )
+  return r.saida.trim() === 'sim'
+}
+
+/**
+ * Uma resposta só conta como boa se ela **termina**.
+ *
+ * Conferir `%{http_code}` não basta, e não é teoria: em 11/08/2026 a web passou
+ * 26 h devolvendo 200 com o corpo cortado no primeiro buffer — a home parava em
+ * 122880 bytes, sem `</html>` nem os scripts de bootstrap, e o React nunca
+ * hidratava. O cabeçalho sai antes da falha; o corpo é que morre.
+ *
+ * Daí as duas exigências aqui. Corpo completo, verificado pelo `</html>`. E
+ * `--max-time` em todo curl: sem ele, a mesma resposta pendurada pendura o
+ * deploy junto, para sempre, sem dizer por quê — era o caso da linha antiga.
+ */
+async function conferirHttp(url: string, duro: boolean) {
+  const arquivo = '/tmp/bolao-conferencia.html'
+  const queixa = (m: string) => (duro ? erro(m) : aviso(m))
+
+  const r = await s.tentar(`curl -s --max-time 20 -o ${arquivo} -w '%{http_code}' ${url}`)
+  // 28 é o timeout do curl: os bytes chegaram e a conexão nunca fechou.
+  if (r.codigo !== 0)
+    return queixa(
+      `${url} não completou — curl saiu ${r.codigo}` +
+        (r.codigo === 28 ? ' (resposta pendurada, corpo sem fim)' : ''),
+    )
+  if (r.saida.trim() !== '200') return queixa(`${url} respondeu ${r.saida.trim() || 'nada'}`)
+
+  const fecha = await s.tentar(`grep -c '</html>' ${arquivo} || true`)
+  if (fecha.saida.trim() === '0') {
+    const bytes = await s.tentar(`wc -c < ${arquivo} || true`)
+    return queixa(
+      `${url} respondeu 200 mas o HTML não fecha — ${bytes.saida.trim()} bytes ` +
+        `truncados, sem </html>. É a assinatura do apagão de 11/08/2026.`,
+    )
+  }
+  ok(`${url} → 200, HTML completo`)
+}
+
 async function conferir() {
   if (seco) return info('[seco] conferiria HTTP e o log do worker')
 
   const alvo = `http://127.0.0.1:${p.aplicacao.porta_publicada}`
-  const codigo = await s.ler(
-    `curl -s -o /dev/null -w '%{http_code}' ${alvo}/ || echo erro`,
-  )
-  if (codigo !== '200') erro(`GET / respondeu ${codigo}`)
-  ok(`GET ${alvo}/ → 200`)
+  await conferirHttp(`${alvo}/`, true)
 
   // O corpo inteiro, sem `head -c`: cortar JSON e depois interpretar é um jeito
   // garantido de falhar na conferência com o deploy perfeitamente bom.
-  const api = await s.ler(`curl -s ${alvo}/api/resultados`)
+  const api = await s.ler(`curl -s --max-time 20 ${alvo}/api/resultados`)
   const dados = JSON.parse(api) as { ano?: number; Competidores?: unknown[] }
   ok(`/api/resultados → temporada ${dados.ano}, ${dados.Competidores?.length ?? '?'} competidores`)
 
   // De fora, como quem vai abrir no celular: prova o vhost, o TLS e o DNS de
   // uma vez. Feito do servidor por simplicidade — o caminho público é o mesmo.
-  const publico = await s.tentar(
-    `curl -s -o /dev/null -w '%{http_code}' --max-time 15 https://${p.aplicacao.dominio}/`,
-  )
-  if (publico.saida.trim() === '200') ok(`https://${p.aplicacao.dominio}/ → 200`)
-  else aviso(`https://${p.aplicacao.dominio}/ respondeu ${publico.saida.trim() || 'nada'}`)
+  await conferirHttp(`https://${p.aplicacao.dominio}/`, false)
+
+  // E o domínio que as pessoas de verdade usam, quando ele aponta para cá.
+  // Ficou de fora até 11/08/2026: o deploy conferia só o domínio de convivência
+  // e dava a subida por boa enquanto produção estava fora do ar. Aqui é duro de
+  // propósito — servir meia página no domínio real não é deploy bem-sucedido.
+  if (await viradaFeita()) await conferirHttp(`https://${p.aplicacao.dominio_producao}/`, true)
+
+  await s.tentar(`rm -f /tmp/bolao-conferencia.html`)
 
   const logWorker = await s.tentar(compose('logs --tail 5 worker'))
   for (const l of logWorker.saida.split('\n').filter(Boolean)) info(l)
@@ -692,21 +744,36 @@ async function limparVersoes(atual: string) {
   )
 }
 
-function resumo(versao: string) {
+async function resumo(versao: string) {
   console.log(`\n${negrito('no ar')} — ${p.aplicacao.imagem}:${versao}`)
   console.log(`  ${negrito(`https://${p.aplicacao.dominio}`)}  ← abre no celular`)
   console.log(`  servidor  ${s.endereco}:${PASTA}`)
   console.log(`  interno   http://127.0.0.1:${p.aplicacao.porta_publicada}`)
-  console.log(
-    `\n${negrito('o bolão atual continua no ar, intocado')} — bolao.maxmat1.com.br, porta 5001, ` +
-      `Redis e dado próprios.`,
-  )
-  console.log(
-    apagado(
-      `\nA virada é um passo separado, e é uma linha: no vhost de ` +
-        `bolao.maxmat1.com.br,\no \`upstream maxmat1\` passa de 5001 para ` +
-        `${p.aplicacao.porta_publicada}. Voltar é a mesma linha ao contrário.\nMe peça quando quiser.`,
-    ),
-  )
+
+  if (await viradaFeita()) {
+    console.log(
+      `\n${negrito(`este deploy serve produção`)} — https://${p.aplicacao.dominio_producao} ` +
+        `aponta para a porta ${p.aplicacao.porta_publicada}.`,
+    )
+    console.log(
+      apagado(
+        `\nRecriar o container é um piscar de indisponibilidade no domínio real: ` +
+          `não é\num deploy isolado. Voltar atrás é \`bun run deploy --reverter\`, ou ` +
+          `apontar o\n\`upstream\` do vhost para a pilha antiga.`,
+      ),
+    )
+  } else {
+    console.log(
+      `\n${negrito('a virada ainda não foi feita')} — ${p.aplicacao.dominio_producao} não ` +
+        `aponta para a porta ${p.aplicacao.porta_publicada}, e nada de produção foi tocado.`,
+    )
+    console.log(
+      apagado(
+        `\nA virada é uma linha: no vhost de ${p.aplicacao.dominio_producao}, o ` +
+          `\`upstream\`\npassa para ${p.aplicacao.porta_publicada}. Voltar é a mesma linha ` +
+          `ao contrário.\nMe peça quando quiser.`,
+      ),
+    )
+  }
   console.log(apagado(`\nRetorno da versão:  bun run deploy --reverter`))
 }
