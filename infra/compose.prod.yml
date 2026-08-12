@@ -39,13 +39,16 @@ services:
     # A máquina tem oito containers de outros projetos. Um vazamento aqui não
     # pode derrubar vizinho, e um teto baixo demais mata a página — daí os
     # valores vierem de infra/deploy.yml, onde é fácil ajustar.
+    # Lê e parseia o corpo, não só o cabeçalho — ver o comentário longo no
+    # HEALTHCHECK do infra/Dockerfile. Resumo: em 11/08/2026 a web ficou 26 h
+    # entregando meia resposta e o check de cabeçalho jurou que estava saudável.
     healthcheck:
       test:
         [
           "CMD",
           "bun",
           "-e",
-          "fetch('http://127.0.0.1:3000/api/resultados').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+          "fetch('http://127.0.0.1:3000/api/resultados').then(r=>r.ok?r.json():Promise.reject()).then(j=>process.exit(j&&j.ano&&Array.isArray(j.tabela)?0:1)).catch(()=>process.exit(1))",
         ]
       interval: 30s
       timeout: 5s

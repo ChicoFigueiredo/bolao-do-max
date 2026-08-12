@@ -116,8 +116,17 @@ USER bun
 EXPOSE 3000
 
 # A imagem não traz curl nem wget — o healthcheck usa o runtime que ela já tem.
+#
+# Ele lê e parseia o corpo, não só o cabeçalho, e isso não é zelo: em 11/08/2026
+# o servidor passou 26 h entregando apenas o primeiro buffer de cada resposta
+# dinâmica e travando — a página chegava pela metade e nunca fechava. O
+# healthcheck de então olhava só `r.ok` e respondeu saudável em 130 ms durante o
+# apagão inteiro, porque o cabeçalho sai antes da falha e o corpo é que morre.
+#
+# `r.json()` cobre os dois modos de morte: corpo truncado não parseia, e corpo
+# pendurado estoura o --timeout — que o Docker conta como falha.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=25s --retries=3 \
-  CMD bun -e "fetch('http://127.0.0.1:'+(process.env.WEB_PORT||3000)+'/api/resultados').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+  CMD bun -e "fetch('http://127.0.0.1:'+(process.env.WEB_PORT||3000)+'/api/resultados').then(r=>r.ok?r.json():Promise.reject()).then(j=>process.exit(j&&j.ano&&Array.isArray(j.tabela)?0:1)).catch(()=>process.exit(1))"
 
 # O compose declara o comando de cada serviço; este é o padrão para quem rodar
 # a imagem na mão.
