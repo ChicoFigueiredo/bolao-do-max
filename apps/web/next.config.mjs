@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import type { NextConfig } from 'next'
 
 /**
  * O `.env` vive na raiz do monorepo, mas o Next roda com o cwd em `apps/web`
@@ -15,8 +14,8 @@ function carregarEnvDaRaiz() {
       const m = /^\s*([A-Z0-9_]+)\s*=\s*(.*)$/.exec(linha)
       if (!m) continue
       const [, chave, bruto] = m
-      if (process.env[chave!] !== undefined) continue
-      process.env[chave!] = bruto!.trim().replace(/^["'](.*)["']$/, '$1')
+      if (process.env[chave] !== undefined) continue
+      process.env[chave] = bruto.trim().replace(/^["'](.*)["']$/, '$1')
     }
   } catch {
     // Sem .env na raiz: em produção as variáveis vêm do ambiente do container.
@@ -25,7 +24,15 @@ function carregarEnvDaRaiz() {
 
 carregarEnvDaRaiz()
 
-const config: NextConfig = {
+// Este arquivo é .mjs, não .ts, de propósito. A partir do Next 15.5 o
+// `next start` também lê o config em runtime, e um config .ts exige o
+// TypeScript instalado — que o infra/Dockerfile poda da imagem por ser
+// ferramenta de autoria. Em 23/08/2026 isso derrubou um deploy: o Next tentou
+// instalar typescript com `npm`, que não existe na imagem, e a web não subiu.
+// O JSDoc abaixo preserva a checagem de tipos no editor sem custo em produção.
+
+/** @type {import('next').NextConfig} */
+const config = {
   reactStrictMode: true,
   // Os pacotes do monorepo são TypeScript cru, sem etapa de build própria —
   // o Next os transpila junto. É o que mantém o repo sem build step extra.
