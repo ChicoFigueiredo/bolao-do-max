@@ -1,0 +1,7 @@
+[Unit]
+Description=Reinicia o bolao-do-max-web quando o healthcheck reprova
+Documentation=https://github.com/chicofigueiredo/bolao-do-max
+
+[Service]
+Type=oneshot
+ExecStart=/opt/bolao-do-max/bolao-autoheal.sh bolao-do-max-web 3

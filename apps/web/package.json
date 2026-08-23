@@ -12,7 +12,7 @@
     "@bolao/db": "workspace:*",
     "@bolao/dominio": "workspace:*",
     "@bolao/worker": "workspace:*",
-    "next": "15.1.6",
+    "next": "15.5.23",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "server-only": "^0.0.1"
