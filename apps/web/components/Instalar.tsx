@@ -1,157 +1,27 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import {
-  devePerguntar,
-  plataformaDeInstalacao,
-  type Decisao,
-  type EstadoInstalacao,
-  type Plataforma,
-} from '../lib/instalacao'
-
-/**
- * O evento que o Chromium dispara quando o site cumpre os critérios de
- * instalação. Não está no lib.dom do TypeScript porque não é padrão: só os
- * navegadores Chromium o implementam.
- */
-type EventoDeInstalacao = Event & {
-  prompt: () => Promise<void>
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
-}
-
-const CHAVE_ENTRADAS = 'bolao:entradas'
-const CHAVE_DECISAO = 'bolao:instalar'
-const CHAVE_QUANDO = 'bolao:instalar-em'
-const CHAVE_SESSAO = 'bolao:entrada-contada'
-
-function ler(chave: string): string | null {
-  try {
-    return localStorage.getItem(chave)
-  } catch {
-    return null
-  }
-}
-
-function gravar(chave: string, valor: string) {
-  try {
-    localStorage.setItem(chave, valor)
-  } catch {
-    /* navegador sem storage: o convite volta na próxima, e paciência */
-  }
-}
-
-/**
- * Conta a entrada uma vez por sessão, não por recarregamento.
- *
- * "Segunda entrada" é a segunda vez que a pessoa abre o bolão, não o segundo F5
- * da mesma sessão — quem recarrega três vezes seguidas não voltou três vezes.
- * O `sessionStorage` morre com a aba, que é exatamente a fronteira que queremos.
- */
-function contarEntrada(): number {
-  const atual = Number(ler(CHAVE_ENTRADAS) ?? '0') || 0
-  try {
-    if (sessionStorage.getItem(CHAVE_SESSAO)) return atual
-    sessionStorage.setItem(CHAVE_SESSAO, '1')
-  } catch {
-    /* sem sessionStorage, conta por carregamento mesmo */
-  }
-  const proximo = atual + 1
-  gravar(CHAVE_ENTRADAS, String(proximo))
-  return proximo
-}
-
-/** Se já estamos rodando de dentro do app instalado. */
-function abertoComoApp(): boolean {
-  if (typeof window === 'undefined') return false
-  const emJanelaPropria = window.matchMedia?.('(display-mode: standalone)').matches ?? false
-  // O Safari do iOS não implementa `display-mode` e usa esta propriedade sua.
-  const noIOS = (window.navigator as Navigator & { standalone?: boolean }).standalone === true
-  return emJanelaPropria || noIOS
-}
+import { useState } from 'react'
+import type { Instalacao } from '../lib/usar-instalacao'
 
 /**
  * Convite para instalar o bolão como app.
  *
- * Aparece a partir da segunda entrada, some por 15 dias a cada "agora não" e
- * some para sempre num "não perguntar mais". No Android dispara o diálogo
- * nativo; no iPhone, que não deixa instalar por código, ensina o caminho.
+ * Aparece sozinho a partir da segunda entrada, some por 15 dias a cada "agora
+ * não" e some para sempre num "não perguntar mais" — mas o menu pode reabri-lo
+ * a qualquer momento, que é a saída de quem mudou de ideia. No Android dispara
+ * o diálogo nativo; no iPhone, que não deixa instalar por código, ensina o
+ * caminho.
+ *
+ * Não guarda estado de instalação: quem guarda é `usarInstalacao`, no Painel,
+ * porque o menu precisa do mesmo convite e ele é de uso único.
  */
-export function Instalar({ suspenso }: { suspenso: boolean }) {
-  const [convite, setConvite] = useState<EventoDeInstalacao | null>(null)
-  const [plataforma, setPlataforma] = useState<Plataforma>('padrao')
-  const [aberto, setAberto] = useState(false)
+export function Instalar({ inst, suspenso }: { inst: Instalacao; suspenso: boolean }) {
   const [ensinando, setEnsinando] = useState(false)
 
-  useEffect(() => {
-    if (abertoComoApp()) return
-
-    const p = plataformaDeInstalacao(navigator.userAgent, navigator.maxTouchPoints)
-    setPlataforma(p)
-
-    const estado: EstadoInstalacao = {
-      entradas: contarEntrada(),
-      decisao: (ler(CHAVE_DECISAO) as Decisao | null) ?? null,
-      decididoEm: Number(ler(CHAVE_QUANDO)) || null,
-      jaInstalado: false,
-    }
-    if (!devePerguntar(estado, Date.now())) return
-
-    // No iOS não há evento nenhum para esperar: o convite é só instrução, e
-    // pode subir de imediato.
-    if (p === 'ios') {
-      setAberto(true)
-      return
-    }
-
-    const aoPoderInstalar = (e: Event) => {
-      // Segura o banner nativo do Chrome para oferecer no nosso tempo e com a
-      // nossa cara — é para isso que o evento existe.
-      e.preventDefault()
-      setConvite(e as EventoDeInstalacao)
-      setAberto(true)
-    }
-    const aoInstalar = () => {
-      decidir('instalada')
-      setAberto(false)
-    }
-
-    window.addEventListener('beforeinstallprompt', aoPoderInstalar)
-    window.addEventListener('appinstalled', aoInstalar)
-    return () => {
-      window.removeEventListener('beforeinstallprompt', aoPoderInstalar)
-      window.removeEventListener('appinstalled', aoInstalar)
-    }
-  }, [])
-
-  const decidir = (d: Decisao) => {
-    gravar(CHAVE_DECISAO, d)
-    gravar(CHAVE_QUANDO, String(Date.now()))
-  }
-
-  const instalar = async () => {
-    if (!convite) return
-    await convite.prompt()
-    const { outcome } = await convite.userChoice
-    // O convite é de uso único: depois de disparado o objeto morre, e um novo
-    // só chega se o navegador emitir o evento outra vez — o que ele evita fazer
-    // por um bom tempo depois de uma recusa.
-    setConvite(null)
-    decidir(outcome === 'accepted' ? 'instalada' : 'adiada')
-    setAberto(false)
-  }
-
-  const adiar = () => {
-    decidir('adiada')
-    setAberto(false)
-  }
-
-  const recusar = () => {
-    decidir('recusada')
-    setAberto(false)
-  }
-
   // `suspenso` cala o convite enquanto o diálogo de identificação está na tela.
-  if (!aberto || suspenso) return null
+  if (!inst.visivel || suspenso) return null
+
+  const noIOS = inst.plataforma === 'ios'
 
   return (
     <div
@@ -162,7 +32,9 @@ export function Instalar({ suspenso }: { suspenso: boolean }) {
         left: 'var(--gutter)',
         right: 'var(--gutter)',
         bottom: 'calc(var(--gutter) + env(safe-area-inset-bottom))',
-        zIndex: 40,
+        // Acima do cabeçalho grudado (30) e abaixo de qualquer diálogo (50+):
+        // convite é convite, não pode passar na frente de quem já abriu algo.
+        zIndex: 45,
         maxWidth: 520,
         margin: '0 auto',
         padding: '14px 16px',
@@ -190,7 +62,7 @@ export function Instalar({ suspenso }: { suspenso: boolean }) {
         </div>
       </div>
 
-      {ensinando && plataforma === 'ios' && (
+      {ensinando && noIOS && (
         <ol
           style={{
             margin: '12px 0 0',
@@ -218,7 +90,7 @@ export function Instalar({ suspenso }: { suspenso: boolean }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 12 }}>
         <button
           type="button"
-          onClick={plataforma === 'ios' ? () => setEnsinando(true) : instalar}
+          onClick={noIOS ? () => setEnsinando(true) : inst.instalar}
           style={{
             flex: 1,
             minHeight: 44,
@@ -230,11 +102,11 @@ export function Instalar({ suspenso }: { suspenso: boolean }) {
             fontWeight: 700,
           }}
         >
-          {plataforma === 'ios' ? 'Como instalar' : 'Instalar'}
+          {noIOS ? 'Como instalar' : 'Instalar'}
         </button>
         <button
           type="button"
-          onClick={adiar}
+          onClick={inst.adiar}
           style={{
             flex: 'none',
             minHeight: 44,
@@ -253,7 +125,7 @@ export function Instalar({ suspenso }: { suspenso: boolean }) {
 
       <button
         type="button"
-        onClick={recusar}
+        onClick={inst.recusar}
         style={{
           display: 'block',
           margin: '10px auto 0',

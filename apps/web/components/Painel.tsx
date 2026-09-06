@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Movimento } from '../lib/dados'
 import { ABAS, navegar, type Aba, type BolaoEvolucao, type Sentido } from '../lib/navegacao-abas'
 import { usarArrastoLateral } from '../lib/usar-arrasto-lateral'
+import { usarInstalacao } from '../lib/usar-instalacao'
 import { Detalhe } from './Detalhe'
 import { Evolucao } from './Evolucao'
 import { Identificacao } from './Identificacao'
@@ -151,6 +152,10 @@ export function Painel(d: DadosPainel) {
   )
 
   const arrastavel = usarArrastoLateral(arrastar)
+
+  // O estado de instalação mora aqui porque duas telas o dividem: o banner e o
+  // item do menu. O convite do navegador chega uma vez só e é de uso único.
+  const instalacao = usarInstalacao()
 
   const q = busca.trim().toLowerCase()
   const linhasC = useMemo(
@@ -470,7 +475,10 @@ export function Painel(d: DadosPainel) {
         visita a pergunta que importa é quem você é, e dois modais empilhados na
         chegada é o que faz a pessoa fechar a aba.
       */}
-      <Instalar suspenso={pedirIdentificacao} />
+      <Instalar
+        inst={instalacao}
+        suspenso={pedirIdentificacao || menu || regras || detalhe !== null}
+      />
 
       {pedirIdentificacao && (
         <Identificacao
@@ -493,6 +501,11 @@ export function Painel(d: DadosPainel) {
           onRegras={() => {
             setMenu(false)
             setRegras(true)
+          }}
+          podeInstalar={instalacao.disponivel}
+          onInstalar={() => {
+            setMenu(false)
+            instalacao.abrir()
           }}
           onFechar={() => setMenu(false)}
         />
