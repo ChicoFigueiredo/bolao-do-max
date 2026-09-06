@@ -21,6 +21,8 @@ export function Menu({
   onTema,
   onEu,
   onRegras,
+  onInstalar,
+  podeInstalar,
   onFechar,
 }: {
   tema: Tema
@@ -32,6 +34,9 @@ export function Menu({
   onTema: (t: Tema) => void
   onEu: (n: string | null) => void
   onRegras: () => void
+  onInstalar: () => void
+  /** Só há item de instalar quando há o que instalar — ver `usarInstalacao`. */
+  podeInstalar: boolean
   onFechar: () => void
 }) {
   const painel = usarDialogo(true, onFechar)
@@ -158,6 +163,41 @@ export function Menu({
               Destaca sua linha nas abas e mostra suas posições no topo. Guardado só neste navegador.
             </p>
           </div>
+
+          {podeInstalar && (
+            <div>
+              <Rotulo>Aplicativo</Rotulo>
+              <button
+                type="button"
+                onClick={onInstalar}
+                style={{
+                  width: '100%',
+                  minHeight: 48,
+                  padding: '10px 12px',
+                  border: '1px solid var(--accent)',
+                  borderRadius: 12,
+                  background: 'var(--accent-soft)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  fontSize: 15,
+                }}
+              >
+                <img
+                  src="/icone-192.png"
+                  alt=""
+                  width={24}
+                  height={24}
+                  style={{ flex: 'none', borderRadius: 6 }}
+                />
+                <span style={{ flex: 1, textAlign: 'left', fontWeight: 600 }}>Instalar app</span>
+                <span style={{ color: 'var(--accent)' }}>→</span>
+              </button>
+              <p style={{ margin: '6px 2px 0', fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.4 }}>
+                Um ícone na tela inicial, abrindo sem a barra do navegador.
+              </p>
+            </div>
+          )}
 
           <div>
             <Rotulo>Sobre</Rotulo>
