@@ -4,12 +4,19 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Bolão do Max',
   description: 'Resultados em tempo real do Bolão do Max — Brasileirão Série A',
+  applicationName: 'Bolão do Max',
+  // O iOS ignora o manifest para isto: são estas metas que fazem o atalho abrir
+  // sem a barra do Safari depois de Compartilhar → Adicionar à Tela de Início.
+  appleWebApp: { capable: true, title: 'Bolão', statusBarStyle: 'default' },
 }
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
+  // Acompanha o ocre do manifest: instalado, a barra do sistema encosta na cor
+  // do cabeçalho em vez de abrir uma faixa branca por cima dele.
+  themeColor: '#efe3cc',
 }
 
 /**
