@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import type { BolaoEvolucao } from '../lib/navegacao-abas'
 import { Rotulo, ord, polilinha, setaCor, setaTxt, sparkline } from './ui'
 
-type Bolao = 'classico' | 'posicao'
 type Janela = 'hora' | 'dia' | 'semana'
 
 const PERIODO: Record<Janela, string> = {
@@ -27,8 +27,19 @@ type Serie = {
  */
 const JANELAS: Janela[] = ['hora', 'dia', 'semana']
 
-export function Evolucao({ eu }: { eu: string | null }) {
-  const [bolao, setBolao] = useState<Bolao>('classico')
+/**
+ * A subaba (`bolao`) vem de fora porque o gesto lateral do painel também a
+ * troca: são duas mãos no mesmo estado, e só uma delas pode ser a dona.
+ */
+export function Evolucao({
+  eu,
+  bolao,
+  onBolao,
+}: {
+  eu: string | null
+  bolao: BolaoEvolucao
+  onBolao: (b: BolaoEvolucao) => void
+}) {
   const [janela, setJanela] = useState<Janela>('dia')
   const [serie, setSerie] = useState<Serie | null>(null)
   const [carregando, setCarregando] = useState(true)
@@ -119,7 +130,7 @@ export function Evolucao({ eu }: { eu: string | null }) {
             { k: 'posicao', rot: 'Por Posição' },
           ]}
           valor={bolao}
-          onMudar={(k) => setBolao(k as Bolao)}
+          onMudar={(k) => onBolao(k as BolaoEvolucao)}
         />
         <Segmentos
           rotuloGrupo="Escolher janela de tempo"

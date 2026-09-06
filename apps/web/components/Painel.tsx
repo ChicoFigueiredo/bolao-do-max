@@ -2,14 +2,14 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Movimento } from '../lib/dados'
+import { ABAS, navegar, type Aba, type BolaoEvolucao, type Sentido } from '../lib/navegacao-abas'
+import { usarArrastoLateral } from '../lib/usar-arrasto-lateral'
 import { Detalhe } from './Detalhe'
 import { Evolucao } from './Evolucao'
 import { Identificacao } from './Identificacao'
 import { Logo } from './Logo'
 import { Menu, Regras, type Tema } from './Menu'
 import { brl, ord, setaCor, setaTxt, sinal } from './ui'
-
-type Aba = 'classico' | 'posicao' | 'evolucao'
 
 /** Resumo: o que a lista precisa. O detalhe vem de /api/competidor. */
 export type ResumoClassico = {
@@ -48,14 +48,11 @@ export type DadosPainel = {
   origemLeitura: string
 }
 
-const ABAS: { id: Aba; titulo: string; sub: string }[] = [
-  { id: 'classico', titulo: 'Clássico', sub: 'soma dos 4 clubes' },
-  { id: 'posicao', titulo: 'Por Posição', sub: 'G4 e Z4' },
-  { id: 'evolucao', titulo: 'Evolução', sub: 'trajetórias' },
-]
-
 export function Painel(d: DadosPainel) {
   const [aba, setAba] = useState<Aba>('classico')
+  // A subaba da Evolução mora aqui, e não lá dentro, porque o gesto lateral
+  // trata aba e subaba como uma fila só e precisa mexer nas duas.
+  const [bolaoEvolucao, setBolaoEvolucao] = useState<BolaoEvolucao>('classico')
   const [tema, setTema] = useState<Tema>('ocre')
   const [busca, setBusca] = useState('')
   const [eu, setEu] = useState<string | null>(null)
@@ -95,6 +92,21 @@ export function Painel(d: DadosPainel) {
     guardar('bolao:aba', a)
   }, [])
 
+  /**
+   * Escolher a aba pela barra — no toque ou pelo teclado — sempre reabre a
+   * Evolução no Clássico, que é onde ela abria quando a subaba morava lá
+   * dentro e se perdia a cada desmontagem. Só o gesto atravessa a fila parada a
+   * parada; a barra é atalho, e atalho não deve depender de qual subaba ficou
+   * aberta três interações atrás.
+   */
+  const escolherAba = useCallback(
+    (a: Aba) => {
+      trocarAba(a)
+      setBolaoEvolucao('classico')
+    },
+    [trocarAba],
+  )
+
   const trocarTema = useCallback((t: Tema) => {
     setTema(t)
     document.documentElement.setAttribute('data-tema', t)
@@ -119,6 +131,26 @@ export function Painel(d: DadosPainel) {
   // Primeira visita: ninguém escolhido e ninguém declarou-se visitante.
   const pedirIdentificacao = pronto && !eu && !visitante
 
+  /**
+   * O arrasto lateral percorre a fila Clássico → Por Posição →
+   * Evolução/Clássico → Evolução/Por Posição, nos dois sentidos. `navegar`
+   * devolve `null` nas pontas, e aí o gesto simplesmente não faz nada.
+   */
+  const arrastar = useCallback(
+    (sentido: Sentido) => {
+      // Com um diálogo aberto o painel virou fundo de tela, não conteúdo:
+      // arrastar dentro do Menu ou do Detalhe não pode trocar a aba de trás.
+      if (menu || regras || detalhe || pedirIdentificacao) return
+      const destino = navegar({ aba, bolao: bolaoEvolucao }, sentido)
+      if (!destino) return
+      trocarAba(destino.aba)
+      setBolaoEvolucao(destino.bolao)
+    },
+    [aba, bolaoEvolucao, trocarAba, menu, regras, detalhe, pedirIdentificacao],
+  )
+
+  const arrastavel = usarArrastoLateral(arrastar)
+
   const q = busca.trim().toLowerCase()
   const linhasC = useMemo(
     () => (q ? d.classico.filter((x) => x.nome.toLowerCase().includes(q)) : d.classico),
@@ -134,7 +166,7 @@ export function Painel(d: DadosPainel) {
     e.preventDefault()
     const i = ABAS.findIndex((x) => x.id === aba)
     const prox = ABAS[(i + (e.key === 'ArrowRight' ? 1 : ABAS.length - 1)) % ABAS.length]!
-    trocarAba(prox.id)
+    escolherAba(prox.id)
     tabs.current?.querySelector<HTMLButtonElement>(`#tab-${prox.id}`)?.focus()
   }
 
@@ -162,7 +194,14 @@ export function Painel(d: DadosPainel) {
   })
 
   return (
-    <div style={{ minHeight: '100vh', paddingBottom: 'env(safe-area-inset-bottom)' }}>
+    /*
+      O gesto veste o elemento de fora, e não o cabeçalho e o <main>: estes dois
+      deixam de fora a faixa que sobra quando o conteúdo é curto — Evolução
+      carregando, busca sem resultado — e as margens laterais no desktop. Os
+      diálogos são filhos daqui também, e por isso `arrastar` se cala enquanto
+      um deles está aberto.
+    */
+    <div {...arrastavel({ minHeight: '100vh', paddingBottom: 'env(safe-area-inset-bottom)' })}>
       <header
         style={{
           position: 'sticky',
@@ -261,7 +300,7 @@ export function Painel(d: DadosPainel) {
                 aria-selected={sel}
                 aria-controls={`painel-${t.id}`}
                 tabIndex={sel ? 0 : -1}
-                onClick={() => trocarAba(t.id)}
+                onClick={() => escolherAba(t.id)}
                 style={{
                   flex: 1,
                   minHeight: 44,
@@ -392,7 +431,9 @@ export function Painel(d: DadosPainel) {
         </section>
 
         <section role="tabpanel" id="painel-evolucao" aria-labelledby="tab-evolucao" tabIndex={0} hidden={aba !== 'evolucao'}>
-          {aba === 'evolucao' && <Evolucao eu={eu} />}
+          {aba === 'evolucao' && (
+            <Evolucao eu={eu} bolao={bolaoEvolucao} onBolao={setBolaoEvolucao} />
+          )}
         </section>
 
         {/* Acesso rápido às regras no fim de qualquer aba: quem rolou até aqui
