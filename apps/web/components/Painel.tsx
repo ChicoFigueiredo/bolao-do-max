@@ -7,6 +7,7 @@ import { usarArrastoLateral } from '../lib/usar-arrasto-lateral'
 import { Detalhe } from './Detalhe'
 import { Evolucao } from './Evolucao'
 import { Identificacao } from './Identificacao'
+import { Instalar } from './Instalar'
 import { Logo } from './Logo'
 import { Menu, Regras, type Tema } from './Menu'
 import { brl, ord, setaCor, setaTxt, sinal } from './ui'
@@ -463,6 +464,13 @@ export function Painel(d: DadosPainel) {
           </button>
         </div>
       </main>
+
+      {/*
+        O convite de instalar espera a identificação sair da frente: na primeira
+        visita a pergunta que importa é quem você é, e dois modais empilhados na
+        chegada é o que faz a pessoa fechar a aba.
+      */}
+      <Instalar suspenso={pedirIdentificacao} />
 
       {pedirIdentificacao && (
         <Identificacao
