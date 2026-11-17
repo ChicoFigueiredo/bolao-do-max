@@ -162,7 +162,7 @@ zod. Um runtime só para a web e para o worker, uma imagem para os dois.
 ```
 ssh.chico-figueiredo.com.br
   /opt/bolao-do-max/        compose.yml + .env (modo 600)
-  bolao-do-max-web          127.0.0.1:5002 ← nginx com TLS
+  bolao-do-max-web          127.0.0.1:5002 ← Caddy com TLS
   bolao-do-max-worker       cadência decidida pelo calendário
   banco / cache             PostgreSQL e Redis compartilhados com outros projetos
 ```
@@ -206,8 +206,8 @@ Também não existe serviço de API separado — `apps/api` não existe. As trê
             │ TLS
             ▼
    ┌──────────────────────────────────────────────────────────────────┐
-   │ nginx (host)   bolao.maxmat1.com.br                              │
-   │                upstream maxmat1 → 127.0.0.1:5002                 │
+   │ Caddy (host)   bolao.maxmat1.com.br                              │
+   │                reverse_proxy → 127.0.0.1:5002                    │
    └────────┬─────────────────────────────────────────────────────────┘
             ▼
    ┌──────────────────────────────────────────────────────────────────┐
@@ -294,7 +294,7 @@ Três decisões que parecem estranhas e não são:
 
 ### O deploy — o que `bun run deploy` faz, em ordem
 
-Um script (`infra/bin/deploy.ts`), doze etapas, tudo por SSH. Parâmetros em
+Um script (`infra/bin/deploy.ts`), onze etapas, tudo por SSH. Parâmetros em
 `infra/deploy.yml`; para sobrescrever sem sujar o git, crie
 `infra/deploy.local.yml`.
 
@@ -307,21 +307,20 @@ Um script (`infra/bin/deploy.ts`), doze etapas, tudo por SSH. Parâmetros em
 | 5 | envio | rsync sobre o mesmo tar: do segundo deploy em diante sobem só os blocos que mudaram |
 | 6 | banco e dado | `migrate`, `seed`, `seed-dados`, `ciclo` — a lista vem de `deploy.passos` |
 | 7 | subindo | `compose up -d` e espera o healthcheck ficar `healthy` |
-| 8 | nginx e TLS | publica o vhost do domínio de convivência e roda o certbot. **Nunca escreve no vhost de produção** |
-| 9 | limites | teto de requisições, só com `--limites` |
-| 10 | conferência | interno, API, domínio de convivência e **domínio de produção** — exigindo `</html>`, não só `200` |
-| 11 | limpeza | mantém `versoes_guardadas` (3) imagens no servidor, para poder voltar |
-| 12 | resumo | lê o vhost e diz se este deploy serve produção |
+| 8 | Caddy e TLS | copia `infra/caddy/<domínio>.caddy` (convivência e produção) para `/etc/caddy/sites/`, roda `caddy validate` e `systemctl reload caddy`; o certificado é do próprio Caddy |
+| 9 | conferência | interno, API, domínio de convivência e **domínio de produção** — exigindo `</html>`, não só `200` |
+| 10 | limpeza | mantém `versoes_guardadas` (3) imagens no servidor, para poder voltar |
+| 11 | resumo | lê o Site de produção e diz se este deploy serve produção |
 
 **A versão é o SHA curto do git** — e `-sujo` se a árvore de trabalho não estiver
 limpa. Imagem marcada `-sujo` não é reproduzível a partir de nenhum commit:
 confira `git status --porcelain` antes.
 
 **Desde a virada de 10/08/2026, todo deploy toca produção.** O
-`upstream maxmat1` de `bolao.maxmat1.com.br` aponta para a mesma porta 5002 que
+o Site de `bolao.maxmat1.com.br` no Caddy aponta para a mesma porta 5002 que
 este stack publica, então recriar o container é um piscar de indisponibilidade no
 domínio real — não um deploy isolado. O resumo final avisa, e descobre isso lendo
-o vhost em vez de afirmar por escrito.
+o Site do Caddy em vez de afirmar por escrito.
 
 #### Flags
 
@@ -331,11 +330,10 @@ o vhost em vez de afirmar por escrito.
 | `--versao=<tag>` | usa uma tag em vez do SHA calculado |
 | `--versoes` | lista as imagens carregadas no servidor |
 | `--reverter[=<tag>]` | volta para a versão anterior (ou a indicada) e recria os containers |
-| `--so-limites` | aplica só o teto de requisições, sem recriar container |
-| `--limites` | inclui o teto de requisições nesta passada |
+| `--so-sites` | instala só os Sites do Caddy, sem recriar container |
 | `--sem-imagem` | pula build e envio; usa a imagem já carregada |
-| `--sem-nginx` | não mexe em vhost nem certificado |
-| `--refazer-vhost` | reescreve o vhost de convivência, que por padrão é preservado |
+| `--sem-caddy` | não mexe em Site nem em certificado |
+| `--refazer-site` | reinstala os Sites e recarrega o Caddy mesmo quando já estão iguais ao git |
 
 > ⚠️ **O script ignora flag desconhecida em silêncio.** A simulação é
 > `--dry-run`; a variável interna se chama `seco`, e escrever `--seco` **executa

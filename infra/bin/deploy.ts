@@ -7,6 +7,9 @@
  *   bun run deploy --sem-imagem   só reaplica configuração e passos
  *   bun run deploy --versoes      lista o que está carregado no servidor
  *   bun run deploy --reverter     volta para a versão anterior
+ *   bun run deploy --so-sites     só instala os Sites do Caddy, sem recriar container
+ *   bun run deploy --refazer-site reinstala os Sites mesmo iguais ao git e recarrega
+ *   bun run deploy --sem-caddy    não mexe em Site nem em certificado
  *
  * Três decisões que moldam este script:
  *
@@ -21,7 +24,7 @@
  * chama esses scripts e LÊ o resultado; nunca inventa senha nem a versiona.
  *
  * **Nada do bolão atual é tocado.** Pasta, rede, porta, domínio e Redis são
- * outros. Antes da virada do nginx, voltar atrás é não fazer nada.
+ * outros. Antes da virada, voltar atrás é não fazer nada.
  */
 import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs'
 import { resolve } from 'node:path'
@@ -55,27 +58,14 @@ const arg = (nome: string) => {
   return a.includes('=') ? a.split('=').slice(1).join('=') : ''
 }
 
-const ZONA_LIMITES = '/etc/nginx/conf.d/bolao-limites.conf'
-const CONTEUDO_ZONA = `# Escrito por infra/bin/deploy.ts --limites.
-#
-# Declarar a zona não limita nada sozinho: só passa a valer no vhost que a
-# referencia com \`limit_req\`. Enquanto nenhum referenciar, este arquivo é
-# inerte para os outros vhosts da máquina.
-limit_req_zone $binary_remote_addr zone=bolao:10m rate=20r/s;
-`
-const REGRA_LIMITES = [
-  '\t\tlimit_req zone=bolao burst=40 nodelay;',
-  '\t\tlimit_req_status 429;',
-].join('\n')
-
 try {
   if (arg('versoes') !== undefined) await listarVersoes()
   else if (arg('reverter') !== undefined) await reverter(arg('reverter') || undefined)
-  // Só o nginx, sem tocar na aplicação. Existe porque aplicar um teto de
-  // requisições não deveria custar uma recriação de container em produção.
-  else if (arg('so-limites') !== undefined) {
-    etapa('limites de requisição')
-    await aplicarLimites()
+  else if (arg('so-sites') !== undefined) {
+    // Só os Sites do Caddy, sem tocar na aplicação: mudar configuração de proxy
+    // não deveria custar uma recriação de container em produção.
+    etapa('Caddy e TLS')
+    await publicarSites()
   } else await deployar()
 } finally {
   s.fechar()
@@ -170,11 +160,8 @@ async function deployar() {
   await s.rodar(compose('up -d --remove-orphans'), 'web e worker no ar')
   await esperarSaude()
 
-  etapa('nginx e TLS')
-  await publicarVhost()
-
-  etapa('limites de requisição')
-  await aplicarLimites()
+  etapa('Caddy e TLS')
+  await publicarSites()
 
   etapa('conferência')
   await conferir()
@@ -472,199 +459,162 @@ async function esperarSaude() {
 }
 
 /**
- * Publica o vhost do domínio de convivência e emite o certificado.
+ * Um Site do Caddy que este repositório versiona em `infra/caddy/`.
+ *
+ * O arquivo é a fonte: o deploy o copia para `caddy.pasta_sites` no servidor,
+ * onde o Caddyfile base o importa (`import /etc/caddy/sites/*.caddy`). Não há
+ * modelo nem substituição — o que está no git é o que vai para a máquina.
+ */
+type SiteCaddy = { dominio: string; origem: string; destino: string; conteudo: string }
+
+function sitesDoRepo(): SiteCaddy[] {
+  const dominios = [p.aplicacao.dominio, p.aplicacao.dominio_producao]
+  return dominios.map((dominio) => {
+    const origem = resolve(RAIZ, `infra/caddy/${dominio}.caddy`)
+    if (!existsSync(origem)) erro(`${origem} não existe — cada domínio precisa do seu Site versionado`)
+    return {
+      dominio,
+      origem,
+      destino: `${p.caddy.pasta_sites}/${dominio}.caddy`,
+      conteudo: readFileSync(origem, 'utf8'),
+    }
+  })
+}
+
+const sha = (texto: string) => new Bun.CryptoHasher('sha256').update(texto).digest('hex')
+
+/**
+ * Instala os Sites do Caddy (convivência e produção) e recarrega.
  *
  * Existe porque sem ele o site só abre por túnel SSH, e o ponto do primeiro
- * deploy é justamente olhar no celular. O que este passo NÃO faz é a virada: o
- * vhost de bolao.maxmat1.com.br não é lido nem escrito aqui.
+ * deploy é justamente olhar no celular. O certificado é do próprio Caddy
+ * (HTTP-01, no primeiro acesso ao domínio): não há passo de emissão aqui.
  *
- * A trava que importa é a ordem: `nginx -t` ANTES do reload, e se reprovar o
- * link simbólico sai antes de qualquer coisa recarregar. Uma configuração
- * inválida ativada derruba os nove vhosts da máquina, não só o nosso.
+ * Idempotente: um Site cujo conteúdo no servidor já é idêntico ao do git não é
+ * reescrito, e se nenhum mudou o Caddy não é recarregado. `--refazer-site`
+ * reescreve e recarrega mesmo assim.
+ *
+ * A trava que importa é a ordem: `caddy validate` ANTES do reload, e se
+ * reprovar o arquivo anterior volta ao lugar antes de qualquer coisa
+ * recarregar. Uma configuração inválida ativada derruba todos os Sites da
+ * máquina, não só os nossos. Segredo não entra aqui: o que um Site precisa
+ * (senha, .env) mora em /etc/caddy/segredos, fora do git — o Site do bolão não
+ * usa nenhum.
  */
-async function publicarVhost() {
-  if (!p.nginx.habilitado || arg('sem-nginx') !== undefined)
-    return info('nginx desligado nos parâmetros — só o túnel SSH alcança o site')
+async function publicarSites() {
+  if (!p.caddy.habilitado || arg('sem-caddy') !== undefined)
+    return info('Caddy desligado nos parâmetros — só o túnel SSH alcança o site')
 
-  const dominio = p.aplicacao.dominio
-  const disponivel = `${p.nginx.sites_available}/${dominio}`
-  const ativo = `${p.nginx.sites_enabled}/${dominio}`
+  const temCaddy = await s.tentar(
+    `command -v caddy >/dev/null && test -f ${p.caddy.caddyfile} && echo sim`,
+  )
+  if (temCaddy.saida.trim() !== 'sim')
+    return aviso(`Caddy não instalado (ou sem ${p.caddy.caddyfile}) no servidor — pulando`)
 
-  const temNginx = await s.tentar('command -v nginx >/dev/null && echo sim')
-  if (temNginx.saida.trim() !== 'sim') return aviso('nginx não instalado no servidor — pulando')
+  const sites = sitesDoRepo()
 
-  // DNS antes de tudo. O certbot precisa alcançar este domínio de fora; sem o
-  // apontamento ele falha com um erro de validação que não explica a causa.
+  // DNS antes de tudo. O Caddy só consegue o certificado se o domínio chegar
+  // até esta máquina; sem o apontamento, a emissão falha em silêncio no log do
+  // serviço. O de convivência é nosso e aborta; o de produção já está no ar e
+  // só avisa — o DNS dele pode passar por um intermediário legítimo.
   const ip = await s.ler('curl -s -4 --max-time 10 ifconfig.me || true')
-  const aponta = await s.tentar(`getent hosts ${dominio} | head -1 | cut -d' ' -f1`)
-  if (!aponta.saida.trim()) erro(`${dominio} não resolve — crie o registro DNS antes`)
-  if (ip && aponta.saida.trim() !== ip)
-    erro(
-      `${dominio} aponta para ${aponta.saida.trim()} e o servidor é ${ip}.\n` +
-        `  O certbot não conseguiria validar o domínio.`,
-    )
-  ok(`${dominio} → ${ip}`)
-
-  const existe = await s.tentar(`test -f ${disponivel} && echo sim`)
-  if (existe.saida.trim() === 'sim' && arg('refazer-vhost') === undefined) {
-    info(`${disponivel} já existe — preservado (o certbot escreve nele)`)
-  } else {
-    const modelo = readFileSync(resolve(RAIZ, 'infra/nginx/vhost.conf.template'), 'utf8')
-      .replaceAll('{{DOMINIO}}', dominio)
-      .replaceAll('{{PORTA}}', String(p.aplicacao.porta_publicada))
-      .replaceAll('{{UPSTREAM}}', p.nginx.upstream)
-    if (existe.saida.trim() === 'sim')
-      await s.rodar(`cp ${disponivel} ${disponivel}.antes-do-deploy`, 'vhost anterior guardado')
-    await s.escreverArquivo(disponivel, modelo, '644')
+  for (const { dominio } of sites) {
+    const duro = dominio === p.aplicacao.dominio
+    const queixa = (m: string) => (duro ? erro(m) : aviso(m))
+    const aponta = await s.tentar(`getent hosts ${dominio} | head -1 | cut -d' ' -f1`)
+    if (!aponta.saida.trim()) {
+      queixa(`${dominio} não resolve — crie o registro DNS antes`)
+    } else if (ip && aponta.saida.trim() !== ip) {
+      queixa(
+        `${dominio} aponta para ${aponta.saida.trim()} e o servidor é ${ip}.\n` +
+          `  O Caddy não conseguiria validar o domínio.`,
+      )
+    } else ok(`${dominio} → ${ip}`)
   }
 
-  const jaAtivo = await s.tentar(`test -L ${ativo} && echo sim`)
-  const criouLink = jaAtivo.saida.trim() !== 'sim'
-  if (criouLink) await s.rodar(`ln -s ${disponivel} ${ativo}`, `${ativo} ativado`)
-  else info(`${ativo} já estava ativo`)
+  const refazer = arg('refazer-site') !== undefined
+  const mudados: (SiteCaddy & { existia: boolean })[] = []
+  for (const site of sites) {
+    const atual = await s.tentar(`sha256sum ${site.destino} 2>/dev/null | cut -d' ' -f1`)
+    const hash = atual.saida.trim()
+    if (hash === sha(site.conteudo) && !refazer) {
+      info(`${site.destino} já está igual ao git`)
+    } else {
+      mudados.push({ ...site, existia: hash !== '' })
+    }
+  }
 
-  const teste = await s.tentar('nginx -t 2>&1')
+  const validar = () =>
+    s.tentar(`caddy validate --config ${p.caddy.caddyfile} --adapter caddyfile 2>&1`)
+
+  if (!mudados.length) {
+    const teste = await validar()
+    if (teste.codigo !== 0)
+      erro(`caddy validate reprovou a configuração que já está no ar:\n  ${teste.saida}`)
+    return ok('caddy validate aprovado — nada a instalar, Caddy não recarregado')
+  }
+
+  if (seco) {
+    for (const m of mudados) info(`[seco] instalaria ${m.origem} → ${m.destino}`)
+    return info('[seco] rodaria caddy validate e systemctl reload caddy')
+  }
+
+  // A cópia de segurança leva sufixo que o `import /etc/caddy/sites/*.caddy`
+  // não casa, então ela nunca vira configuração por acidente.
+  for (const m of mudados) {
+    if (m.existia) await s.rodar(`cp -p ${m.destino} ${m.destino}.antes-do-deploy`)
+    await s.escreverArquivo(m.destino, m.conteudo, '644')
+  }
+
+  const teste = await validar()
   if (teste.codigo !== 0) {
-    // Desfaz antes de reclamar: o objetivo é o nginx continuar servindo os
-    // vizinhos exatamente como estava um minuto atrás.
-    if (criouLink) await s.rodar(`rm -f ${ativo}`, 'link removido — configuração restaurada')
-    const depois = await s.tentar('nginx -t 2>&1')
+    // Desfaz antes de reclamar: o objetivo é o Caddy continuar servindo os
+    // vizinhos exatamente como estava um minuto atrás. Nada foi recarregado,
+    // então o processo em execução nem chegou a ver o arquivo ruim.
+    for (const m of mudados) {
+      await s.rodar(
+        m.existia ? `mv ${m.destino}.antes-do-deploy ${m.destino}` : `rm -f ${m.destino}`,
+        `${m.destino} restaurado`,
+      )
+    }
+    const depois = await validar()
     erro(
-      `nginx -t reprovou a configuração:\n  ${teste.erroSaida || teste.saida}\n` +
-        `  Estado atual: ${depois.codigo === 0 ? 'válido, nada foi ativado' : 'AINDA INVÁLIDO — confira à mão'}`,
+      `caddy validate reprovou a configuração:\n  ${teste.saida}\n` +
+        `  Estado atual: ${depois.codigo === 0 ? 'válido, nada foi recarregado' : 'AINDA INVÁLIDO — confira à mão'}`,
     )
   }
-  ok('nginx -t aprovado')
-  await s.rodar('systemctl reload nginx', 'nginx recarregado')
+  ok('caddy validate aprovado')
+  await s.rodar('systemctl reload caddy', 'Caddy recarregado')
 
-  if (!p.nginx.certbot) return info('certbot desligado nos parâmetros — só http')
+  // O certificado sai no primeiro acesso, o que leva alguns segundos. Sem esta
+  // espera a conferência de fora reclamaria de um deploy perfeitamente bom.
+  if (mudados.some((m) => m.dominio === p.aplicacao.dominio)) await esperarTls(p.aplicacao.dominio)
+}
 
-  const temCert = await s.tentar(
-    `certbot certificates 2>/dev/null | grep -q "Domains: ${dominio}$" && echo sim`,
+/** Espera o HTTPS do domínio responder (o Caddy emite o certificado no primeiro acesso). */
+async function esperarTls(dominio: string) {
+  for (let i = 0; i < 12; i++) {
+    const r = await s.tentar(`curl -s --max-time 10 -o /dev/null https://${dominio}/`)
+    if (r.codigo === 0) return ok(`https://${dominio} responde com certificado válido`)
+    await Bun.sleep(5000)
+  }
+  aviso(
+    `https://${dominio} não respondeu em 60 s. Veja: journalctl -u caddy --since "5 min ago"`,
   )
-  if (temCert.saida.trim() === 'sim') {
-    info('certificado já existe para este domínio')
-  } else {
-    await s.rodar(
-      `certbot --nginx -d ${dominio} --non-interactive --agree-tos --redirect ` +
-        `--keep-until-expiring --no-eff-email 2>&1 | tail -5`,
-      `certificado emitido para ${dominio}`,
-    )
-  }
 }
 
 /**
- * Teto de requisições por IP, no nginx.
- *
- * A aplicação já limita o **custo** de cada requisição — coalescência e janela
- * de TTL fazem N requisições simultâneas custarem um cálculo. Isto limita a
- * **quantidade**, que é a outra metade. Defesa em profundidade para os achados
- * de CWE-400 de 10/08/2026.
- *
- * Fica atrás de `--limites` e fora do caminho padrão do deploy, de propósito:
- * é a única etapa que encosta em configuração compartilhada, e precisa poder
- * ser revertida sozinha sem desfazer a aplicação.
- *
- * O risco está bem localizado e é tratado em duas medidas:
- *
- *   a zona   vai para um arquivo NOVO em conf.d/. `limit_req_zone` só vale no
- *            bloco http, que é compartilhado — mas declarar uma zona que
- *            nenhum vhost referencia não muda o comportamento de ninguém. É
- *            aditivo, e seguro por construção.
- *   a regra  vai para o vhost do bolão, que pertence ao certbot. Cópia antes,
- *            `nginx -t` depois, e **desfaz antes de reclamar** se reprovar —
- *            a mesma ordem de publicarVhost(), pelo mesmo motivo: uma
- *            configuração inválida ativada derruba os nove vhosts da máquina.
- *
- * Sobre os números: uma visita humana dispara a página mais três chamadas de
- * API. 20 r/s com rajada de 40 é folgado para uma pessoa e para operadora
- * móvel que compartilha IP por NAT, e é teto duro para uma inundação. O falso
- * positivo aqui é usuário real vendo 429, então começar generoso é o certo.
- */
-async function aplicarLimites() {
-  if (arg('limites') === undefined && arg('so-limites') === undefined)
-    return info('sem --limites — teto de requisições não alterado nesta passada')
-
-  const dominio = arg('limites-dominio') || p.aplicacao.dominio
-  const vhost = `${p.nginx.sites_available}/${dominio}`
-
-  if (seco) return info(`[seco] declararia a zona em ${ZONA_LIMITES} e limitaria ${dominio}`)
-
-  const temNginx = await s.tentar('command -v nginx >/dev/null && echo sim')
-  if (temNginx.saida.trim() !== 'sim') return aviso('nginx não instalado no servidor — pulando')
-
-  // Sem este include a zona ficaria escrita e nunca lida, e o `limit_req` do
-  // vhost referenciaria uma zona inexistente — que é justamente o erro que
-  // reprova a configuração inteira.
-  const inclui = await s.tentar(
-    `grep -qE '^\\s*include\\s+/etc/nginx/conf\\.d/\\*\\.conf;' /etc/nginx/nginx.conf && echo sim`,
-  )
-  if (inclui.saida.trim() !== 'sim')
-    erro(
-      `/etc/nginx/nginx.conf não inclui conf.d/*.conf.\n` +
-        `  A zona precisa do bloco http e não há onde declará-la sem editar\n` +
-        `  arquivo compartilhado. Confira à mão antes de insistir.`,
-    )
-
-  const temVhost = await s.tentar(`test -f ${vhost} && echo sim`)
-  if (temVhost.saida.trim() !== 'sim')
-    erro(`${vhost} não existe — rode o deploy sem --limites primeiro, ou passe --limites-dominio=`)
-
-  const jaTem = await s.tentar(`grep -q 'zone=bolao' ${vhost} && echo sim`)
-  if (jaTem.saida.trim() === 'sim') {
-    await s.escreverArquivo(ZONA_LIMITES, CONTEUDO_ZONA, '644')
-    return ok(`${dominio} já tem o teto — zona reescrita, vhost intacto`)
-  }
-
-  await s.escreverArquivo(ZONA_LIMITES, CONTEUDO_ZONA, '644')
-  await s.rodar(`cp ${vhost} ${vhost}.antes-do-limite`, 'vhost guardado')
-
-  // Entra em todo `location /` do arquivo: depois do certbot passar, o vhost
-  // tem dois blocos server, e limitar só o :80 deixaria o :443 — que é por
-  // onde todo mundo entra — sem teto nenhum.
-  const insercao = REGRA_LIMITES.replaceAll('\t', '\\t').replaceAll('\n', '\\n')
-  await s.rodar(
-    `sed -i 's|^\\(\\s*\\)location / {|&\\n${insercao}|' ${vhost}`,
-    'limit_req inserido nos blocos location /',
-  )
-
-  const quantos = await s.ler(`grep -c 'zone=bolao' ${vhost} || true`)
-  if (Number(quantos.trim()) < 1) {
-    await s.rodar(`mv ${vhost}.antes-do-limite ${vhost}`, 'vhost restaurado')
-    erro(`o sed não encontrou nenhum 'location / {' em ${vhost} — nada foi alterado`)
-  }
-
-  const teste = await s.tentar('nginx -t 2>&1')
-  if (teste.codigo !== 0) {
-    // Desfaz antes de reclamar. Nada foi recarregado ainda, então o nginx em
-    // execução segue com a configuração antiga — restaurar o arquivo fecha o
-    // ciclo sem que ninguém tenha sentido nada.
-    await s.rodar(`mv ${vhost}.antes-do-limite ${vhost}`, 'vhost restaurado')
-    await s.rodar(`rm -f ${ZONA_LIMITES}`, 'zona removida')
-    const depois = await s.tentar('nginx -t 2>&1')
-    erro(
-      `nginx -t reprovou a configuração com o limite:\n  ${teste.erroSaida || teste.saida}\n` +
-        `  Estado atual: ${depois.codigo === 0 ? 'válido, nada foi ativado' : 'AINDA INVÁLIDO — confira à mão'}`,
-    )
-  }
-  ok('nginx -t aprovado')
-  await s.rodar('systemctl reload nginx', 'nginx recarregado')
-  ok(`${dominio}: 20 r/s por IP, rajada de 40, excedente recebe 429`)
-  info(`para desfazer: mv ${vhost}.antes-do-limite ${vhost} && rm -f ${ZONA_LIMITES} && nginx -t && systemctl reload nginx`)
-}
-
-/**
- * A virada está feita? Pergunte ao nginx, não ao texto.
+ * A virada está feita? Pergunte ao Caddy, não ao texto.
  *
  * Este script afirmou por semanas, no relatório final, que produção continuava
  * intocada na 5001. Depois da virada de 10/08/2026 isso virou mentira impressa
  * — e mentira no relatório é pior que silêncio, porque quem deploya confia nela
- * e não confere. Agora a linha sai do vhost real.
+ * e não confere. Agora a linha sai do Site que está em /etc/caddy/sites.
  */
 async function viradaFeita(): Promise<boolean> {
   const r = await s.tentar(
     `grep -qE '(localhost|127\\.0\\.0\\.1):${p.aplicacao.porta_publicada}([^0-9]|$)' ` +
-      `${p.nginx.sites_available}/${p.aplicacao.dominio_producao} && echo sim || echo nao`,
+      `${p.caddy.pasta_sites}/${p.aplicacao.dominio_producao}.caddy && echo sim || echo nao`,
   )
   return r.saida.trim() === 'sim'
 }
@@ -717,7 +667,7 @@ async function conferir() {
   const dados = JSON.parse(api) as { ano?: number; Competidores?: unknown[] }
   ok(`/api/resultados → temporada ${dados.ano}, ${dados.Competidores?.length ?? '?'} competidores`)
 
-  // De fora, como quem vai abrir no celular: prova o vhost, o TLS e o DNS de
+  // De fora, como quem vai abrir no celular: prova o Site, o TLS e o DNS de
   // uma vez. Feito do servidor por simplicidade — o caminho público é o mesmo.
   await conferirHttp(`https://${p.aplicacao.dominio}/`, false)
 
@@ -759,7 +709,7 @@ async function resumo(versao: string) {
       apagado(
         `\nRecriar o container é um piscar de indisponibilidade no domínio real: ` +
           `não é\num deploy isolado. Voltar atrás é \`bun run deploy --reverter\`, ou ` +
-          `apontar o\n\`upstream\` do vhost para a pilha antiga.`,
+          `apontar o\n\`reverse_proxy\` do Site para a pilha antiga e rodar \`systemctl reload caddy\`.`,
       ),
     )
   } else {
@@ -769,9 +719,9 @@ async function resumo(versao: string) {
     )
     console.log(
       apagado(
-        `\nA virada é uma linha: no vhost de ${p.aplicacao.dominio_producao}, o ` +
-          `\`upstream\`\npassa para ${p.aplicacao.porta_publicada}. Voltar é a mesma linha ` +
-          `ao contrário.\nMe peça quando quiser.`,
+        `\nA virada é uma linha: no Site de ${p.aplicacao.dominio_producao} ` +
+          `(infra/caddy/), o \`reverse_proxy\`\npassa para 127.0.0.1:${p.aplicacao.porta_publicada}. ` +
+          `Voltar é a mesma linha ao contrário.\nMe peça quando quiser.`,
       ),
     )
   }
