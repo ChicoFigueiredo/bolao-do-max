@@ -43,34 +43,43 @@ O que acontece, em ordem:
 | 5 | Envio | `docker save` → rsync com delta → `docker load` |
 | 6 | Banco | `migrate`, `seed`, `seed-dados`, `ciclo` — **antes** de subir os serviços |
 | 7 | Subida | `docker compose up -d`, espera o healthcheck |
-| 8 | nginx e TLS | Vhost de `bolao-novo.maxmat1.com.br` + certbot |
+| 8 | Caddy e TLS | Sites de `bolao-novo.maxmat1.com.br` e `bolao.maxmat1.com.br` copiados de `infra/caddy/` + `caddy validate` + reload; certificado do próprio Caddy |
 | 9 | Conferência | `GET /` e `/api/resultados` por dentro, `https://` por fora, log do worker |
 | 10 | Limpeza | Guarda as 3 últimas versões para poder voltar |
 
 Um comando, do build ao HTTPS. Nada de túnel para ver no celular.
 
-### O passo de nginx, e o que ele não faz
+### O passo do Caddy
 
-Ele publica o vhost do **domínio de convivência** e nada mais. O vhost de
-`bolao.maxmat1.com.br` continua fora do alcance do script: a virada foi feita à
-mão, uma vez, e está registrada no §9.
+A borda da VPS é o Caddy (binário no host, sob systemd), que substituiu nginx e
+certbot. A configuração de cada Site mora **neste repositório**, em
+`infra/caddy/<domínio>.caddy`: o deploy copia os dois Sites do bolão — o de
+**convivência** (`bolao-novo.maxmat1.com.br`) e o de **produção**
+(`bolao.maxmat1.com.br`), ambos para `127.0.0.1:5002` — para
+`/etc/caddy/sites/`. Os snippets que eles importam (`log`, `limite`, `senha`)
+vivem no Caddyfile base, no repositório de infraestrutura da VPS.
 
 Três travas, na ordem em que importam:
 
-1. **DNS conferido primeiro.** Sem o apontamento, o certbot falha com um erro de
-   validação que não explica a causa.
-2. **`nginx -t` antes do reload.** Reprovando, o link simbólico sai antes de
-   qualquer coisa recarregar, e o teste roda de novo para provar que voltou ao
-   estado anterior. Configuração inválida ativada derruba os nove vhosts da
-   máquina, não só o nosso.
-3. **Vhost existente é preservado.** O certbot escreve nele ao emitir o
-   certificado; reescrever do modelo apagaria o bloco TLS. `--refazer-vhost`
-   força, guardando uma cópia `.antes-do-deploy`.
+1. **DNS conferido primeiro.** Sem o apontamento, o Caddy não consegue emitir o
+   certificado (HTTP-01) e só reclama no log do serviço. No domínio de
+   convivência é erro; no de produção, que já está no ar, é aviso.
+2. **`caddy validate` antes do reload.** Reprovando, o arquivo anterior volta ao
+   lugar (a cópia `.antes-do-deploy` não casa com `*.caddy`, então nunca vira
+   configuração por acidente) e o teste roda de novo para provar que voltou ao
+   estado anterior. Configuração inválida ativada derruba todos os Sites da
+   máquina, não só os nossos.
+3. **Idempotente.** Site cujo conteúdo no servidor já é idêntico ao do git não é
+   reescrito, e se nenhum mudou o Caddy nem recarrega. `--refazer-site` reescreve
+   e recarrega mesmo assim; ao contrário do que acontecia com o nginx, o arquivo
+   no servidor nunca é "do certbot": o git é a fonte.
 
-O upstream se chama `bolao_novo` porque o vhost atual já declara
-`upstream maxmat1` — nome repetido faz o nginx recusar a configuração inteira.
+Para instalar só os Sites, sem recriar container: `bun run deploy --so-sites`.
+Para pular o passo: `bun run deploy --sem-caddy`.
 
-Para pular o passo: `bun run deploy --sem-nginx`.
+O teto de requisições por IP, que antes era a etapa `--limites` (nginx
+`limit_req`), passa a ser o snippet `limite` do Caddyfile base; um Site o ativa
+com `import limite`. Os Sites do bolão ainda não o importam.
 
 ### Por que a imagem é construída aqui
 
@@ -98,7 +107,7 @@ containers. **O banco não é tocado** — só a imagem que o lê.
 
 | Falha | Retorno | Custo |
 |---|---|---|
-| Depois da virada | Restaurar o vhost guardado e `docker compose up -d` no antigo (§9) | segundos |
+| Depois da virada | Apontar o `reverse_proxy` do Site para a 5001, `systemctl reload caddy`, e `docker compose up -d` no antigo (§9) | segundos |
 | Imagem ruim | `bun run deploy --reverter` | um minuto |
 | Dado ruim | `bun run restaurar --destino=producao` | minutos |
 
@@ -392,6 +401,14 @@ Fica registrado porque é a diferença entre "responde 200" e "funciona": um
 `curl` sem `--max-time` teria dito que estava tudo bem.
 
 ### Voltar
+
+> **Desde a troca de nginx por Caddy** a borda é outra: o roteiro abaixo foi
+> escrito para o nginx, e a cópia `.antes-da-virada-2026-08-10` do vhost não vale
+> mais. O equivalente de hoje é trocar `127.0.0.1:5002` por `127.0.0.1:5001` em
+> `infra/caddy/bolao.maxmat1.com.br.caddy`, rodar `bun run deploy --so-sites`
+> (ou editar `/etc/caddy/sites/` no servidor, rodar `caddy validate` e
+> `systemctl reload caddy`) e subir o stack antigo (passo 2). O texto original
+> fica como registro.
 
 O caminho existe e foi conferido peça por peça depois do desligamento:
 

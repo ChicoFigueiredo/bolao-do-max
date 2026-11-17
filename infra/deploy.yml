@@ -27,18 +27,19 @@ servidor:
 aplicacao:
   nome: bolao-do-max
   imagem: bolao-do-max
-  # Publicada só no loopback do servidor; quem expõe para a internet é o nginx.
+  # Publicada só no loopback do servidor; quem expõe para a internet é o Caddy.
   # 5001 é o bolão atual, que continua no ar — não colidir.
   porta_publicada: 5002
   porta_interna: 3000
   # Domínio de convivência: sempre aponta para cá, e é por ele que o deploy
   # confere que a subida funcionou.
   dominio: bolao-novo.maxmat1.com.br
-  # O domínio de verdade. A virada aconteceu em 10/08/2026 — o `upstream maxmat1`
-  # dele já aponta para a porta_publicada abaixo. O deploy NÃO escreve neste
-  # vhost; só lê, para saber se a virada está feita e conferir o domínio certo.
-  # Enquanto ele apontar para cá, todo deploy recria o container que serve
-  # produção: há um piscar de indisponibilidade, e o relatório final diz isso.
+  # O domínio de verdade. A virada aconteceu em 10/08/2026 — ele aponta para a
+  # porta_publicada abaixo. O deploy instala o Site dele junto do de convivência
+  # (infra/caddy/<dominio>.caddy), e depois lê o que está em /etc/caddy/sites para
+  # saber se a virada está feita e conferir o domínio certo. Enquanto ele apontar
+  # para cá, todo deploy recria o container que serve produção: há um piscar de
+  # indisponibilidade, e o relatório final diz isso.
   dominio_producao: bolao.maxmat1.com.br
   # Redes externas já existentes no servidor. `banco` e `cache` só escutam em
   # 127.0.0.1: entrar nelas é o único caminho até as instâncias compartilhadas.
@@ -67,18 +68,15 @@ cache:
   credencial: /opt/cache/credenciais/bolao.env
   prefixo: "bolao:v1:"
 
-nginx:
-  # O deploy publica o vhost do domínio de convivência para o site abrir no
-  # celular sem túnel. Ele NUNCA toca o vhost de bolao.maxmat1.com.br — a virada
-  # é um passo separado, pedido por você.
+caddy:
+  # O deploy copia infra/caddy/<dominio>.caddy (convivência e produção) para
+  # pasta_sites, valida o Caddyfile inteiro e recarrega o Caddy. O certificado é
+  # do próprio Caddy (HTTP-01): não há passo de certbot nem redirecionamento 80→443.
+  # Os snippets que os Sites importam (log, limite, senha) ficam no Caddyfile base,
+  # mantido no repositório de infraestrutura da VPS.
   habilitado: true
-  # Nome do upstream. Precisa ser diferente do `maxmat1` que o vhost atual já
-  # declara: nome repetido faz o nginx recusar a configuração dos nove vhosts.
-  upstream: bolao_novo
-  sites_available: /etc/nginx/sites-available
-  sites_enabled: /etc/nginx/sites-enabled
-  # Emite o certificado com o certbot que já gerencia os outros domínios.
-  certbot: true
+  caddyfile: /etc/caddy/Caddyfile
+  pasta_sites: /etc/caddy/sites
 
 ambiente:
   # Variáveis que o deploy escreve no .env do servidor, sobrepondo o que vier

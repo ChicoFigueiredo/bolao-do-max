@@ -1,0 +1,20 @@
+# bolao.maxmat1.com.br → bolao-do-max-web (127.0.0.1:5002)
+#
+# Domínio de produção. Instalado por infra/bin/deploy.ts em /etc/caddy/sites/, junto do
+# de convivência (bolao-novo.maxmat1.com.br.caddy): mudou aqui, o próximo
+# `bun run deploy` copia, valida e recarrega o Caddy.
+#
+# O Caddy fala HTTP/1.1 com o upstream e mantém a conexão aberta por padrão. No nginx
+# isso era requisito (o Next responde em chunked e, no 1.0 padrão, a resposta chegava
+# inteira mas a conexão ficava pendurada até o timeout — 25 s de espera com a página
+# já na tela); aqui não precisa de configuração.
+bolao.maxmat1.com.br {
+	import log
+
+	reverse_proxy 127.0.0.1:5002 {
+		header_up X-Real-IP {remote_host}
+		transport http {
+			read_timeout 30s
+		}
+	}
+}

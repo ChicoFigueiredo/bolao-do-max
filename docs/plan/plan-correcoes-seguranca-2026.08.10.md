@@ -203,6 +203,8 @@ O cálculo vive hoje na web ([`dados.ts:77-130`](../../apps/web/lib/dados.ts#L77
 
 ## Fase 5 — Teto de volume no nginx
 
+> **Nota (migração para o Caddy):** esta fase descreve a solução em nginx, que foi substituído pelo Caddy na borda da VPS. O deploy não tem mais `--limites`; o teto por IP é o snippet `limite` do Caddyfile base, ativado com `import limite` no Site (`infra/caddy/`). O texto abaixo fica como registro.
+
 **Problema:** limita a rajada anônima antes de ela chegar na aplicação. Defesa em profundidade — as fases 1 a 4 já limitam o *custo por requisição*; esta limita a *quantidade*.
 
 **A restrição que molda esta fase:** `limit_req_zone` só é válido no bloco `http`, que na máquina é arquivo compartilhado — e o vhost do bolão pertence ao certbot, que o reescreve. Nove sites dependem dessa configuração ([`vhost.conf.template:10-16`](../../infra/nginx/vhost.conf.template#L10-L16)). Editar errado ali não derruba o bolão: derruba os nove.

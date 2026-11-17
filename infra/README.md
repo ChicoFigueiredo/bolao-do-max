@@ -24,11 +24,10 @@ bun run deploy
 bun run deploy --versoes
 bun run deploy --reverter
 
-# Teto de 20 r/s por IP, rajada de 40, excedente recebe 429.
-# Fora do caminho padrão de propósito: é a única etapa que encosta em
-# configuração compartilhada com os outros nove vhosts da máquina.
-bun run deploy --limites
-bun run deploy --limites --limites-dominio=bolao.maxmat1.com.br
+# Só os Sites do Caddy (infra/caddy/*.caddy), sem recriar container.
+bun run deploy --so-sites
+# Reinstala e recarrega mesmo quando o servidor já está igual ao git.
+bun run deploy --refazer-site
 
 bun run backup
 bun run backup --listar
@@ -56,9 +55,15 @@ e lidas na hora do deploy. As chaves das APIs vêm do `.env` da sua máquina. O
 `.env` de produção é escrito em modo 600 pela entrada padrão do ssh — não passa
 pelo disco daqui.
 
-**O nginx do domínio novo é do script; o do domínio principal é seu.** O deploy
-publica e renova o vhost de `bolao-novo.maxmat1.com.br`. O de
-`bolao.maxmat1.com.br` foi virado à mão, uma vez, e nenhum script mexe nele.
+**Os Sites do Caddy moram aqui, em `infra/caddy/`.** O deploy copia
+`bolao-novo.maxmat1.com.br.caddy` (domínio de convivência) e
+`bolao.maxmat1.com.br.caddy` (produção) para `/etc/caddy/sites/`, roda
+`caddy validate` e `systemctl reload caddy`; se o validate reprovar, o arquivo
+anterior volta ao lugar antes do reload. O certificado é do próprio Caddy
+(HTTP-01), sem passo de certbot. Os snippets que os Sites importam (`log`,
+`limite`, `senha`) ficam no Caddyfile base, no repositório de infraestrutura da
+VPS. Não há mais teto de requisições por script (`--limites`): se for preciso,
+é `import limite` no Site.
 
 **O banco não tem porta na internet.** `bun run tunel --verificar` prova isso
 tentando conectar de fora antes de abrir qualquer coisa.

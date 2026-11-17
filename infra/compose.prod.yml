@@ -5,7 +5,7 @@
 #
 # Nada do bolão atual é tocado. Ele continua em /opt/bolao-maxmat1, na rede
 # rede-maxmat1, na porta 5001, com o Redis 7.2 dele. Voltar atrás, antes da
-# virada do nginx, é não fazer nada.
+# virada, é não fazer nada.
 #
 # Os valores ${...} vêm do .env que o deploy escreve nesta mesma pasta — é lá
 # que fica registrado qual versão está no ar, e é a linha que o
@@ -32,7 +32,7 @@ services:
     container_name: bolao-do-max-web
     working_dir: /app/apps/web
     command: ["bun", "--bun", "next", "start", "--port", "3000"]
-    # Só no loopback: quem publica na internet é o nginx do host, com TLS.
+    # Só no loopback: quem publica na internet é o Caddy do host, com TLS.
     ports:
       - "127.0.0.1:${BOLAO_PORTA}:3000"
     mem_limit: ${BOLAO_MEM_WEB}
